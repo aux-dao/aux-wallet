@@ -24,6 +24,7 @@ namespace AuxWallet
                 Application.CurrentCulture = cultureInfo;
                 Application.Run(new MainForm());
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace + "\n" + ex.Source + "\n" + ex.InnerException + "\n" + ex.Data + "\n" + ex.TargetSite);
