@@ -60,33 +60,17 @@ namespace AuxWallet
                 }
             };
 
-            materialMaskedTextBox1.ValidatingType = typeof(short);
         }
-
-        private void SeedListView()
+        void Init()
         {
-            //Define
-            string[][] data = new[]
-            {
-                new []{"Lollipop", "392", "0.2", "0"},
-                new []{"KitKat", "518", "26.0", "7"},
-                new []{"Ice cream sandwich", "237", "9.0", "4.3"},
-                new []{"Jelly Bean", "375", "0.0", "0.0"},
-                new []{"Honeycomb", "408", "3.2", "6.5"}
-            };
-
-            //Add
-            foreach (string[] version in data)
-            {
-                ListViewItem item = new(version);
-            }
+            DrawerUseColors = true;
+            DrawerHighlightWithAccent = true;
+            DrawerBackgroundWithAccent = true;
+            DrawerShowIconsWhenHidden = true;
+            DrawerAutoShow = true;
         }
 
-        private void MaterialButton1_Click(object sender, EventArgs e)
-        {
-            materialSkinManager.Theme = materialSkinManager.Theme == MaterialSkinManager.Themes.DARK ? MaterialSkinManager.Themes.LIGHT : MaterialSkinManager.Themes.DARK;
-            UpdateColor();
-        }
+       
 
         private int colorSchemeIndex;
 
@@ -136,27 +120,6 @@ namespace AuxWallet
             Invalidate();
         }
 
-       
-
-        private void MaterialSwitch4_CheckedChanged(object sender, EventArgs e)
-        {
-            DrawerUseColors = materialSwitch4.Checked;
-        }
-
-        private void MaterialSwitch5_CheckedChanged(object sender, EventArgs e)
-        {
-            DrawerHighlightWithAccent = materialSwitch5.Checked;
-        }
-
-        private void MaterialSwitch6_CheckedChanged(object sender, EventArgs e)
-        {
-            DrawerBackgroundWithAccent = materialSwitch6.Checked;
-        }
-
-        private void MaterialSwitch8_CheckedChanged(object sender, EventArgs e)
-        {
-            DrawerShowIconsWhenHidden = materialSwitch8.Checked;
-        }
 
         private void MaterialButton3_Click(object sender, EventArgs e)
         {
@@ -184,11 +147,6 @@ namespace AuxWallet
             materialComboBox1.Items.Add("this is a very long string");
         }
 
-        private void MaterialSwitch9_CheckedChanged(object sender, EventArgs e)
-        {
-            DrawerAutoShow = materialSwitch9.Checked;
-        }
-
         private void MaterialTextBox2_LeadingIconClick(object sender, EventArgs e)
         {
             MaterialSnackBar SnackBarMessage = new("Leading Icon Click");
@@ -202,73 +160,7 @@ namespace AuxWallet
             SnackBarMessage.Show(this);
         }
 
-        private void MaterialSwitch10_CheckedChanged(object sender, EventArgs e)
-        {
-            materialTextBox21.UseAccent = materialSwitch10.Checked;
-        }
-
-        private void MaterialSwitch11_CheckedChanged(object sender, EventArgs e)
-        {
-            materialTextBox21.UseTallSize = materialSwitch11.Checked;
-        }
-
-        private void MaterialSwitch12_CheckedChanged(object sender, EventArgs e)
-        {
-            if (materialSwitch12.Checked)
-            {
-                materialTextBox21.Hint = "Hint text";
-            }
-            else
-            {
-                materialTextBox21.Hint = "";
-            }
-        }
-
-        private void MaterialComboBox7_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            if (materialComboBox7.SelectedIndex == 1)
-            {
-                materialTextBox21.PrefixSuffix = MaterialTextBoxEdit.PrefixSuffixTypes.Prefix;
-            }
-            else if (materialComboBox7.SelectedIndex == 2)
-            {
-                materialTextBox21.PrefixSuffix = MaterialTextBoxEdit.PrefixSuffixTypes.Suffix;
-            }
-            else
-            {
-                materialTextBox21.PrefixSuffix = MaterialTextBoxEdit.PrefixSuffixTypes.None;
-            }
-        }
-
-        private void MaterialSwitch13_CheckedChanged(object sender, EventArgs e)
-        {
-            materialTextBox21.UseSystemPasswordChar = materialSwitch13.Checked;
-
-        }
-
-        private void MaterialSwitch14_CheckedChanged(object sender, EventArgs e)
-        {
-            if (materialSwitch14.Checked)
-            {
-                materialTextBox21.LeadingIcon = Properties.Resources.baseline_fingerprint_black_24dp;
-            }
-            else
-            {
-                materialTextBox21.LeadingIcon = null;
-            }
-        }
-
-        private void MaterialSwitch15_CheckedChanged(object sender, EventArgs e)
-        {
-            if (materialSwitch15.Checked)
-            {
-                materialTextBox21.TrailingIcon = Properties.Resources.baseline_build_black_24dp;
-            }
-            else
-            {
-                materialTextBox21.TrailingIcon = null;
-            }
-        }
+   
 
         private void MaterialTextBox21_LeadingIconClick(object sender, EventArgs e)
         {
@@ -297,12 +189,8 @@ namespace AuxWallet
 
         }
 
-        private void MaterialSwitch16_CheckedChanged(object sender, EventArgs e)
-        {
-            materialTextBox21.ShowAssistiveText = materialSwitch16.Checked;
-        }
+    
 
-        
 
         private void MaterialButton27_Click(object sender, EventArgs e)
         {
@@ -319,6 +207,15 @@ namespace AuxWallet
             MaterialAnimations.AnimationRun = MaterialAnimations.AnimationRunType.Fast;
         }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            Init();
+        }
 
+        private void materialButton7_Click(object sender, EventArgs e)
+        {
+            materialSkinManager.Theme = materialSkinManager.Theme == MaterialSkinManager.Themes.DARK ? MaterialSkinManager.Themes.LIGHT : MaterialSkinManager.Themes.DARK;
+            UpdateColor();
+        }
     }
 }
