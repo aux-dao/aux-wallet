@@ -31,7 +31,6 @@ namespace AuxWallet
             materialSkinManager.ColorScheme = new MaterialColorScheme(MaterialPrimary.Indigo500, MaterialPrimary.Indigo700, MaterialPrimary.Indigo100, MaterialAccent.Pink200, MaterialTextShade.WHITE);
 
             // Add dummy data to the listview
-            SeedListView();
             MaterialCheckListBox1.Items.Add("Item1", false);
             MaterialCheckListBox1.Items.Add("Item2", true);
             MaterialCheckListBox1.Items.Add("Item3", true);
@@ -80,7 +79,6 @@ namespace AuxWallet
             foreach (string[] version in data)
             {
                 ListViewItem item = new(version);
-                materialListView1.Items.Add(item);
             }
         }
 
@@ -138,17 +136,7 @@ namespace AuxWallet
             Invalidate();
         }
 
-        private void MaterialButton2_Click(object sender, EventArgs e)
-        {
-            materialProgressBar1.Value = Math.Min(materialProgressBar1.Value + 10, 100);
-            materialProgressBar2.Value = materialProgressBar1.Value;
-        }
-
-        private void MaterialFlatButton4_Click(object sender, EventArgs e)
-        {
-            materialProgressBar1.Value = Math.Max(materialProgressBar1.Value - 10, 0);
-            materialProgressBar2.Value = materialProgressBar1.Value;
-        }
+       
 
         private void MaterialSwitch4_CheckedChanged(object sender, EventArgs e)
         {
@@ -314,10 +302,7 @@ namespace AuxWallet
             materialTextBox21.ShowAssistiveText = materialSwitch16.Checked;
         }
 
-        private void MaterialButton26_Click(object sender, EventArgs e)
-        {
-            DrawerNonClickTabPage = new System.Windows.Forms.TabPage[] { tabPage6 };
-        }
+        
 
         private void MaterialButton27_Click(object sender, EventArgs e)
         {
@@ -334,14 +319,6 @@ namespace AuxWallet
             MaterialAnimations.AnimationRun = MaterialAnimations.AnimationRunType.Fast;
         }
 
-        private void MaterialButton31_Click(object sender, EventArgs e)
-        {
-            materialTabSelector1.SelectorNonClickTabPage = new System.Windows.Forms.TabPage[] { tabPage9 };
-        }
 
-        private void MaterialButton30_Click(object sender, EventArgs e)
-        {
-            materialTabSelector1.SelectorNonClickTabPage = Array.Empty<System.Windows.Forms.TabPage>();
-        }
     }
 }
