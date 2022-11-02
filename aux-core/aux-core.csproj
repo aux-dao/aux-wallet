@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Copyright>gt</Copyright>
+		<AssemblyTitle>aux-core</AssemblyTitle>
+		<Version>1.0.2</Version>
+		<Authors>gt</Authors>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<AssemblyName>aux-core</AssemblyName>
+		<PackageId>aux-core</PackageId>
+		<PackageTags></PackageTags>
+		<PackageProjectUrl></PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl></RepositoryUrl>
+		<RootNamespace>AuxCore</RootNamespace>
+		<Company>au-x dao labs</Company>
+		<Description>aux-core</Description>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Extensions\**" />
+		<Compile Remove="Mnemonics\**" />
+		<Compile Remove="Persistence\**" />
+		<EmbeddedResource Remove="Extensions\**" />
+		<EmbeddedResource Remove="Mnemonics\**" />
+		<EmbeddedResource Remove="Persistence\**" />
+		<None Remove="Extensions\**" />
+		<None Remove="Mnemonics\**" />
+		<None Remove="Persistence\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="ox">
+	    <HintPath>C:\ox\net6.0\ox.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="copy $(TargetPath)  E:\Data\Source\AU-X\OX\OX-Wallets\ox.notecase\bin\Debug\net6.0-windows\bapps\casino\" />
+	</Target>
+
+</Project>

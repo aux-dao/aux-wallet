@@ -22,7 +22,7 @@ namespace AuxWallet
                 CultureInfo cultureInfo = new(CultureInfo.CurrentCulture.TextInfo.CultureName);
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.CurrentCulture = cultureInfo;
-                Application.Run(new MainForm());
+                Application.Run(new VerifyForm());
             }
 
             catch (Exception ex)

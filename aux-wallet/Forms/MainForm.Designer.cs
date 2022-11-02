@@ -31,7 +31,6 @@ namespace AuxWallet
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.materialTabControl1 = new ReaLTaiizor.Controls.MaterialTabControl();
             this.tabAsset = new System.Windows.Forms.TabPage();
@@ -39,18 +38,8 @@ namespace AuxWallet
             this.tabHistory = new System.Windows.Forms.TabPage();
             this.tabSetting = new System.Windows.Forms.TabPage();
             this.materialButton7 = new ReaLTaiizor.Controls.MaterialButton();
-            this.menuIconList = new System.Windows.Forms.ImageList(this.components);
-            this.materialContextMenuStrip1 = new ReaLTaiizor.Controls.MaterialContextMenuStrip();
-            this.item1ToolStripMenuItem = new ReaLTaiizor.Controls.MaterialToolStripMenuItem();
-            this.subItem1ToolStripMenuItem = new ReaLTaiizor.Controls.MaterialToolStripMenuItem();
-            this.subItem2ToolStripMenuItem = new ReaLTaiizor.Controls.MaterialToolStripMenuItem();
-            this.disabledItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.item2ToolStripMenuItem = new ReaLTaiizor.Controls.MaterialToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.item3ToolStripMenuItem = new ReaLTaiizor.Controls.MaterialToolStripMenuItem();
             this.materialTabControl1.SuspendLayout();
             this.tabSetting.SuspendLayout();
-            this.materialContextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialTabControl1
@@ -61,7 +50,6 @@ namespace AuxWallet
             this.materialTabControl1.Controls.Add(this.tabSetting);
             this.materialTabControl1.Depth = 0;
             this.materialTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.materialTabControl1.ImageList = this.menuIconList;
             this.materialTabControl1.Location = new System.Drawing.Point(6, 118);
             this.materialTabControl1.Margin = new System.Windows.Forms.Padding(6);
             this.materialTabControl1.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -140,106 +128,12 @@ namespace AuxWallet
             this.materialButton7.UseVisualStyleBackColor = true;
             this.materialButton7.Click += new System.EventHandler(this.materialButton7_Click);
             // 
-            // menuIconList
-            // 
-            this.menuIconList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.menuIconList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("menuIconList.ImageStream")));
-            this.menuIconList.TransparentColor = System.Drawing.Color.Transparent;
-            this.menuIconList.Images.SetKeyName(0, "round_assessment_white_24dp.png");
-            this.menuIconList.Images.SetKeyName(1, "round_backup_white_24dp.png");
-            this.menuIconList.Images.SetKeyName(2, "round_bluetooth_white_24dp.png");
-            this.menuIconList.Images.SetKeyName(3, "round_bookmark_white_24dp.png");
-            this.menuIconList.Images.SetKeyName(4, "round_build_white_24dp.png");
-            this.menuIconList.Images.SetKeyName(5, "round_gps_fixed_white_24dp.png");
-            this.menuIconList.Images.SetKeyName(6, "round_http_white_24dp.png");
-            this.menuIconList.Images.SetKeyName(7, "round_report_problem_white_24dp.png");
-            this.menuIconList.Images.SetKeyName(8, "round_swap_vert_white_24dp.png");
-            this.menuIconList.Images.SetKeyName(9, "round_phone_black_24dp.png");
-            this.menuIconList.Images.SetKeyName(10, "round_push_pin_black_24dp.png");
-            this.menuIconList.Images.SetKeyName(11, "round_mail_outline_black_24dp.png");
-            this.menuIconList.Images.SetKeyName(12, "round_person_black_24dp.png");
-            this.menuIconList.Images.SetKeyName(13, "round_add_a_photo_black_24dp.png");
-            this.menuIconList.Images.SetKeyName(14, "round_alternate_email_black_24dp.png");
-            this.menuIconList.Images.SetKeyName(15, "round_cancel_black_24dp.png");
-            this.menuIconList.Images.SetKeyName(16, "round_error_black_24dp.png");
-            this.menuIconList.Images.SetKeyName(17, "round_event_black_24dp.png");
-            // 
-            // materialContextMenuStrip1
-            // 
-            this.materialContextMenuStrip1.BackColor = System.Drawing.Color.White;
-            this.materialContextMenuStrip1.Depth = 0;
-            this.materialContextMenuStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.materialContextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.materialContextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.item1ToolStripMenuItem,
-            this.disabledItemToolStripMenuItem,
-            this.item2ToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.item3ToolStripMenuItem});
-            this.materialContextMenuStrip1.Margin = new System.Windows.Forms.Padding(16, 8, 16, 8);
-            this.materialContextMenuStrip1.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            this.materialContextMenuStrip1.Name = "materialContextMenuStrip1";
-            this.materialContextMenuStrip1.Size = new System.Drawing.Size(222, 130);
-            // 
-            // item1ToolStripMenuItem
-            // 
-            this.item1ToolStripMenuItem.AutoSize = false;
-            this.item1ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.subItem1ToolStripMenuItem,
-            this.subItem2ToolStripMenuItem});
-            this.item1ToolStripMenuItem.Image = global::AuxWallet.Properties.Resources.minus;
-            this.item1ToolStripMenuItem.Name = "item1ToolStripMenuItem";
-            this.item1ToolStripMenuItem.Size = new System.Drawing.Size(170, 30);
-            this.item1ToolStripMenuItem.Text = "Item 1";
-            // 
-            // subItem1ToolStripMenuItem
-            // 
-            this.subItem1ToolStripMenuItem.AutoSize = false;
-            this.subItem1ToolStripMenuItem.Name = "subItem1ToolStripMenuItem";
-            this.subItem1ToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
-            this.subItem1ToolStripMenuItem.Text = "SubItem 1";
-            // 
-            // subItem2ToolStripMenuItem
-            // 
-            this.subItem2ToolStripMenuItem.AutoSize = false;
-            this.subItem2ToolStripMenuItem.Name = "subItem2ToolStripMenuItem";
-            this.subItem2ToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
-            this.subItem2ToolStripMenuItem.Text = "SubItem 2";
-            // 
-            // disabledItemToolStripMenuItem
-            // 
-            this.disabledItemToolStripMenuItem.AutoSize = false;
-            this.disabledItemToolStripMenuItem.Enabled = false;
-            this.disabledItemToolStripMenuItem.Name = "disabledItemToolStripMenuItem";
-            this.disabledItemToolStripMenuItem.Size = new System.Drawing.Size(170, 30);
-            this.disabledItemToolStripMenuItem.Text = "Disabled item";
-            // 
-            // item2ToolStripMenuItem
-            // 
-            this.item2ToolStripMenuItem.AutoSize = false;
-            this.item2ToolStripMenuItem.Name = "item2ToolStripMenuItem";
-            this.item2ToolStripMenuItem.Size = new System.Drawing.Size(170, 30);
-            this.item2ToolStripMenuItem.Text = "Item 2";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(218, 6);
-            // 
-            // item3ToolStripMenuItem
-            // 
-            this.item3ToolStripMenuItem.AutoSize = false;
-            this.item3ToolStripMenuItem.Name = "item3ToolStripMenuItem";
-            this.item3ToolStripMenuItem.Size = new System.Drawing.Size(170, 30);
-            this.item3ToolStripMenuItem.Text = "Item 3";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1419, 1217);
-            this.ContextMenuStrip = this.materialContextMenuStrip1;
             this.Controls.Add(this.materialTabControl1);
             this.DrawerShowIconsWhenHidden = true;
             this.DrawerTabControl = this.materialTabControl1;
@@ -254,7 +148,6 @@ namespace AuxWallet
             this.materialTabControl1.ResumeLayout(false);
             this.tabSetting.ResumeLayout(false);
             this.tabSetting.PerformLayout();
-            this.materialContextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -264,15 +157,6 @@ namespace AuxWallet
         private System.Windows.Forms.TabPage tabAsset;
         private System.Windows.Forms.TabPage tabHistory;
         private System.Windows.Forms.TabPage tabSetting;
-        private MaterialContextMenuStrip materialContextMenuStrip1;
-        private ReaLTaiizor.Controls.MaterialToolStripMenuItem item1ToolStripMenuItem;
-        private ReaLTaiizor.Controls.MaterialToolStripMenuItem subItem1ToolStripMenuItem;
-        private ReaLTaiizor.Controls.MaterialToolStripMenuItem subItem2ToolStripMenuItem;
-        private ReaLTaiizor.Controls.MaterialToolStripMenuItem item2ToolStripMenuItem;
-        private ReaLTaiizor.Controls.MaterialToolStripMenuItem item3ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem disabledItemToolStripMenuItem;
-        private ImageList menuIconList;
         private System.Windows.Forms.TabPage tabContacts;
         private MaterialButton materialButton7;
     }

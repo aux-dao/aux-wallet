@@ -19,6 +19,10 @@
     <RootNamespace>AuxWallet</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="Forms\CreateForm.cs" />
+    <Compile Update="Forms\VerifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -86,6 +90,9 @@
   </PropertyGroup>
   <ItemGroup Condition="'$(Configuration)|$(Platform)'=='GitHub|AnyCPU'">
     <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\aux-core\aux-core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
