@@ -35,6 +35,7 @@ namespace AuxWallet
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.materialTabControl1 = new ReaLTaiizor.Controls.MaterialTabControl();
             this.tabAsset = new System.Windows.Forms.TabPage();
+            this.bt_queryAsset = new ReaLTaiizor.Controls.MaterialButton();
             this.lb_assets = new ReaLTaiizor.Controls.MaterialListBox();
             this.tabContacts = new System.Windows.Forms.TabPage();
             this.tabHistory = new System.Windows.Forms.TabPage();
@@ -85,6 +86,28 @@ namespace AuxWallet
             this.tabAsset.Size = new System.Drawing.Size(984, 622);
             this.tabAsset.TabIndex = 0;
             this.tabAsset.Text = "Asset";
+            // 
+            // bt_queryAsset
+            // 
+            this.bt_queryAsset.AutoSize = false;
+            this.bt_queryAsset.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bt_queryAsset.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_queryAsset.Depth = 0;
+            this.bt_queryAsset.HighEmphasis = true;
+            this.bt_queryAsset.Icon = null;
+            this.bt_queryAsset.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            this.bt_queryAsset.Location = new System.Drawing.Point(641, 91);
+            this.bt_queryAsset.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
+            this.bt_queryAsset.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.bt_queryAsset.Name = "bt_queryAsset";
+            this.bt_queryAsset.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_queryAsset.Size = new System.Drawing.Size(346, 53);
+            this.bt_queryAsset.TabIndex = 17;
+            this.bt_queryAsset.Text = "OUTLINE - HIGH - NORMAL";
+            this.bt_queryAsset.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            this.bt_queryAsset.UseAccentColor = false;
+            this.bt_queryAsset.UseVisualStyleBackColor = true;
+            this.bt_queryAsset.Click += new System.EventHandler(this.bt_queryAsset_Click);
             // 
             // lb_assets
             // 
@@ -465,6 +488,7 @@ namespace AuxWallet
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1004, 783);
+            this.Controls.Add(this.bt_queryAsset);
             this.Controls.Add(this.materialTabControl1);
             this.DrawerShowIconsWhenHidden = true;
             this.DrawerTabControl = this.materialTabControl1;
@@ -503,5 +527,6 @@ namespace AuxWallet
         private MaterialTextBoxEdit tb_privateKey;
         private MaterialTextBoxEdit tb_publicKey;
         private MaterialTextBoxEdit tb_Address;
+        private MaterialButton bt_queryAsset;
     }
 }

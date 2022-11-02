@@ -20,6 +20,8 @@ namespace AuxWallet
         private readonly MaterialSkinManager materialSkinManager;
         public LightWallet Wallet;
         public LightAccount Account;
+        public string Address;
+        public string PubKey;
         public VerifyForm VerifyForm;
         public string StandbyApi;
         public MainForm(VerifyForm verifyForm, LightWallet wallet)
@@ -27,6 +29,8 @@ namespace AuxWallet
             this.VerifyForm = verifyForm;
             this.Wallet = wallet;
             this.Account = this.Wallet.accounts.Values?.FirstOrDefault();
+            this.PubKey = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
+            this.Address = this.Account.ScriptHash.ToAddress();
             InitializeComponent();
 
             // Initialize MaterialSkinManager
@@ -46,7 +50,7 @@ namespace AuxWallet
         }
         void Init()
         {
-            this.Text = this.Account.ScriptHash.ToAddress();
+            this.Text = this.Address;
             DrawerUseColors = true;
             DrawerHighlightWithAccent = true;
             DrawerBackgroundWithAccent = true;
@@ -69,6 +73,8 @@ namespace AuxWallet
             this.tb_Address.Hint = Locator.Case("Wallet Address", "钱包地址");
             this.tb_publicKey.Hint = Locator.Case("Wallet Public Key", "钱包公钥");
             this.tb_privateKey.Hint = Locator.Case("Wallet Private Key", "钱包私钥");
+
+            this.bt_queryAsset.Text = Locator.Case("Query Assets", "查询资产");
 
             StandbyApi = Settings.Default.ExtAPI;
             this.tb_backupapiurl.Text = StandbyApi;
@@ -156,6 +162,11 @@ namespace AuxWallet
                 this.tb_publicKey.Text = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
                 this.tb_privateKey.Text = this.Account.GetKey().Export();
             }
+        }
+
+        private void bt_queryAsset_Click(object sender, EventArgs e)
+        {
+            var balance = WalletAPI.Instance.GetPublicAssetBalance(this.Address).Result;
         }
     }
 }
