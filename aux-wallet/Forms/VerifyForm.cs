@@ -9,6 +9,7 @@ using System;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using AuxCore;
 
 namespace AuxWallet
 {
@@ -57,6 +58,7 @@ namespace AuxWallet
             if (File.Exists(Settings.Default.LastWalletPath))
             {
                 this.tf_walletpath.Text = Settings.Default.LastWalletPath;
+                this.tb_pwd.Focus();
                 this.ActiveControl = this.tb_pwd;
             }
         }
@@ -80,7 +82,22 @@ namespace AuxWallet
 
         private void bt_open_Click(object sender, EventArgs e)
         {
-            //Settings.Default.LastWalletPath = path;
+            var path = this.tf_walletpath.Text;
+            var pwd = this.tb_pwd.Text;
+            LightWallet wallet = new LightWallet(path);
+            if (wallet.Unlock(pwd))
+            {
+                Settings.Default.LastWalletPath = path;
+                Settings.Default.Save();
+                this.Hide();
+                new MainForm(wallet).Show();
+            }
+            else
+            {
+                this.tb_pwd.Focus();
+                MaterialSnackBar SnackBarMessage = new(Locator.Case("Invalid password", "密码无效"), Locator.Case("OK", "确定"), true);
+                SnackBarMessage.Show(this);
+            }
         }
 
         private void bt_close_Click(object sender, EventArgs e)
@@ -93,6 +110,15 @@ namespace AuxWallet
             using (CreateForm dialog = new CreateForm())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
+                var path = dialog.WalletPath;
+                var pwd = dialog.Password;
+                LightWallet wallet = new LightWallet(path);
+                wallet.Unlock(pwd);
+                wallet.CreateAccount();
+                wallet.Save();
+                Settings.Default.LastWalletPath = path;
+                Settings.Default.Save();
+                this.tf_walletpath.Text = path;
             }
         }
 

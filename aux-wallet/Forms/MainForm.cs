@@ -1,4 +1,5 @@
-﻿using ReaLTaiizor.Colors;
+﻿using AuxCore;
+using ReaLTaiizor.Colors;
 using ReaLTaiizor.Controls;
 using ReaLTaiizor.Enum.Material;
 using ReaLTaiizor.Forms;
@@ -13,9 +14,10 @@ namespace AuxWallet
     public partial class MainForm : MaterialForm
     {
         private readonly MaterialSkinManager materialSkinManager;
-
-        public MainForm()
+        public LightWallet Wallet;
+        public MainForm(LightWallet wallet)
         {
+            this.Wallet = wallet;
             InitializeComponent();
 
             // Initialize MaterialSkinManager
@@ -30,7 +32,7 @@ namespace AuxWallet
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = new MaterialColorScheme(MaterialPrimary.Indigo500, MaterialPrimary.Indigo700, MaterialPrimary.Indigo100, MaterialAccent.Pink200, MaterialTextShade.WHITE);
 
-    
+
 
         }
         void Init()
@@ -42,7 +44,7 @@ namespace AuxWallet
             DrawerAutoShow = true;
         }
 
-       
+
 
         private int colorSchemeIndex;
 
@@ -91,8 +93,8 @@ namespace AuxWallet
             }
             Invalidate();
         }
-   
-  
+
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             Init();

@@ -38,7 +38,28 @@ namespace AuxWallet
             this.bt_new.DialogResult = DialogResult.OK;
             this.bt_close.DialogResult = DialogResult.Cancel;
         }
+        public string Password
+        {
+            get
+            {
+                return this.tb_pwd.Text;
+            }
+        }
 
+        public string WalletPath
+        {
+            get
+            {
+                return tf_walletpath.Text;
+            }
+        }
+        public string PrivateKey
+        {
+            get
+            {
+                return tb_privateKey.Text;
+            }
+        }
         void Init()
         {
             this.tf_walletpath.Hint = Locator.Case("Wallet Path", "钱包路径");
@@ -81,6 +102,6 @@ namespace AuxWallet
             }
         }
 
-       
+
     }
 }
