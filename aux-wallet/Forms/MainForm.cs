@@ -6,8 +6,11 @@ using ReaLTaiizor.Forms;
 using ReaLTaiizor.Manager;
 using ReaLTaiizor.Util;
 using System;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using OX.Wallets;
+using AuxCore.Models;
 
 namespace AuxWallet
 {
@@ -15,8 +18,10 @@ namespace AuxWallet
     {
         private readonly MaterialSkinManager materialSkinManager;
         public LightWallet Wallet;
-        public MainForm(LightWallet wallet)
+        public VerifyForm VerifyForm;
+        public MainForm(VerifyForm verifyForm, LightWallet wallet)
         {
+            this.VerifyForm = verifyForm;
             this.Wallet = wallet;
             InitializeComponent();
 
@@ -29,19 +34,27 @@ namespace AuxWallet
 
             // MaterialSkinManager properties
             materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            materialSkinManager.ColorScheme = new MaterialColorScheme(MaterialPrimary.Indigo500, MaterialPrimary.Indigo700, MaterialPrimary.Indigo100, MaterialAccent.Pink200, MaterialTextShade.WHITE);
+            //materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            //materialSkinManager.ColorScheme = new MaterialColorScheme(MaterialPrimary.Indigo500, MaterialPrimary.Indigo700, MaterialPrimary.Indigo100, MaterialAccent.Pink200, MaterialTextShade.WHITE);
 
 
 
         }
         void Init()
         {
+            this.Text = this.Wallet.accounts.Keys?.FirstOrDefault()?.ToAddress();
             DrawerUseColors = true;
             DrawerHighlightWithAccent = true;
             DrawerBackgroundWithAccent = true;
             DrawerShowIconsWhenHidden = true;
             DrawerAutoShow = true;
+            this.tabAsset.Text = Locator.Case("Assets", "资产");
+            this.tabContacts.Text = Locator.Case("Contacts", "联系人");
+            this.tabHistory.Text = Locator.Case("History", "交易历史");
+            this.tabSetting.Text = Locator.Case("Setting", "设置");
+
+            this.bt_changeTheme.Text = Locator.Case("Change Theme", "更换主题");
+            this.bt_signout.Text = Locator.Case("Close Wallet", "关闭钱包");
         }
 
 
@@ -104,6 +117,12 @@ namespace AuxWallet
         {
             materialSkinManager.Theme = materialSkinManager.Theme == MaterialSkinManager.Themes.DARK ? MaterialSkinManager.Themes.LIGHT : MaterialSkinManager.Themes.DARK;
             UpdateColor();
+        }
+
+        private void bt_signout_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            this.VerifyForm.Show();
         }
     }
 }

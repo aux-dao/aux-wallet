@@ -22,7 +22,7 @@ namespace AuxCore
         public readonly ScryptParameters Scrypt;
         protected string password;
         protected JObject wallet;
-        protected readonly Dictionary<UInt160, LightAccount> accounts;
+        public readonly Dictionary<UInt160, LightAccount> accounts;
         public LightWallet(string walletPath)
         {
             this.path = walletPath;

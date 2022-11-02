@@ -31,8 +31,8 @@ namespace AuxWallet
 
             // MaterialSkinManager properties
             materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-            materialSkinManager.ColorScheme = new MaterialColorScheme(MaterialPrimary.Indigo500, MaterialPrimary.Indigo700, MaterialPrimary.Indigo100, MaterialAccent.Pink200, MaterialTextShade.WHITE);
+            //materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            //materialSkinManager.ColorScheme = new MaterialColorScheme(MaterialPrimary.Indigo500, MaterialPrimary.Indigo700, MaterialPrimary.Indigo100, MaterialAccent.Pink200, MaterialTextShade.WHITE);
             this.AcceptButton = this.bt_new;
             this.CancelButton = this.bt_close;
             this.bt_new.DialogResult = DialogResult.OK;

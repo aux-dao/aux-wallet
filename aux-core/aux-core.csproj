@@ -20,17 +20,7 @@
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<Compile Remove="Extensions\**" />
-		<Compile Remove="Mnemonics\**" />
-		<Compile Remove="Persistence\**" />
-		<EmbeddedResource Remove="Extensions\**" />
-		<EmbeddedResource Remove="Mnemonics\**" />
-		<EmbeddedResource Remove="Persistence\**" />
-		<None Remove="Extensions\**" />
-		<None Remove="Mnemonics\**" />
-		<None Remove="Persistence\**" />
-	</ItemGroup>
+ 
 
 	<ItemGroup>
 	  <Reference Include="ox">

@@ -90,7 +90,7 @@ namespace AuxWallet
                 Settings.Default.LastWalletPath = path;
                 Settings.Default.Save();
                 this.Hide();
-                new MainForm(wallet).Show();
+                new MainForm(this, wallet).Show();
             }
             else
             {
