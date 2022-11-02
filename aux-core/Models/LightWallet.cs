@@ -67,6 +67,23 @@ namespace AuxCore
             AddAccount(account, false);
             return account;
         }
+        public LightAccount Import(string wif)
+        {
+            KeyPair key = new KeyPair(Wallet.GetPrivateKeyFromWIF(wif));
+            NEP6Contract contract = new NEP6Contract
+            {
+                Script = Contract.CreateSignatureRedeemScript(key.PublicKey),
+                ParameterList = new[] { ContractParameterType.Signature },
+                ParameterNames = new[] { "signature" },
+                Deployed = false
+            };
+            LightAccount account = new LightAccount(this, contract.ScriptHash, key, password)
+            {
+                Contract = contract
+            };
+            AddAccount(account, true);
+            return account;
+        }
         private void AddAccount(LightAccount account, bool is_import)
         {
             lock (accounts)

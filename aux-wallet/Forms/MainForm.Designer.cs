@@ -39,6 +39,15 @@ namespace AuxWallet
             this.tabContacts = new System.Windows.Forms.TabPage();
             this.tabHistory = new System.Windows.Forms.TabPage();
             this.tabSetting = new System.Windows.Forms.TabPage();
+            this.tb_privateKey = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            this.tb_publicKey = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            this.tb_Address = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            this.bt_viewKey = new ReaLTaiizor.Controls.MaterialButton();
+            this.tb_pwd = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            this.lb_viewKey = new ReaLTaiizor.Controls.MaterialLabel();
+            this.bt_saveApiUrl = new ReaLTaiizor.Controls.MaterialButton();
+            this.lb_baseurl = new ReaLTaiizor.Controls.MaterialLabel();
+            this.tb_backupapiurl = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             this.bt_signout = new ReaLTaiizor.Controls.MaterialButton();
             this.bt_changeTheme = new ReaLTaiizor.Controls.MaterialButton();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
@@ -123,6 +132,15 @@ namespace AuxWallet
             // tabSetting
             // 
             this.tabSetting.BackColor = System.Drawing.Color.White;
+            this.tabSetting.Controls.Add(this.tb_privateKey);
+            this.tabSetting.Controls.Add(this.tb_publicKey);
+            this.tabSetting.Controls.Add(this.tb_Address);
+            this.tabSetting.Controls.Add(this.bt_viewKey);
+            this.tabSetting.Controls.Add(this.tb_pwd);
+            this.tabSetting.Controls.Add(this.lb_viewKey);
+            this.tabSetting.Controls.Add(this.bt_saveApiUrl);
+            this.tabSetting.Controls.Add(this.lb_baseurl);
+            this.tabSetting.Controls.Add(this.tb_backupapiurl);
             this.tabSetting.Controls.Add(this.bt_signout);
             this.tabSetting.Controls.Add(this.bt_changeTheme);
             this.tabSetting.ImageKey = "round_build_white_24dp.png";
@@ -133,6 +151,245 @@ namespace AuxWallet
             this.tabSetting.Size = new System.Drawing.Size(984, 622);
             this.tabSetting.TabIndex = 2;
             this.tabSetting.Text = "Setting";
+            // 
+            // tb_privateKey
+            // 
+            this.tb_privateKey.AnimateReadOnly = false;
+            this.tb_privateKey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tb_privateKey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.tb_privateKey.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tb_privateKey.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tb_privateKey.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tb_privateKey.Depth = 0;
+            this.tb_privateKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tb_privateKey.HideSelection = true;
+            this.tb_privateKey.Hint = "Type here";
+            this.tb_privateKey.LeadingIcon = null;
+            this.tb_privateKey.Location = new System.Drawing.Point(51, 524);
+            this.tb_privateKey.Margin = new System.Windows.Forms.Padding(6);
+            this.tb_privateKey.MaxLength = 0;
+            this.tb_privateKey.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            this.tb_privateKey.Name = "tb_privateKey";
+            this.tb_privateKey.PasswordChar = '\0';
+            this.tb_privateKey.PrefixSuffixText = null;
+            this.tb_privateKey.ReadOnly = true;
+            this.tb_privateKey.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tb_privateKey.SelectedText = "";
+            this.tb_privateKey.SelectionLength = 0;
+            this.tb_privateKey.SelectionStart = 0;
+            this.tb_privateKey.ShortcutsEnabled = true;
+            this.tb_privateKey.Size = new System.Drawing.Size(741, 48);
+            this.tb_privateKey.TabIndex = 80;
+            this.tb_privateKey.TabStop = false;
+            this.tb_privateKey.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tb_privateKey.TrailingIcon = null;
+            this.tb_privateKey.UseSystemPasswordChar = false;
+            // 
+            // tb_publicKey
+            // 
+            this.tb_publicKey.AnimateReadOnly = false;
+            this.tb_publicKey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tb_publicKey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.tb_publicKey.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tb_publicKey.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tb_publicKey.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tb_publicKey.Depth = 0;
+            this.tb_publicKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tb_publicKey.HideSelection = true;
+            this.tb_publicKey.Hint = "Type here";
+            this.tb_publicKey.LeadingIcon = null;
+            this.tb_publicKey.Location = new System.Drawing.Point(51, 464);
+            this.tb_publicKey.Margin = new System.Windows.Forms.Padding(6);
+            this.tb_publicKey.MaxLength = 0;
+            this.tb_publicKey.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            this.tb_publicKey.Name = "tb_publicKey";
+            this.tb_publicKey.PasswordChar = '\0';
+            this.tb_publicKey.PrefixSuffixText = null;
+            this.tb_publicKey.ReadOnly = true;
+            this.tb_publicKey.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tb_publicKey.SelectedText = "";
+            this.tb_publicKey.SelectionLength = 0;
+            this.tb_publicKey.SelectionStart = 0;
+            this.tb_publicKey.ShortcutsEnabled = true;
+            this.tb_publicKey.Size = new System.Drawing.Size(741, 48);
+            this.tb_publicKey.TabIndex = 79;
+            this.tb_publicKey.TabStop = false;
+            this.tb_publicKey.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tb_publicKey.TrailingIcon = null;
+            this.tb_publicKey.UseSystemPasswordChar = false;
+            // 
+            // tb_Address
+            // 
+            this.tb_Address.AnimateReadOnly = false;
+            this.tb_Address.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tb_Address.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.tb_Address.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tb_Address.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tb_Address.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tb_Address.Depth = 0;
+            this.tb_Address.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tb_Address.HideSelection = true;
+            this.tb_Address.Hint = "Type here";
+            this.tb_Address.LeadingIcon = null;
+            this.tb_Address.Location = new System.Drawing.Point(51, 404);
+            this.tb_Address.Margin = new System.Windows.Forms.Padding(6);
+            this.tb_Address.MaxLength = 0;
+            this.tb_Address.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            this.tb_Address.Name = "tb_Address";
+            this.tb_Address.PasswordChar = '\0';
+            this.tb_Address.PrefixSuffixText = null;
+            this.tb_Address.ReadOnly = true;
+            this.tb_Address.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tb_Address.SelectedText = "";
+            this.tb_Address.SelectionLength = 0;
+            this.tb_Address.SelectionStart = 0;
+            this.tb_Address.ShortcutsEnabled = true;
+            this.tb_Address.Size = new System.Drawing.Size(741, 48);
+            this.tb_Address.TabIndex = 78;
+            this.tb_Address.TabStop = false;
+            this.tb_Address.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tb_Address.TrailingIcon = null;
+            this.tb_Address.UseSystemPasswordChar = false;
+            // 
+            // bt_viewKey
+            // 
+            this.bt_viewKey.AutoSize = false;
+            this.bt_viewKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bt_viewKey.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_viewKey.Depth = 0;
+            this.bt_viewKey.HighEmphasis = true;
+            this.bt_viewKey.Icon = null;
+            this.bt_viewKey.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            this.bt_viewKey.Location = new System.Drawing.Point(446, 334);
+            this.bt_viewKey.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
+            this.bt_viewKey.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.bt_viewKey.Name = "bt_viewKey";
+            this.bt_viewKey.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_viewKey.Size = new System.Drawing.Size(346, 53);
+            this.bt_viewKey.TabIndex = 77;
+            this.bt_viewKey.Text = "OUTLINE - HIGH - NORMAL";
+            this.bt_viewKey.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            this.bt_viewKey.UseAccentColor = false;
+            this.bt_viewKey.UseVisualStyleBackColor = true;
+            this.bt_viewKey.Click += new System.EventHandler(this.bt_viewKey_Click);
+            // 
+            // tb_pwd
+            // 
+            this.tb_pwd.AnimateReadOnly = false;
+            this.tb_pwd.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tb_pwd.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.tb_pwd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tb_pwd.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tb_pwd.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tb_pwd.Depth = 0;
+            this.tb_pwd.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tb_pwd.HideSelection = true;
+            this.tb_pwd.Hint = "Password";
+            this.tb_pwd.LeadingIcon = null;
+            this.tb_pwd.Location = new System.Drawing.Point(51, 339);
+            this.tb_pwd.Margin = new System.Windows.Forms.Padding(6);
+            this.tb_pwd.MaxLength = 0;
+            this.tb_pwd.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            this.tb_pwd.Name = "tb_pwd";
+            this.tb_pwd.PasswordChar = '●';
+            this.tb_pwd.PrefixSuffixText = null;
+            this.tb_pwd.ReadOnly = false;
+            this.tb_pwd.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tb_pwd.SelectedText = "";
+            this.tb_pwd.SelectionLength = 0;
+            this.tb_pwd.SelectionStart = 0;
+            this.tb_pwd.ShortcutsEnabled = true;
+            this.tb_pwd.Size = new System.Drawing.Size(346, 48);
+            this.tb_pwd.TabIndex = 76;
+            this.tb_pwd.TabStop = false;
+            this.tb_pwd.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tb_pwd.TrailingIcon = null;
+            this.tb_pwd.UseSystemPasswordChar = true;
+            // 
+            // lb_viewKey
+            // 
+            this.lb_viewKey.AutoSize = true;
+            this.lb_viewKey.Depth = 0;
+            this.lb_viewKey.Font = new System.Drawing.Font("Roboto", 34F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.lb_viewKey.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.H4;
+            this.lb_viewKey.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lb_viewKey.Location = new System.Drawing.Point(51, 292);
+            this.lb_viewKey.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lb_viewKey.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.lb_viewKey.Name = "lb_viewKey";
+            this.lb_viewKey.Size = new System.Drawing.Size(154, 41);
+            this.lb_viewKey.TabIndex = 75;
+            this.lb_viewKey.Text = "Heading 4";
+            // 
+            // bt_saveApiUrl
+            // 
+            this.bt_saveApiUrl.AutoSize = false;
+            this.bt_saveApiUrl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bt_saveApiUrl.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_saveApiUrl.Depth = 0;
+            this.bt_saveApiUrl.HighEmphasis = true;
+            this.bt_saveApiUrl.Icon = null;
+            this.bt_saveApiUrl.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            this.bt_saveApiUrl.Location = new System.Drawing.Point(51, 205);
+            this.bt_saveApiUrl.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
+            this.bt_saveApiUrl.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.bt_saveApiUrl.Name = "bt_saveApiUrl";
+            this.bt_saveApiUrl.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_saveApiUrl.Size = new System.Drawing.Size(741, 53);
+            this.bt_saveApiUrl.TabIndex = 74;
+            this.bt_saveApiUrl.Text = "OUTLINE - HIGH - NORMAL";
+            this.bt_saveApiUrl.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            this.bt_saveApiUrl.UseAccentColor = false;
+            this.bt_saveApiUrl.UseVisualStyleBackColor = true;
+            this.bt_saveApiUrl.Click += new System.EventHandler(this.bt_saveApiUrl_Click);
+            // 
+            // lb_baseurl
+            // 
+            this.lb_baseurl.AutoSize = true;
+            this.lb_baseurl.Depth = 0;
+            this.lb_baseurl.Font = new System.Drawing.Font("Roboto", 34F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.lb_baseurl.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.H4;
+            this.lb_baseurl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lb_baseurl.Location = new System.Drawing.Point(51, 93);
+            this.lb_baseurl.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lb_baseurl.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.lb_baseurl.Name = "lb_baseurl";
+            this.lb_baseurl.Size = new System.Drawing.Size(154, 41);
+            this.lb_baseurl.TabIndex = 73;
+            this.lb_baseurl.Text = "Heading 4";
+            // 
+            // tb_backupapiurl
+            // 
+            this.tb_backupapiurl.AnimateReadOnly = false;
+            this.tb_backupapiurl.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tb_backupapiurl.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.tb_backupapiurl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tb_backupapiurl.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tb_backupapiurl.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tb_backupapiurl.Depth = 0;
+            this.tb_backupapiurl.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tb_backupapiurl.HideSelection = true;
+            this.tb_backupapiurl.Hint = "Type here";
+            this.tb_backupapiurl.LeadingIcon = null;
+            this.tb_backupapiurl.Location = new System.Drawing.Point(51, 140);
+            this.tb_backupapiurl.Margin = new System.Windows.Forms.Padding(6);
+            this.tb_backupapiurl.MaxLength = 0;
+            this.tb_backupapiurl.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            this.tb_backupapiurl.Name = "tb_backupapiurl";
+            this.tb_backupapiurl.PasswordChar = '\0';
+            this.tb_backupapiurl.PrefixSuffixText = null;
+            this.tb_backupapiurl.ReadOnly = true;
+            this.tb_backupapiurl.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tb_backupapiurl.SelectedText = "";
+            this.tb_backupapiurl.SelectionLength = 0;
+            this.tb_backupapiurl.SelectionStart = 0;
+            this.tb_backupapiurl.ShortcutsEnabled = true;
+            this.tb_backupapiurl.Size = new System.Drawing.Size(741, 48);
+            this.tb_backupapiurl.TabIndex = 72;
+            this.tb_backupapiurl.TabStop = false;
+            this.tb_backupapiurl.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tb_backupapiurl.TrailingIcon = null;
+            this.tb_backupapiurl.UseSystemPasswordChar = false;
             // 
             // bt_signout
             // 
@@ -222,6 +479,7 @@ namespace AuxWallet
             this.materialTabControl1.ResumeLayout(false);
             this.tabAsset.ResumeLayout(false);
             this.tabSetting.ResumeLayout(false);
+            this.tabSetting.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -236,5 +494,14 @@ namespace AuxWallet
         private MaterialListBox lb_assets;
         private MaterialButton bt_changeTheme;
         private MaterialButton bt_signout;
+        private MaterialButton bt_saveApiUrl;
+        private MaterialLabel lb_baseurl;
+        private MaterialTextBoxEdit tb_backupapiurl;
+        private MaterialLabel lb_viewKey;
+        private MaterialButton bt_viewKey;
+        private MaterialTextBoxEdit tb_pwd;
+        private MaterialTextBoxEdit tb_privateKey;
+        private MaterialTextBoxEdit tb_publicKey;
+        private MaterialTextBoxEdit tb_Address;
     }
 }

@@ -34,15 +34,15 @@
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string[] ExtAPIs
+        public string ExtAPI
         {
             get
             {
-                return ((string[])(this["ExtAPIs"]));
+                return ((string)(this["ExtAPI"]));
             }
             set
             {
-                this["ExtAPIs"] = value;
+                this["ExtAPI"] = value;
             }
         }
        

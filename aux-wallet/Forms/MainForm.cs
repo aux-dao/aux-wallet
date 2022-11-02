@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using OX;
 using OX.Wallets;
 using AuxCore.Models;
 
@@ -18,11 +19,14 @@ namespace AuxWallet
     {
         private readonly MaterialSkinManager materialSkinManager;
         public LightWallet Wallet;
+        public LightAccount Account;
         public VerifyForm VerifyForm;
+        public string StandbyApi;
         public MainForm(VerifyForm verifyForm, LightWallet wallet)
         {
             this.VerifyForm = verifyForm;
             this.Wallet = wallet;
+            this.Account = this.Wallet.accounts.Values?.FirstOrDefault();
             InitializeComponent();
 
             // Initialize MaterialSkinManager
@@ -42,7 +46,7 @@ namespace AuxWallet
         }
         void Init()
         {
-            this.Text = this.Wallet.accounts.Keys?.FirstOrDefault()?.ToAddress();
+            this.Text = this.Account.ScriptHash.ToAddress();
             DrawerUseColors = true;
             DrawerHighlightWithAccent = true;
             DrawerBackgroundWithAccent = true;
@@ -55,6 +59,19 @@ namespace AuxWallet
 
             this.bt_changeTheme.Text = Locator.Case("Change Theme", "更换主题");
             this.bt_signout.Text = Locator.Case("Close Wallet", "关闭钱包");
+            this.lb_baseurl.Text = Locator.Case("Standby API Base Url", "备用API基地址");
+            this.tb_backupapiurl.Hint = Locator.Case("Base Url", "基地址");
+            this.bt_saveApiUrl.Text = Locator.Case("Save Standby API Base Url", "保存备用API基地址");
+
+            this.tb_pwd.Hint = Locator.Case("Wallet Password", "钱包密码");
+            this.lb_viewKey.Text = Locator.Case("View Private Key", "查看私钥");
+            this.bt_viewKey.Text = Locator.Case("View", "查看");
+            this.tb_Address.Hint = Locator.Case("Wallet Address", "钱包地址");
+            this.tb_publicKey.Hint = Locator.Case("Wallet Public Key", "钱包公钥");
+            this.tb_privateKey.Hint = Locator.Case("Wallet Private Key", "钱包私钥");
+
+            StandbyApi = Settings.Default.ExtAPI;
+            this.tb_backupapiurl.Text = StandbyApi;
         }
 
 
@@ -123,6 +140,22 @@ namespace AuxWallet
         {
             this.Hide();
             this.VerifyForm.Show();
+        }
+
+        private void bt_saveApiUrl_Click(object sender, EventArgs e)
+        {
+            Settings.Default.ExtAPI = this.tb_backupapiurl.Text;
+            Settings.Default.Save();
+        }
+
+        private void bt_viewKey_Click(object sender, EventArgs e)
+        {
+            if (this.Wallet.VerifyPassword(this.tb_pwd.Text))
+            {
+                this.tb_Address.Text = this.Account.ScriptHash.ToAddress();
+                this.tb_publicKey.Text = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
+                this.tb_privateKey.Text = this.Account.GetKey().Export();
+            }
         }
     }
 }

@@ -76,7 +76,7 @@ namespace AuxWallet
             this.tb_pwd.LeadingIcon = null;
             this.tb_pwd.Location = new System.Drawing.Point(66, 237);
             this.tb_pwd.Margin = new System.Windows.Forms.Padding(6);
-            this.tb_pwd.MaxLength = 50;
+            this.tb_pwd.MaxLength = 0;
             this.tb_pwd.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             this.tb_pwd.Name = "tb_pwd";
             this.tb_pwd.PasswordChar = '●';
@@ -109,7 +109,7 @@ namespace AuxWallet
             this.tf_walletpath.LeadingIcon = null;
             this.tf_walletpath.Location = new System.Drawing.Point(66, 168);
             this.tf_walletpath.Margin = new System.Windows.Forms.Padding(6);
-            this.tf_walletpath.MaxLength = 50;
+            this.tf_walletpath.MaxLength = 0;
             this.tf_walletpath.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             this.tf_walletpath.Name = "tf_walletpath";
             this.tf_walletpath.PasswordChar = '\0';

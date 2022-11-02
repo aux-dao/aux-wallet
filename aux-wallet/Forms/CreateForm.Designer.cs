@@ -56,7 +56,7 @@ namespace AuxWallet
             this.tf_walletpath.LeadingIcon = null;
             this.tf_walletpath.Location = new System.Drawing.Point(66, 109);
             this.tf_walletpath.Margin = new System.Windows.Forms.Padding(6);
-            this.tf_walletpath.MaxLength = 50;
+            this.tf_walletpath.MaxLength = 0;
             this.tf_walletpath.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             this.tf_walletpath.Name = "tf_walletpath";
             this.tf_walletpath.PasswordChar = '\0';
@@ -153,12 +153,12 @@ namespace AuxWallet
             this.tb_privateKey.LeadingIcon = null;
             this.tb_privateKey.Location = new System.Drawing.Point(66, 238);
             this.tb_privateKey.Margin = new System.Windows.Forms.Padding(6);
-            this.tb_privateKey.MaxLength = 50;
+            this.tb_privateKey.MaxLength = 0;
             this.tb_privateKey.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             this.tb_privateKey.Name = "tb_privateKey";
             this.tb_privateKey.PasswordChar = '\0';
             this.tb_privateKey.PrefixSuffixText = null;
-            this.tb_privateKey.ReadOnly = true;
+            this.tb_privateKey.ReadOnly = false;
             this.tb_privateKey.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tb_privateKey.SelectedText = "";
             this.tb_privateKey.SelectionLength = 0;

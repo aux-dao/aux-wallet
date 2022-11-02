@@ -89,6 +89,7 @@ namespace AuxWallet
             {
                 Settings.Default.LastWalletPath = path;
                 Settings.Default.Save();
+                this.tb_pwd.Clear();
                 this.Hide();
                 new MainForm(this, wallet).Show();
             }
@@ -127,7 +128,16 @@ namespace AuxWallet
             using (CreateForm dialog = new CreateForm(true))
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-
+                var path = dialog.WalletPath;
+                var pwd = dialog.Password;
+                var privateKey = dialog.PrivateKey;
+                LightWallet wallet = new LightWallet(path);
+                wallet.Unlock(pwd);
+                wallet.Import(privateKey);
+                wallet.Save();
+                Settings.Default.LastWalletPath = path;
+                Settings.Default.Save();
+                this.tf_walletpath.Text = path;
             }
         }
     }
