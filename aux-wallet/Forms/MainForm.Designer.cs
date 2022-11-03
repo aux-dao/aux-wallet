@@ -173,6 +173,8 @@ namespace AuxWallet
             this.lb_contacts.Size = new System.Drawing.Size(972, 553);
             this.lb_contacts.Style = ReaLTaiizor.Controls.MaterialListBox.ListBoxStyle.ThreeLine;
             this.lb_contacts.TabIndex = 22;
+            this.lb_contacts.DoubleClick += new System.EventHandler(this.lb_contacts_DoubleClick);
+            this.lb_contacts.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lb_contacts_MouseDoubleClick);
             // 
             // bt_addContact
             // 

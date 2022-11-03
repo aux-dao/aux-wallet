@@ -306,5 +306,28 @@ namespace AuxWallet
                 }
             }
         }
+
+        private void lb_contacts_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lb_contacts_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var obj = this.lb_contacts.SelectedItem;
+            if (obj.IsNotNull())
+            {
+                var contact = obj.Tag as LightContact;
+                MaterialDialog materialDialog = new(this, Locator.Case("Remove Contact", "删除联系人"), Locator.Case($"Are you sure remove contact {contact.Address.ToAddress()}  ?", $"确定要删除联系人 {contact.Address.ToAddress()}  ？"), Locator.Case("Delete", "删除"), true, Locator.Case("Cancel", "取消"));
+                if (materialDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    this.Wallet.DeleteContact(contact.Address.ToAddress());
+                    this.Wallet.Save();
+                    this.lb_contacts.Items.Remove(obj);
+                    MaterialSnackBar SnackBarMessage = new(Locator.Case("Remove Completed", "删除成功"), 750);
+                    SnackBarMessage.Show(this);
+                }
+            }
+        }
     }
 }
