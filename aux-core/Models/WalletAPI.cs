@@ -14,6 +14,7 @@ namespace AuxCore.Models
 {
     public class WalletAPI
     {
+       
         static WalletAPI _instance;
         public static WalletAPI Instance
         {
@@ -27,14 +28,22 @@ namespace AuxCore.Models
         {
 
         }
-        string GetBaseUrl()
+        public VerifyServer GetVerirySPV(string rd)
         {
-            return Locator.ApiUrls.FirstOrDefault();
+            string url = $"/api/VerifySpv";
+            var query = $"rd={rd}";
+            var str = APIHelper.Get(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<VerifyServer>(str);
+                return p;
+            }
+            return default;
         }
         public AddressBalance GetPublicAssetBalance(string address)
         {
             Random rd = new Random();
-            string url = $"{GetBaseUrl()}/api/BalanceByAddress";
+            string url = $"/api/BalanceByAddress";
             var query = $"address={address}&r={rd.Next()}";
             var str = APIHelper.Get(url, query);
             if (str.IsNotNullAndEmpty())
@@ -47,7 +56,7 @@ namespace AuxCore.Models
         public AddressAssetBalance GetPrivateAssetBalances(string address)
         {
             Random rd = new Random();
-            string url = $"{GetBaseUrl()}/api/AssetBalanceByAddress";
+            string url = $"/api/AssetBalanceByAddress";
             var query = $"address={address}&r={rd.Next()}";
             var str = APIHelper.Get(url, query);
             if (str.IsNotNullAndEmpty())
@@ -60,7 +69,7 @@ namespace AuxCore.Models
         public TxRecords GetInTxRecords(string address, int pageIndex, int pageSize)
         {
             Random rd = new Random();
-            string url = $"{GetBaseUrl()}/api/QueryTxIn";
+            string url = $"/api/QueryTxIn";
             var query = $"address={address}&pageindex={pageIndex}&pagesize={pageSize}&r={rd.Next()}";
             var str = APIHelper.Get(url, query);
             if (str.IsNotNullAndEmpty())
@@ -73,7 +82,7 @@ namespace AuxCore.Models
         public TxRecords GetOutTxRecords(string address, int pageIndex, int pageSize)
         {
             Random rd = new Random();
-            string url = $"{GetBaseUrl()}/api/QueryTxOut";
+            string url = $"/api/QueryTxOut";
             var query = $"address={address}&pageindex={pageIndex}&pagesize={pageSize}&r={rd.Next()}";
             var str = APIHelper.Get(url, query);
             if (str.IsNotNullAndEmpty())

@@ -509,7 +509,7 @@ namespace AuxWallet
             this.tb_backupapiurl.Name = "tb_backupapiurl";
             this.tb_backupapiurl.PasswordChar = '\0';
             this.tb_backupapiurl.PrefixSuffixText = null;
-            this.tb_backupapiurl.ReadOnly = true;
+            this.tb_backupapiurl.ReadOnly = false;
             this.tb_backupapiurl.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tb_backupapiurl.SelectedText = "";
             this.tb_backupapiurl.SelectionLength = 0;

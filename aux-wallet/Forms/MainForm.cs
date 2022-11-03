@@ -14,6 +14,11 @@ using OX.Wallets;
 using AuxCore.Models;
 using ReaLTaiizor.Child.Material;
 using OX.Ledger;
+using OX.Cryptography.ECC;
+using OX.SmartContract;
+using System.Security.Cryptography.X509Certificates;
+using OX.Cryptography;
+using System.Security.Cryptography.Xml;
 
 namespace AuxWallet
 {
@@ -26,6 +31,7 @@ namespace AuxWallet
         public string PubKey;
         public VerifyForm VerifyForm;
         public string StandbyApi;
+
         public MainForm(VerifyForm verifyForm, LightWallet wallet)
         {
             this.VerifyForm = verifyForm;
@@ -83,9 +89,45 @@ namespace AuxWallet
 
             StandbyApi = Settings.Default.ExtAPI;
             this.tb_backupapiurl.Text = StandbyApi;
+            APIHelper.ChangeServer += APIHelper_ChangeServer;
+            APIHelper.BaseUrl = Settings.Default.CurrentAPIUrl;
+            if (APIHelper.BaseUrl.IsNullOrEmpty())
+            {
+                APIHelper_ChangeServer();
+            }
         }
 
-
+        private void APIHelper_ChangeServer()
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action(() =>
+                {
+                    APIHelper.BaseUrl = changeServer();
+                    Settings.Default.CurrentAPIUrl = APIHelper.BaseUrl;
+                    Settings.Default.Save();
+                }));
+            }
+            else
+            {
+                APIHelper.BaseUrl = changeServer();
+                Settings.Default.CurrentAPIUrl = APIHelper.BaseUrl;
+                Settings.Default.Save();
+            }
+        }
+        string changeServer()
+        {
+            var l = Locator.ApiUrls.ToList();
+            var extUrl = Settings.Default.ExtAPI;
+            if (extUrl.IsNotNullAndEmpty())
+            {
+                l.Add(extUrl);
+            }
+            var c = l.Count;
+            Random rd = new Random();
+            var index = rd.Next(0, c);
+            return l[index];
+        }
 
         private int colorSchemeIndex;
 
@@ -155,8 +197,29 @@ namespace AuxWallet
 
         private void bt_saveApiUrl_Click(object sender, EventArgs e)
         {
-            Settings.Default.ExtAPI = this.tb_backupapiurl.Text;
-            Settings.Default.Save();
+            var baseUrl = this.tb_backupapiurl.Text;
+            var oldBaseUrl = APIHelper.BaseUrl;
+            APIHelper.BaseUrl = baseUrl;
+            var dt = DateTime.Now;
+            string str = $"{dt.Year}{dt.Month}{dt.Day}{dt.Hour}{dt.Minute}{new Random().Next()}";
+            var vs = WalletAPI.Instance.GetVerirySPV(str);
+            bool returnUrl = true;
+            if (vs.IsNotNull())
+            {
+                var pubkey = ECPoint.DecodePoint(vs.pubkey.HexToBytes(), ECCurve.Secp256r1);
+                var ok = Crypto.Default.VerifySignature(str.HexToBytes(), vs.signature.HexToBytes(), pubkey.EncodePoint(true));
+                if (ok)
+                {
+                    Settings.Default.ExtAPI = baseUrl;
+                    Settings.Default.Save();
+                    returnUrl = false;
+                }
+            }
+            if (returnUrl)
+            {
+                this.tb_backupapiurl.Text = Settings.Default.ExtAPI;
+            }
+            APIHelper.BaseUrl = oldBaseUrl;
         }
 
         private void bt_viewKey_Click(object sender, EventArgs e)
@@ -174,9 +237,13 @@ namespace AuxWallet
             var balance = WalletAPI.Instance.GetPublicAssetBalance(this.Address);
             var assetbalances = WalletAPI.Instance.GetPrivateAssetBalances(this.Address);
             this.lb_assets.Items.Clear();
-            this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXS            {balance.oxs}", SecondaryText = Blockchain.OXS.ToString() });
-            this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXC            {balance.oxc}", SecondaryText = Blockchain.OXC.ToString() });
-            if (assetbalances.result)
+            if (balance.IsNotNull())
+            {
+                this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXS            {balance.oxs}", SecondaryText = Blockchain.OXS.ToString() });
+                this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXC            {balance.oxc}", SecondaryText = Blockchain.OXC.ToString() });
+            }
+
+            if (assetbalances.IsNotNull() && assetbalances.result)
                 foreach (var assetBalance in assetbalances.balances)
                 {
                     this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"{assetBalance.assetname}            {assetBalance.amount}", SecondaryText = assetBalance.assetid });
@@ -187,12 +254,9 @@ namespace AuxWallet
         {
             this.lb_outHistory.Items.Clear();
             var outRecords = WalletAPI.Instance.GetOutTxRecords(this.Address, 0, 10000);
-            if (outRecords.result)
+            if (outRecords.IsNotNull() && outRecords.result)
                 foreach (var record in outRecords.records.OrderByDescending(m => DateTime.Parse(m.dt)))
                 {
-                    //var name = record.asset.ToLower();
-                    //if (name != "oxs" && name != "oxc")
-                    //    name = string.Empty;
                     this.lb_outHistory.Items.Add(new MaterialListBoxItem { Text = $"{record.dt}            {record.amount}", SecondaryText = record.assetId ?? string.Empty });
                 }
         }
@@ -201,12 +265,9 @@ namespace AuxWallet
         {
             this.lb_inHistory.Items.Clear();
             var inRecords = WalletAPI.Instance.GetInTxRecords(this.Address, 0, 10000);
-            if (inRecords.result)
+            if (inRecords.IsNotNull() && inRecords.result)
                 foreach (var record in inRecords.records.OrderByDescending(m => DateTime.Parse(m.dt)))
                 {
-                    //var name = record.asset.ToLower();
-                    //if (name != "oxs" && name != "oxc")
-                    //    name = string.Empty;
                     this.lb_inHistory.Items.Add(new MaterialListBoxItem { Text = $"{record.dt}            {record.amount}", SecondaryText = record.assetId ?? string.Empty });
                 }
         }

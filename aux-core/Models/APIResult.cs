@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace AuxCore.Models
 {
+    public class VerifyServer
+    {
+        public string signature;
+        public string pubkey;
+    }
     public abstract class APIResult
     {
         public bool result;
@@ -41,10 +46,11 @@ namespace AuxCore.Models
     }
     public static class APIHelper
     {
+        public static string BaseUrl;
+        public static event Action ChangeServer;
         public static string Get(string url, string reqData)
         {
-
-            string strUrl = new UriBuilder(url)
+            string strUrl = new UriBuilder(BaseUrl + url)
             {
                 Query = reqData
             }.ToString();
@@ -66,9 +72,10 @@ namespace AuxCore.Models
                         return resultStr;
                     }
                 }
-                catch (System.AggregateException ex)
+                catch (System.AggregateException ae)
                 {
-                    return ex.Message;
+                    ChangeServer?.Invoke();
+                    return string.Empty;
                 }
                 finally
                 {
@@ -78,8 +85,7 @@ namespace AuxCore.Models
         }
         public static string Post(string url, string reqData)
         {
-
-            string strUrl = new UriBuilder(url)
+            string strUrl = new UriBuilder(BaseUrl + url)
             {
                 Query = reqData
             }.ToString();
@@ -102,9 +108,10 @@ namespace AuxCore.Models
                         return resultStr;
                     }
                 }
-                catch (System.AggregateException ex)
+                catch (System.AggregateException ae)
                 {
-                    return ex.Message;
+                    ChangeServer?.Invoke();
+                    return string.Empty;
                 }
                 finally
                 {

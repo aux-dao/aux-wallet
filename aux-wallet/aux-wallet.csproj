@@ -30,9 +30,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\Books.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <EmbeddedResource Include="Localization\Poison\de\PoisonMessageBoxControl.xml" />
     <EmbeddedResource Include="Localization\Poison\de\PoisonToggle.xml" />
     <EmbeddedResource Include="Localization\Poison\en\PoisonToggle.xml" />

@@ -45,6 +45,19 @@
                 this["ExtAPI"] = value;
             }
         }
-       
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CurrentAPIUrl
+        {
+            get
+            {
+                return ((string)(this["CurrentAPIUrl"]));
+            }
+            set
+            {
+                this["CurrentAPIUrl"] = value;
+            }
+        }
     }
 }
