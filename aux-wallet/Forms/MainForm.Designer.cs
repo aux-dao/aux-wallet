@@ -97,7 +97,7 @@ namespace AuxWallet
             this.bt_queryAsset.HighEmphasis = true;
             this.bt_queryAsset.Icon = ((System.Drawing.Image)(resources.GetObject("bt_queryAsset.Icon")));
             this.bt_queryAsset.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            this.bt_queryAsset.Location = new System.Drawing.Point(546, 0);
+            this.bt_queryAsset.Location = new System.Drawing.Point(546, -42);
             this.bt_queryAsset.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
             this.bt_queryAsset.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.bt_queryAsset.Name = "bt_queryAsset";
@@ -119,13 +119,13 @@ namespace AuxWallet
             this.lb_assets.BorderColor = System.Drawing.Color.LightGray;
             this.lb_assets.Depth = 0;
             this.lb_assets.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lb_assets.Location = new System.Drawing.Point(6, 61);
+            this.lb_assets.Location = new System.Drawing.Point(6, 19);
             this.lb_assets.Margin = new System.Windows.Forms.Padding(6);
             this.lb_assets.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.lb_assets.Name = "lb_assets";
             this.lb_assets.SelectedIndex = -1;
             this.lb_assets.SelectedItem = null;
-            this.lb_assets.Size = new System.Drawing.Size(972, 555);
+            this.lb_assets.Size = new System.Drawing.Size(972, 597);
             this.lb_assets.Style = ReaLTaiizor.Controls.MaterialListBox.ListBoxStyle.ThreeLine;
             this.lb_assets.TabIndex = 3;
             // 
