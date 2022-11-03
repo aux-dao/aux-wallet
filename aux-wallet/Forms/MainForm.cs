@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using OX;
 using OX.Wallets;
 using AuxCore.Models;
+using ReaLTaiizor.Child.Material;
+using OX.Ledger;
 
 namespace AuxWallet
 {
@@ -168,6 +170,13 @@ namespace AuxWallet
         {
             var balance = WalletAPI.Instance.GetPublicAssetBalance(this.Address).Result;
             var assetbalances = WalletAPI.Instance.GetPrivateAssetBalances(this.Address).Result;
+            this.lb_assets.Items.Clear();
+            this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXS            {balance.oxs}", SecondaryText = Blockchain.OXS.ToString() });
+            this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXC            {balance.oxc}", SecondaryText = Blockchain.OXC.ToString() });
+            foreach (var assetBalance in assetbalances.balances)
+            {
+                this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"{assetBalance.assetname}            {assetBalance.amount}", SecondaryText = assetBalance.assetid });
+            }
         }
     }
 }
