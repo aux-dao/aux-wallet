@@ -204,7 +204,7 @@ namespace AuxWallet
             string str = $"{dt.Year}{dt.Month}{dt.Day}{dt.Hour}{dt.Minute}{new Random().Next()}";
             var vs = WalletAPI.Instance.GetVerirySPV(str);
             bool returnUrl = true;
-            if (vs.IsNotNull())
+            if (vs.IsNotNull() && Locator.spvlidators.Contains(vs.pubkey))
             {
                 var pubkey = ECPoint.DecodePoint(vs.pubkey.HexToBytes(), ECCurve.Secp256r1);
                 var ok = Crypto.Default.VerifySignature(str.HexToBytes(), vs.signature.HexToBytes(), pubkey.EncodePoint(true));
