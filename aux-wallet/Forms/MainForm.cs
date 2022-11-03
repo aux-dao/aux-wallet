@@ -167,6 +167,7 @@ namespace AuxWallet
         private void bt_queryAsset_Click(object sender, EventArgs e)
         {
             var balance = WalletAPI.Instance.GetPublicAssetBalance(this.Address).Result;
+            var assetbalances = WalletAPI.Instance.GetPrivateAssetBalances(this.Address).Result;
         }
     }
 }
