@@ -96,6 +96,11 @@ namespace AuxWallet
             {
                 APIHelper_ChangeServer();
             }
+            if (this.Wallet.contacts.IsNotNullAndEmpty())
+                foreach (var contact in this.Wallet.contacts.Values)
+                {
+                    this.lb_contacts.Items.Add(new MaterialListBoxItem { Text = $"{contact.Name}({contact.Remark})", SecondaryText = contact.Address.ToAddress(), Tag = contact });
+                }
         }
 
         private void APIHelper_ChangeServer()
@@ -274,6 +279,32 @@ namespace AuxWallet
                 {
                     this.lb_inHistory.Items.Add(new MaterialListBoxItem { Text = $"{record.dt}            {record.amount}", SecondaryText = record.assetId ?? string.Empty });
                 }
+        }
+
+        private void bt_addContact_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new CreateContactForm())
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                var addr = dialog.Address;
+                var name = dialog.ContactName;
+                var remark = dialog.Remark;
+                try
+                {
+                    var sh = addr.ToScriptHash();
+                    LightContact contact = new LightContact(sh, name, remark);
+                    bool ok = this.Wallet.AddContact(contact);
+                    if (ok)
+                    {
+                        this.Wallet.Save();
+                        this.lb_contacts.Items.Add(new MaterialListBoxItem { Text = $"{contact.Name}({contact.Remark})", SecondaryText = contact.Address.ToAddress(), Tag = contact });
+                    }
+                }
+                catch
+                {
+                    return;
+                }
+            }
         }
     }
 }

@@ -195,6 +195,7 @@ namespace AuxWallet
             this.bt_addContact.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
             this.bt_addContact.UseAccentColor = false;
             this.bt_addContact.UseVisualStyleBackColor = true;
+            this.bt_addContact.Click += new System.EventHandler(this.bt_addContact_Click);
             // 
             // tabInHistory
             // 

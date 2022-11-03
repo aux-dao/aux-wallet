@@ -23,11 +23,13 @@ namespace AuxCore
         protected string password;
         protected JObject wallet;
         public readonly Dictionary<UInt160, LightAccount> accounts;
+        public readonly Dictionary<UInt160, LightContact> contacts;
         public LightWallet(string walletPath)
         {
             this.path = walletPath;
             this.Scrypt = ScryptParameters.Default;
             this.accounts = new Dictionary<UInt160, LightAccount>();
+            this.contacts = new Dictionary<UInt160, LightContact>();
             if (File.Exists(path))
             {
                 using (StreamReader reader = new StreamReader(path))
@@ -36,7 +38,11 @@ namespace AuxCore
                 }
                 this.Scrypt = ScryptParameters.FromJson(wallet["scrypt"]);
                 this.accounts = ((JArray)wallet["accounts"]).Select(p => LightAccount.FromJson(p, this)).ToDictionary(p => p.ScriptHash);
-
+                var w = wallet["contacts"];
+                if (w.IsNotNull())
+                {
+                    this.contacts = ((JArray)w).Select(p => LightContact.FromJson(p)).ToDictionary(p => p.Address);
+                }
             }
         }
         public LightAccount CreateAccount()
@@ -109,6 +115,33 @@ namespace AuxCore
                 accounts[account.ScriptHash] = account;
             }
         }
+        public virtual bool AddContact(LightContact contact)
+        {
+            lock (contacts)
+            {
+                if (!contacts.ContainsKey(contact.Address))
+                {
+                    contacts[contact.Address] = contact;
+                    return true;
+                }
+                return false;
+            }
+        }
+        public virtual bool DeleteContact(string address)
+        {
+            if (string.IsNullOrWhiteSpace(address))
+                return false;
+            UInt160 sh = default;
+            try
+            {
+                sh = OX.Wallets.Wallet.ToScriptHash(address);
+            }
+            catch
+            {
+                return false;
+            }
+            return contacts.Remove(sh);
+        }
         public virtual KeyPair DecryptKey(string nep2key)
         {
             return new KeyPair(Wallet.GetPrivateKeyFromNEP2(nep2key, password, Scrypt.N, Scrypt.R, Scrypt.P));
@@ -118,6 +151,7 @@ namespace AuxCore
             wallet = new JObject();
             wallet["scrypt"] = Scrypt.ToJson();
             wallet["accounts"] = new JArray(accounts.Values.Select(p => p.ToJson()));
+            wallet["contacts"] = new JArray(contacts.Values.Select(p => p.ToJson()));
             File.WriteAllText(path, wallet.ToString());
         }
         public virtual bool Unlock(string password)
