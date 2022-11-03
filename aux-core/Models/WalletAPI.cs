@@ -33,7 +33,6 @@ namespace AuxCore.Models
         }
         public AddressBalance GetPublicAssetBalance(string address)
         {
-            HttpClient hc = new HttpClient();
             Random rd = new Random();
             string url = $"{GetBaseUrl()}/api/BalanceByAddress";
             var query = $"address={address}&r={rd.Next()}";
@@ -47,7 +46,6 @@ namespace AuxCore.Models
         }
         public AddressAssetBalance GetPrivateAssetBalances(string address)
         {
-            HttpClient hc = new HttpClient();
             Random rd = new Random();
             string url = $"{GetBaseUrl()}/api/AssetBalanceByAddress";
             var query = $"address={address}&r={rd.Next()}";
@@ -55,6 +53,32 @@ namespace AuxCore.Models
             if (str.IsNotNullAndEmpty())
             {
                 var p = JsonConvert.DeserializeObject<AddressAssetBalance>(str);
+                return p;
+            }
+            return default;
+        }
+        public TxRecords GetInTxRecords(string address, int pageIndex, int pageSize)
+        {
+            Random rd = new Random();
+            string url = $"{GetBaseUrl()}/api/QueryTxIn";
+            var query = $"address={address}&pageindex={pageIndex}&pagesize={pageSize}&r={rd.Next()}";
+            var str = APIHelper.Get(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<TxRecords>(str);
+                return p;
+            }
+            return default;
+        }
+        public TxRecords GetOutTxRecords(string address, int pageIndex, int pageSize)
+        {
+            Random rd = new Random();
+            string url = $"{GetBaseUrl()}/api/QueryTxOut";
+            var query = $"address={address}&pageindex={pageIndex}&pagesize={pageSize}&r={rd.Next()}";
+            var str = APIHelper.Get(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<TxRecords>(str);
                 return p;
             }
             return default;

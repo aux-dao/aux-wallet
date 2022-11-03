@@ -176,20 +176,39 @@ namespace AuxWallet
             this.lb_assets.Items.Clear();
             this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXS            {balance.oxs}", SecondaryText = Blockchain.OXS.ToString() });
             this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXC            {balance.oxc}", SecondaryText = Blockchain.OXC.ToString() });
-            foreach (var assetBalance in assetbalances.balances)
-            {
-                this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"{assetBalance.assetname}            {assetBalance.amount}", SecondaryText = assetBalance.assetid });
-            }
+            if (assetbalances.result)
+                foreach (var assetBalance in assetbalances.balances)
+                {
+                    this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"{assetBalance.assetname}            {assetBalance.amount}", SecondaryText = assetBalance.assetid });
+                }
         }
 
         private void bt_queryOutHistory_Click(object sender, EventArgs e)
         {
-
+            this.lb_outHistory.Items.Clear();
+            var outRecords = WalletAPI.Instance.GetOutTxRecords(this.Address, 0, 10000);
+            if (outRecords.result)
+                foreach (var record in outRecords.records.OrderByDescending(m => DateTime.Parse(m.dt)))
+                {
+                    //var name = record.asset.ToLower();
+                    //if (name != "oxs" && name != "oxc")
+                    //    name = string.Empty;
+                    this.lb_outHistory.Items.Add(new MaterialListBoxItem { Text = $"{record.dt}            {record.amount}", SecondaryText = record.assetId ?? string.Empty });
+                }
         }
 
         private void bt_queryInHistory_Click(object sender, EventArgs e)
         {
-
+            this.lb_inHistory.Items.Clear();
+            var inRecords = WalletAPI.Instance.GetInTxRecords(this.Address, 0, 10000);
+            if (inRecords.result)
+                foreach (var record in inRecords.records.OrderByDescending(m => DateTime.Parse(m.dt)))
+                {
+                    //var name = record.asset.ToLower();
+                    //if (name != "oxs" && name != "oxc")
+                    //    name = string.Empty;
+                    this.lb_inHistory.Items.Add(new MaterialListBoxItem { Text = $"{record.dt}            {record.amount}", SecondaryText = record.assetId ?? string.Empty });
+                }
         }
     }
 }

@@ -27,6 +27,18 @@ namespace AuxCore.Models
         public string assetid;
         public string assetname;
     }
+    public class TXRecord
+    {
+        public string asset { get; set; }
+        public string assetId { get; set; }
+        public string amount { get; set; }
+        public string dt { get; set; }
+        public string txid { get; set; }
+    }
+    public class TxRecords : APIResult
+    {
+        public TXRecord[] records;
+    }
     public static class APIHelper
     {
         public static string Get(string url, string reqData)

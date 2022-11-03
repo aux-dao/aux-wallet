@@ -98,6 +98,7 @@ namespace AuxWallet
             // 
             // bt_queryAsset
             // 
+            this.bt_queryAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.bt_queryAsset.AutoSize = false;
             this.bt_queryAsset.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.bt_queryAsset.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
@@ -105,7 +106,7 @@ namespace AuxWallet
             this.bt_queryAsset.HighEmphasis = true;
             this.bt_queryAsset.Icon = ((System.Drawing.Image)(resources.GetObject("bt_queryAsset.Icon")));
             this.bt_queryAsset.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            this.bt_queryAsset.Location = new System.Drawing.Point(584, 2);
+            this.bt_queryAsset.Location = new System.Drawing.Point(632, 2);
             this.bt_queryAsset.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
             this.bt_queryAsset.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.bt_queryAsset.Name = "bt_queryAsset";
@@ -184,6 +185,7 @@ namespace AuxWallet
             // 
             // bt_queryInHistory
             // 
+            this.bt_queryInHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.bt_queryInHistory.AutoSize = false;
             this.bt_queryInHistory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.bt_queryInHistory.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
@@ -191,7 +193,7 @@ namespace AuxWallet
             this.bt_queryInHistory.HighEmphasis = true;
             this.bt_queryInHistory.Icon = ((System.Drawing.Image)(resources.GetObject("bt_queryInHistory.Icon")));
             this.bt_queryInHistory.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            this.bt_queryInHistory.Location = new System.Drawing.Point(585, 3);
+            this.bt_queryInHistory.Location = new System.Drawing.Point(632, 3);
             this.bt_queryInHistory.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
             this.bt_queryInHistory.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.bt_queryInHistory.Name = "bt_queryInHistory";
@@ -218,6 +220,7 @@ namespace AuxWallet
             // 
             // bt_queryOutHistory
             // 
+            this.bt_queryOutHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.bt_queryOutHistory.AutoSize = false;
             this.bt_queryOutHistory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.bt_queryOutHistory.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
@@ -225,7 +228,7 @@ namespace AuxWallet
             this.bt_queryOutHistory.HighEmphasis = true;
             this.bt_queryOutHistory.Icon = ((System.Drawing.Image)(resources.GetObject("bt_queryOutHistory.Icon")));
             this.bt_queryOutHistory.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            this.bt_queryOutHistory.Location = new System.Drawing.Point(583, 4);
+            this.bt_queryOutHistory.Location = new System.Drawing.Point(632, 4);
             this.bt_queryOutHistory.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
             this.bt_queryOutHistory.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.bt_queryOutHistory.Name = "bt_queryOutHistory";
