@@ -31,7 +31,7 @@ namespace AuxCore.Models
         {
             return Locator.ApiUrls.FirstOrDefault();
         }
-        public async Task<AddressBalance> GetPublicAssetBalance(string address)
+        public AddressBalance GetPublicAssetBalance(string address)
         {
             HttpClient hc = new HttpClient();
             Random rd = new Random();
@@ -45,7 +45,7 @@ namespace AuxCore.Models
             }
             return default;
         }
-        public async Task<AddressAssetBalance> GetPrivateAssetBalances(string address)
+        public AddressAssetBalance GetPrivateAssetBalances(string address)
         {
             HttpClient hc = new HttpClient();
             Random rd = new Random();

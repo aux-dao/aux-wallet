@@ -38,7 +38,12 @@ namespace AuxWallet
             this.bt_queryAsset = new ReaLTaiizor.Controls.MaterialButton();
             this.lb_assets = new ReaLTaiizor.Controls.MaterialListBox();
             this.tabContacts = new System.Windows.Forms.TabPage();
-            this.tabHistory = new System.Windows.Forms.TabPage();
+            this.tabInHistory = new System.Windows.Forms.TabPage();
+            this.lb_inHistory = new ReaLTaiizor.Controls.MaterialListBox();
+            this.bt_queryInHistory = new ReaLTaiizor.Controls.MaterialButton();
+            this.tabOutHistory = new System.Windows.Forms.TabPage();
+            this.bt_queryOutHistory = new ReaLTaiizor.Controls.MaterialButton();
+            this.lb_outHistory = new ReaLTaiizor.Controls.MaterialListBox();
             this.tabSetting = new System.Windows.Forms.TabPage();
             this.tb_privateKey = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             this.tb_publicKey = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
@@ -54,6 +59,8 @@ namespace AuxWallet
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.materialTabControl1.SuspendLayout();
             this.tabAsset.SuspendLayout();
+            this.tabInHistory.SuspendLayout();
+            this.tabOutHistory.SuspendLayout();
             this.tabSetting.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +68,8 @@ namespace AuxWallet
             // 
             this.materialTabControl1.Controls.Add(this.tabAsset);
             this.materialTabControl1.Controls.Add(this.tabContacts);
-            this.materialTabControl1.Controls.Add(this.tabHistory);
+            this.materialTabControl1.Controls.Add(this.tabInHistory);
+            this.materialTabControl1.Controls.Add(this.tabOutHistory);
             this.materialTabControl1.Controls.Add(this.tabSetting);
             this.materialTabControl1.Depth = 0;
             this.materialTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -141,17 +149,113 @@ namespace AuxWallet
             this.tabContacts.TabIndex = 6;
             this.tabContacts.Text = "Contacts";
             // 
-            // tabHistory
+            // tabInHistory
             // 
-            this.tabHistory.BackColor = System.Drawing.Color.White;
-            this.tabHistory.ImageKey = "round_swap_vert_white_24dp.png";
-            this.tabHistory.Location = new System.Drawing.Point(4, 33);
-            this.tabHistory.Margin = new System.Windows.Forms.Padding(6);
-            this.tabHistory.Name = "tabHistory";
-            this.tabHistory.Padding = new System.Windows.Forms.Padding(6);
-            this.tabHistory.Size = new System.Drawing.Size(984, 622);
-            this.tabHistory.TabIndex = 1;
-            this.tabHistory.Text = "History";
+            this.tabInHistory.BackColor = System.Drawing.Color.White;
+            this.tabInHistory.Controls.Add(this.lb_inHistory);
+            this.tabInHistory.Controls.Add(this.bt_queryInHistory);
+            this.tabInHistory.ImageKey = "arrow-autofit-right.png";
+            this.tabInHistory.Location = new System.Drawing.Point(4, 33);
+            this.tabInHistory.Margin = new System.Windows.Forms.Padding(6);
+            this.tabInHistory.Name = "tabInHistory";
+            this.tabInHistory.Padding = new System.Windows.Forms.Padding(6);
+            this.tabInHistory.Size = new System.Drawing.Size(984, 622);
+            this.tabInHistory.TabIndex = 1;
+            this.tabInHistory.Text = "InHistory";
+            // 
+            // lb_inHistory
+            // 
+            this.lb_inHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_inHistory.BackColor = System.Drawing.Color.White;
+            this.lb_inHistory.BorderColor = System.Drawing.Color.LightGray;
+            this.lb_inHistory.Depth = 0;
+            this.lb_inHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lb_inHistory.Location = new System.Drawing.Point(6, 62);
+            this.lb_inHistory.Margin = new System.Windows.Forms.Padding(6);
+            this.lb_inHistory.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.lb_inHistory.Name = "lb_inHistory";
+            this.lb_inHistory.SelectedIndex = -1;
+            this.lb_inHistory.SelectedItem = null;
+            this.lb_inHistory.Size = new System.Drawing.Size(972, 552);
+            this.lb_inHistory.Style = ReaLTaiizor.Controls.MaterialListBox.ListBoxStyle.ThreeLine;
+            this.lb_inHistory.TabIndex = 20;
+            // 
+            // bt_queryInHistory
+            // 
+            this.bt_queryInHistory.AutoSize = false;
+            this.bt_queryInHistory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bt_queryInHistory.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_queryInHistory.Depth = 0;
+            this.bt_queryInHistory.HighEmphasis = true;
+            this.bt_queryInHistory.Icon = ((System.Drawing.Image)(resources.GetObject("bt_queryInHistory.Icon")));
+            this.bt_queryInHistory.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            this.bt_queryInHistory.Location = new System.Drawing.Point(585, 3);
+            this.bt_queryInHistory.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
+            this.bt_queryInHistory.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.bt_queryInHistory.Name = "bt_queryInHistory";
+            this.bt_queryInHistory.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_queryInHistory.Size = new System.Drawing.Size(346, 53);
+            this.bt_queryInHistory.TabIndex = 19;
+            this.bt_queryInHistory.Text = "OUTLINE - HIGH - NORMAL";
+            this.bt_queryInHistory.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            this.bt_queryInHistory.UseAccentColor = false;
+            this.bt_queryInHistory.UseVisualStyleBackColor = true;
+            this.bt_queryInHistory.Click += new System.EventHandler(this.bt_queryInHistory_Click);
+            // 
+            // tabOutHistory
+            // 
+            this.tabOutHistory.Controls.Add(this.bt_queryOutHistory);
+            this.tabOutHistory.Controls.Add(this.lb_outHistory);
+            this.tabOutHistory.ImageKey = "arrow-autofit-left.png";
+            this.tabOutHistory.Location = new System.Drawing.Point(4, 33);
+            this.tabOutHistory.Name = "tabOutHistory";
+            this.tabOutHistory.Size = new System.Drawing.Size(984, 622);
+            this.tabOutHistory.TabIndex = 7;
+            this.tabOutHistory.Text = "OutHistory";
+            this.tabOutHistory.UseVisualStyleBackColor = true;
+            // 
+            // bt_queryOutHistory
+            // 
+            this.bt_queryOutHistory.AutoSize = false;
+            this.bt_queryOutHistory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bt_queryOutHistory.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_queryOutHistory.Depth = 0;
+            this.bt_queryOutHistory.HighEmphasis = true;
+            this.bt_queryOutHistory.Icon = ((System.Drawing.Image)(resources.GetObject("bt_queryOutHistory.Icon")));
+            this.bt_queryOutHistory.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            this.bt_queryOutHistory.Location = new System.Drawing.Point(583, 4);
+            this.bt_queryOutHistory.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
+            this.bt_queryOutHistory.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.bt_queryOutHistory.Name = "bt_queryOutHistory";
+            this.bt_queryOutHistory.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_queryOutHistory.Size = new System.Drawing.Size(346, 53);
+            this.bt_queryOutHistory.TabIndex = 20;
+            this.bt_queryOutHistory.Text = "OUTLINE - HIGH - NORMAL";
+            this.bt_queryOutHistory.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            this.bt_queryOutHistory.UseAccentColor = false;
+            this.bt_queryOutHistory.UseVisualStyleBackColor = true;
+            this.bt_queryOutHistory.Click += new System.EventHandler(this.bt_queryOutHistory_Click);
+            // 
+            // lb_outHistory
+            // 
+            this.lb_outHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_outHistory.BackColor = System.Drawing.Color.White;
+            this.lb_outHistory.BorderColor = System.Drawing.Color.LightGray;
+            this.lb_outHistory.Depth = 0;
+            this.lb_outHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lb_outHistory.Location = new System.Drawing.Point(6, 62);
+            this.lb_outHistory.Margin = new System.Windows.Forms.Padding(6);
+            this.lb_outHistory.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.lb_outHistory.Name = "lb_outHistory";
+            this.lb_outHistory.SelectedIndex = -1;
+            this.lb_outHistory.SelectedItem = null;
+            this.lb_outHistory.Size = new System.Drawing.Size(972, 556);
+            this.lb_outHistory.Style = ReaLTaiizor.Controls.MaterialListBox.ListBoxStyle.ThreeLine;
+            this.lb_outHistory.TabIndex = 18;
             // 
             // tabSetting
             // 
@@ -482,6 +586,8 @@ namespace AuxWallet
             this.menuIconList.Images.SetKeyName(15, "round_cancel_black_24dp.png");
             this.menuIconList.Images.SetKeyName(16, "round_error_black_24dp.png");
             this.menuIconList.Images.SetKeyName(17, "round_event_black_24dp.png");
+            this.menuIconList.Images.SetKeyName(18, "arrow-autofit-right.png");
+            this.menuIconList.Images.SetKeyName(19, "arrow-autofit-left.png");
             // 
             // MainForm
             // 
@@ -502,6 +608,8 @@ namespace AuxWallet
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.materialTabControl1.ResumeLayout(false);
             this.tabAsset.ResumeLayout(false);
+            this.tabInHistory.ResumeLayout(false);
+            this.tabOutHistory.ResumeLayout(false);
             this.tabSetting.ResumeLayout(false);
             this.tabSetting.PerformLayout();
             this.ResumeLayout(false);
@@ -511,7 +619,7 @@ namespace AuxWallet
         #endregion
         private MaterialTabControl materialTabControl1;
         private System.Windows.Forms.TabPage tabAsset;
-        private System.Windows.Forms.TabPage tabHistory;
+        private System.Windows.Forms.TabPage tabInHistory;
         private System.Windows.Forms.TabPage tabSetting;
         private System.Windows.Forms.TabPage tabContacts;
         private ImageList menuIconList;
@@ -528,5 +636,10 @@ namespace AuxWallet
         private MaterialTextBoxEdit tb_publicKey;
         private MaterialTextBoxEdit tb_Address;
         private MaterialButton bt_queryAsset;
+        private System.Windows.Forms.TabPage tabOutHistory;
+        private MaterialButton bt_queryInHistory;
+        private MaterialListBox lb_outHistory;
+        private MaterialListBox lb_inHistory;
+        private MaterialButton bt_queryOutHistory;
     }
 }

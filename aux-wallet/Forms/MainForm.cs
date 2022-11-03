@@ -60,7 +60,8 @@ namespace AuxWallet
             DrawerAutoShow = true;
             this.tabAsset.Text = Locator.Case("Assets", "资产");
             this.tabContacts.Text = Locator.Case("Contacts", "联系人");
-            this.tabHistory.Text = Locator.Case("History", "交易历史");
+            this.tabInHistory.Text = Locator.Case("In History", "转入记录");
+            this.tabOutHistory.Text = Locator.Case("Out History", "转出记录");
             this.tabSetting.Text = Locator.Case("Setting", "设置");
 
             this.bt_changeTheme.Text = Locator.Case("Change Theme", "更换主题");
@@ -77,6 +78,8 @@ namespace AuxWallet
             this.tb_privateKey.Hint = Locator.Case("Wallet Private Key", "钱包私钥");
 
             this.bt_queryAsset.Text = Locator.Case("Query Assets", "查询资产");
+            this.bt_queryInHistory.Text = Locator.Case("Query In History", "查询转入记录");
+            this.bt_queryOutHistory.Text = Locator.Case("Query Out History", "查询转出记录");
 
             StandbyApi = Settings.Default.ExtAPI;
             this.tb_backupapiurl.Text = StandbyApi;
@@ -168,8 +171,8 @@ namespace AuxWallet
 
         private void bt_queryAsset_Click(object sender, EventArgs e)
         {
-            var balance = WalletAPI.Instance.GetPublicAssetBalance(this.Address).Result;
-            var assetbalances = WalletAPI.Instance.GetPrivateAssetBalances(this.Address).Result;
+            var balance = WalletAPI.Instance.GetPublicAssetBalance(this.Address);
+            var assetbalances = WalletAPI.Instance.GetPrivateAssetBalances(this.Address);
             this.lb_assets.Items.Clear();
             this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXS            {balance.oxs}", SecondaryText = Blockchain.OXS.ToString() });
             this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXC            {balance.oxc}", SecondaryText = Blockchain.OXC.ToString() });
@@ -177,6 +180,16 @@ namespace AuxWallet
             {
                 this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"{assetBalance.assetname}            {assetBalance.amount}", SecondaryText = assetBalance.assetid });
             }
+        }
+
+        private void bt_queryOutHistory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_queryInHistory_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
