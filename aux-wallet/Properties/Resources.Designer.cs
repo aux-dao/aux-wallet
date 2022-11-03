@@ -373,6 +373,16 @@ namespace AuxWallet.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap refresh {
+            get {
+                object obj = ResourceManager.GetObject("refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap round_add_black_24dp {
             get {
                 object obj = ResourceManager.GetObject("round_add_black_24dp", resourceCulture);
