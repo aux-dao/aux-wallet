@@ -201,13 +201,16 @@ namespace AuxWallet
             var oldBaseUrl = APIHelper.BaseUrl;
             APIHelper.BaseUrl = baseUrl;
             var dt = DateTime.Now;
-            string str = $"{dt.Year}{dt.Month}{dt.Day}{dt.Hour}{dt.Minute}{new Random().Next()}";
-            var vs = WalletAPI.Instance.GetVerirySPV(str);
+            Random rd = new Random();
+            string str = $"{dt.Year}{dt.Month}{dt.Day}{rd.Next()}{rd.Next()}";
+            var m = System.Text.Encoding.UTF8.GetBytes(str);
+            var rds = m.ToHexString();
+            var vs = WalletAPI.Instance.GetVerirySPV(rds);
             bool returnUrl = true;
             if (vs.IsNotNull() && Locator.spvlidators.Contains(vs.pubkey))
             {
                 var pubkey = ECPoint.DecodePoint(vs.pubkey.HexToBytes(), ECCurve.Secp256r1);
-                var ok = Crypto.Default.VerifySignature(str.HexToBytes(), vs.signature.HexToBytes(), pubkey.EncodePoint(true));
+                var ok = Crypto.Default.VerifySignature(m, vs.signature.HexToBytes(), pubkey.EncodePoint(true));
                 if (ok)
                 {
                     Settings.Default.ExtAPI = baseUrl;
