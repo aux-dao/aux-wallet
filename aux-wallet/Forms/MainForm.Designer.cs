@@ -38,6 +38,8 @@ namespace AuxWallet
             this.bt_queryAsset = new ReaLTaiizor.Controls.MaterialButton();
             this.lb_assets = new ReaLTaiizor.Controls.MaterialListBox();
             this.tabContacts = new System.Windows.Forms.TabPage();
+            this.lb_contacts = new ReaLTaiizor.Controls.MaterialListBox();
+            this.bt_addContact = new ReaLTaiizor.Controls.MaterialButton();
             this.tabInHistory = new System.Windows.Forms.TabPage();
             this.lb_inHistory = new ReaLTaiizor.Controls.MaterialListBox();
             this.bt_queryInHistory = new ReaLTaiizor.Controls.MaterialButton();
@@ -59,6 +61,7 @@ namespace AuxWallet
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.materialTabControl1.SuspendLayout();
             this.tabAsset.SuspendLayout();
+            this.tabContacts.SuspendLayout();
             this.tabInHistory.SuspendLayout();
             this.tabOutHistory.SuspendLayout();
             this.tabSetting.SuspendLayout();
@@ -141,6 +144,8 @@ namespace AuxWallet
             // tabContacts
             // 
             this.tabContacts.BackColor = System.Drawing.Color.White;
+            this.tabContacts.Controls.Add(this.lb_contacts);
+            this.tabContacts.Controls.Add(this.bt_addContact);
             this.tabContacts.ImageKey = "round_person_black_24dp.png";
             this.tabContacts.Location = new System.Drawing.Point(4, 33);
             this.tabContacts.Margin = new System.Windows.Forms.Padding(6);
@@ -149,6 +154,47 @@ namespace AuxWallet
             this.tabContacts.Size = new System.Drawing.Size(984, 622);
             this.tabContacts.TabIndex = 6;
             this.tabContacts.Text = "Contacts";
+            // 
+            // lb_contacts
+            // 
+            this.lb_contacts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_contacts.BackColor = System.Drawing.Color.White;
+            this.lb_contacts.BorderColor = System.Drawing.Color.LightGray;
+            this.lb_contacts.Depth = 0;
+            this.lb_contacts.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lb_contacts.Location = new System.Drawing.Point(6, 61);
+            this.lb_contacts.Margin = new System.Windows.Forms.Padding(6);
+            this.lb_contacts.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.lb_contacts.Name = "lb_contacts";
+            this.lb_contacts.SelectedIndex = -1;
+            this.lb_contacts.SelectedItem = null;
+            this.lb_contacts.Size = new System.Drawing.Size(972, 553);
+            this.lb_contacts.Style = ReaLTaiizor.Controls.MaterialListBox.ListBoxStyle.ThreeLine;
+            this.lb_contacts.TabIndex = 22;
+            // 
+            // bt_addContact
+            // 
+            this.bt_addContact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bt_addContact.AutoSize = false;
+            this.bt_addContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bt_addContact.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_addContact.Depth = 0;
+            this.bt_addContact.HighEmphasis = true;
+            this.bt_addContact.Icon = global::AuxWallet.Properties.Resources.round_add_black_24dp;
+            this.bt_addContact.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            this.bt_addContact.Location = new System.Drawing.Point(632, 3);
+            this.bt_addContact.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
+            this.bt_addContact.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.bt_addContact.Name = "bt_addContact";
+            this.bt_addContact.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_addContact.Size = new System.Drawing.Size(346, 53);
+            this.bt_addContact.TabIndex = 21;
+            this.bt_addContact.Text = "OUTLINE - HIGH - NORMAL";
+            this.bt_addContact.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            this.bt_addContact.UseAccentColor = false;
+            this.bt_addContact.UseVisualStyleBackColor = true;
             // 
             // tabInHistory
             // 
@@ -611,6 +657,7 @@ namespace AuxWallet
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.materialTabControl1.ResumeLayout(false);
             this.tabAsset.ResumeLayout(false);
+            this.tabContacts.ResumeLayout(false);
             this.tabInHistory.ResumeLayout(false);
             this.tabOutHistory.ResumeLayout(false);
             this.tabSetting.ResumeLayout(false);
@@ -644,5 +691,7 @@ namespace AuxWallet
         private MaterialListBox lb_outHistory;
         private MaterialListBox lb_inHistory;
         private MaterialButton bt_queryOutHistory;
+        private MaterialListBox lb_contacts;
+        private MaterialButton bt_addContact;
     }
 }

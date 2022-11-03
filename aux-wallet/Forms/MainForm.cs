@@ -86,6 +86,7 @@ namespace AuxWallet
             this.bt_queryAsset.Text = Locator.Case("Query Assets", "查询资产");
             this.bt_queryInHistory.Text = Locator.Case("Query In History", "查询转入记录");
             this.bt_queryOutHistory.Text = Locator.Case("Query Out History", "查询转出记录");
+            this.bt_addContact.Text = Locator.Case("Add Contact", "添加联系人");
 
             StandbyApi = Settings.Default.ExtAPI;
             this.tb_backupapiurl.Text = StandbyApi;
