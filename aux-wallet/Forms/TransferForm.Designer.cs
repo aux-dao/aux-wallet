@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace AuxWallet
 {
-    partial class CreateContactForm
+    partial class TransferForm
     {
         /// <summary>
         /// Required designer variable.

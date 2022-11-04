@@ -13,11 +13,11 @@ using System.Runtime.InteropServices;
 
 namespace AuxWallet
 {
-    public partial class CreateContactForm : MaterialForm
+    public partial class TransferForm : MaterialForm
     {
         private readonly MaterialSkinManager materialSkinManager;
         bool isImport;
-        public CreateContactForm(bool import = false)
+        public TransferForm(bool import = false)
         {
             this.isImport = import;
             InitializeComponent();

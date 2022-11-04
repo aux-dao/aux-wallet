@@ -41,6 +41,8 @@ namespace AuxWallet
             this.bt_close = new ReaLTaiizor.Controls.MaterialButton();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.bt_import = new ReaLTaiizor.Controls.MaterialButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lb_title
@@ -52,7 +54,7 @@ namespace AuxWallet
             this.lb_title.Font = new System.Drawing.Font("Roboto", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.lb_title.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.H3;
             this.lb_title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lb_title.Location = new System.Drawing.Point(330, 158);
+            this.lb_title.Location = new System.Drawing.Point(250, 156);
             this.lb_title.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lb_title.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.lb_title.Name = "lb_title";
@@ -241,12 +243,25 @@ namespace AuxWallet
             this.bt_import.UseVisualStyleBackColor = true;
             this.bt_import.Click += new System.EventHandler(this.bt_import_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(18, 121);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(186, 107);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 78;
+            this.pictureBox1.TabStop = false;
+            // 
             // VerifyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(889, 369);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.bt_import);
             this.Controls.Add(this.bt_close);
             this.Controls.Add(this.bt_new);
@@ -264,6 +279,7 @@ namespace AuxWallet
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AU-X Wallet";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -279,5 +295,6 @@ namespace AuxWallet
         private MaterialButton bt_close;
         private OpenFileDialog openFileDialog1;
         private MaterialButton bt_import;
+        private PictureBox pictureBox1;
     }
 }

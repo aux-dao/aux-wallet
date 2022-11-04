@@ -39,7 +39,7 @@ namespace AuxWallet
         }
         void Init()
         {
-            this.lb_title.Text = Locator.Case("AU-X Wallet", "AU-X 钱包");
+            this.lb_title.Text = Locator.Case("Wallet", "钱包");
             this.tf_walletpath.Hint = Locator.Case("Wallet Path", "钱包路径");
             this.tb_pwd.Hint = Locator.Case("Wallet Password", "钱包密码");
             this.bt_select.Text = Locator.Case("Select", "选择");
