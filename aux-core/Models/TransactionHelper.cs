@@ -209,11 +209,11 @@ namespace AuxCore
 
 
     }
-    public class TransactionHelper
+    public class ContractTransactionHelper
     {
         ContractTransaction CT;
         LightAccount Account;
-        public TransactionHelper(ContractTransaction ct, LightAccount account)
+        public ContractTransactionHelper(ContractTransaction ct, LightAccount account)
         {
             this.CT = ct;
             this.Account = account;
@@ -238,6 +238,44 @@ namespace AuxCore
                 }
             }
             return default(ContractTransaction);
+        }
+        public virtual bool Sign(AUXContractParametersContext context)
+        {
+            bool fSuccess = false;
+            byte[] sg = context.Verifiable.Sign(this.Account.GetKey());
+            fSuccess |= context.AddSignature(this.Account.Contract, this.Account.GetKey().PublicKey, sg);
+            return fSuccess;
+        }
+    }
+    public class ClaimTransactionHelper
+    {
+        ClaimTransaction CT;
+        LightAccount Account;
+        public ClaimTransactionHelper(ClaimTransaction ct, LightAccount account)
+        {
+            this.CT = ct;
+            this.Account = account;
+        }
+        public ClaimTransaction Build()
+        {
+            AUXContractParametersContext context;
+            try
+            {
+                context = new AUXContractParametersContext(this.CT, new UInt160[] { this.Account.ScriptHash });
+            }
+            catch (InvalidOperationException)
+            {
+                return default(ClaimTransaction);
+            }
+            if (Sign(context) && context.Completed)
+            {
+                if (context.Verifiable is ClaimTransaction ct)
+                {
+                    ct.Witnesses = context.GetWitnesses();
+                    return ct;
+                }
+            }
+            return default(ClaimTransaction);
         }
         public virtual bool Sign(AUXContractParametersContext context)
         {

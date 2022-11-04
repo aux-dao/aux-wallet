@@ -131,5 +131,31 @@ namespace AuxCore.Models
             }
             return default;
         }
+        public ClaimMsg QueryClaim(string address)
+        {
+            Random rd = new Random();
+            string url = $"/api/Claim";
+            var query = $"id={address}&r={rd.Next()}";
+            var str = APIHelper.Get(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<ClaimMsg>(str);
+                return p;
+            }
+            return default;
+        }
+        public TxMsg BuildClaim(string pubkey)
+        {
+            Random rd = new Random();
+            string url = $"/api/Gas";
+            var query = $"publicKey={pubkey}&r={rd.Next()}";
+            var str = APIHelper.Post(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<TxMsg>(str);
+                return p;
+            }
+            return default;
+        }
     }
 }

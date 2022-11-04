@@ -50,6 +50,11 @@ namespace AuxCore.Models
     {
         public string msg { get; set; }
     }
+    public class ClaimMsg : APIResult
+    {
+        public string available { get; set; }
+        public string unavailable { get; set; }
+    }
     public class TxRecords : APIResult
     {
         public TXRecord[] records;
