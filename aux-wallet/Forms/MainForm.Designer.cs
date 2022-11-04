@@ -35,6 +35,7 @@ namespace AuxWallet
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.materialTabControl1 = new ReaLTaiizor.Controls.MaterialTabControl();
             this.tabAsset = new System.Windows.Forms.TabPage();
+            this.bt_copyAddress = new ReaLTaiizor.Controls.MaterialButton();
             this.bt_queryAsset = new ReaLTaiizor.Controls.MaterialButton();
             this.lb_assets = new ReaLTaiizor.Controls.MaterialListBox();
             this.tabContacts = new System.Windows.Forms.TabPage();
@@ -89,6 +90,7 @@ namespace AuxWallet
             // tabAsset
             // 
             this.tabAsset.BackColor = System.Drawing.Color.White;
+            this.tabAsset.Controls.Add(this.bt_copyAddress);
             this.tabAsset.Controls.Add(this.bt_queryAsset);
             this.tabAsset.Controls.Add(this.lb_assets);
             this.tabAsset.ImageKey = "round_assessment_white_24dp.png";
@@ -98,6 +100,28 @@ namespace AuxWallet
             this.tabAsset.Size = new System.Drawing.Size(984, 622);
             this.tabAsset.TabIndex = 0;
             this.tabAsset.Text = "Asset";
+            // 
+            // bt_copyAddress
+            // 
+            this.bt_copyAddress.AutoSize = false;
+            this.bt_copyAddress.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bt_copyAddress.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_copyAddress.Depth = 0;
+            this.bt_copyAddress.HighEmphasis = true;
+            this.bt_copyAddress.Icon = global::AuxWallet.Properties.Resources.Files_7954;
+            this.bt_copyAddress.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            this.bt_copyAddress.Location = new System.Drawing.Point(6, 2);
+            this.bt_copyAddress.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
+            this.bt_copyAddress.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.bt_copyAddress.Name = "bt_copyAddress";
+            this.bt_copyAddress.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_copyAddress.Size = new System.Drawing.Size(346, 53);
+            this.bt_copyAddress.TabIndex = 18;
+            this.bt_copyAddress.Text = "OUTLINE - HIGH - NORMAL";
+            this.bt_copyAddress.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            this.bt_copyAddress.UseAccentColor = false;
+            this.bt_copyAddress.UseVisualStyleBackColor = true;
+            this.bt_copyAddress.Click += new System.EventHandler(this.bt_copyAddress_Click);
             // 
             // bt_queryAsset
             // 
@@ -140,6 +164,7 @@ namespace AuxWallet
             this.lb_assets.Size = new System.Drawing.Size(972, 556);
             this.lb_assets.Style = ReaLTaiizor.Controls.MaterialListBox.ListBoxStyle.ThreeLine;
             this.lb_assets.TabIndex = 3;
+            this.lb_assets.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lb_assets_MouseDoubleClick);
             // 
             // tabContacts
             // 
@@ -696,5 +721,6 @@ namespace AuxWallet
         private MaterialButton bt_queryOutHistory;
         private MaterialListBox lb_contacts;
         private MaterialButton bt_addContact;
+        private MaterialButton bt_copyAddress;
     }
 }

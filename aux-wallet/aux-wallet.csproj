@@ -85,6 +85,9 @@
     <Reference Include="ox">
       <HintPath>C:\ox\net6.0\ox.dll</HintPath>
     </Reference>
+    <Reference Include="ox.vm">
+      <HintPath>C:\ox\net6.0\ox.vm.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Akka" Version="1.4.39" />

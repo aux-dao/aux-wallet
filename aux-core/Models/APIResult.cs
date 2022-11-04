@@ -40,6 +40,16 @@ namespace AuxCore.Models
         public string dt { get; set; }
         public string txid { get; set; }
     }
+    public class TxMsg : APIResult
+    {
+        public string transaction { get; set; }
+        public string signature { get; set; }
+        public string pubkey { get; set; }
+    }
+    public class BroadcastMsg : APIResult
+    {
+        public string msg { get; set; }
+    }
     public class TxRecords : APIResult
     {
         public TXRecord[] records;

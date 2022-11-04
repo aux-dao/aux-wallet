@@ -10,16 +10,29 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
+using AuxCore;
+using OX;
+using OX.Wallets;
 
 namespace AuxWallet
 {
     public partial class TransferForm : MaterialForm
     {
-        private readonly MaterialSkinManager materialSkinManager;
-        bool isImport;
-        public TransferForm(bool import = false)
+        public class contactItem
         {
-            this.isImport = import;
+            public LightContact contact;
+            public override string ToString()
+            {
+                return $"{contact.Name}    /      {contact.Address.ToAddress()}";
+            }
+        }
+        private readonly MaterialSkinManager materialSkinManager;
+        LightWallet Wallet;
+        public string AssetId { get; private set; }
+        public TransferForm(LightWallet wallet, string assetId)
+        {
+            this.Wallet = wallet;
+            this.AssetId = assetId;
             InitializeComponent();
 
             // Initialize MaterialSkinManager
@@ -33,39 +46,33 @@ namespace AuxWallet
             materialSkinManager.AddFormToManage(this);
             //materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             //materialSkinManager.ColorScheme = new MaterialColorScheme(MaterialPrimary.Indigo500, MaterialPrimary.Indigo700, MaterialPrimary.Indigo100, MaterialAccent.Pink200, MaterialTextShade.WHITE);
-            this.AcceptButton = this.bt_Add;
-            this.CancelButton = this.bt_Add;
-            this.bt_Add.DialogResult = DialogResult.OK;
+            this.AcceptButton = this.bt_transfer;
+            this.CancelButton = this.bt_transfer;
+            this.bt_transfer.DialogResult = DialogResult.OK;
         }
+        public string Amount
+        {
+            get
+            {
+                return this.tb_amount.Text;
+            }
+        }
+
         public string Address
         {
             get
             {
-                return this.tb_addr.Text;
+                return tb_address.Text;
             }
         }
 
-        public string ContactName
-        {
-            get
-            {
-                return tb_name.Text;
-            }
-        }
-        public string Remark
-        {
-            get
-            {
-                return tb_remark.Text;
-            }
-        }
         void Init()
         {
-            this.tb_addr.Hint = Locator.Case("Contact Address", "联系人地址");
-            this.tb_name.Hint = Locator.Case("Contact Name", "联系人名称");
-            this.tb_remark.Hint = Locator.Case("Contact Remark", "联系人备注");
-            this.bt_Add.Text = Locator.Case("Add Now", "马上添加");
+            this.tb_amount.Hint = Locator.Case("Amount", "金额");
+            this.tb_address.Hint = Locator.Case("Address", "地址");
+            this.bt_transfer.Text = Locator.Case("Transfer Now", "马上转帐");
             this.bt_close.Text = Locator.Case("Close", "关闭");
+            this.cb_contacts.Hint = Locator.Case("Select Contact", "选择联系人");
             DrawerUseColors = true;
             DrawerHighlightWithAccent = true;
             DrawerBackgroundWithAccent = true;
@@ -74,8 +81,12 @@ namespace AuxWallet
             this.FormStyle = FormStyles.ActionBar_None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-             
-
+            //this.cb_contacts.Items.Add(new contactItem { contact = contact });
+            if (this.Wallet.contacts.IsNotNullAndEmpty())
+                foreach (var contact in this.Wallet.contacts.Values)
+                {
+                    this.cb_contacts.Items.Add(new contactItem { contact = contact });
+                }
         }
 
 
@@ -90,6 +101,16 @@ namespace AuxWallet
         private void bt_close_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cb_contacts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var obj = this.cb_contacts.SelectedItem;
+            if (obj.IsNotNull())
+            {
+                var ct = obj as contactItem;
+                this.tb_address.Text = ct.contact.Address.ToAddress();
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace AuxCore.Models
 {
     public class WalletAPI
     {
-       
+
         static WalletAPI _instance;
         public static WalletAPI Instance
         {
@@ -88,6 +88,45 @@ namespace AuxCore.Models
             if (str.IsNotNullAndEmpty())
             {
                 var p = JsonConvert.DeserializeObject<TxRecords>(str);
+                return p;
+            }
+            return default;
+        }
+        public TxMsg BuildTransfer(string sourceAddress, string desAddress, int assetKind, string amount)
+        {
+            Random rd = new Random();
+            string url = $"/api/Transfer";
+            var query = $"source={sourceAddress}&assetId={assetKind}&dests={desAddress}&amounts={amount}&r={rd.Next()}";
+            var str = APIHelper.Get(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<TxMsg>(str);
+                return p;
+            }
+            return default;
+        }
+        public TxMsg BuildAssetTransfer(string sourceAddress, string desAddress, string assetId, string amount)
+        {
+            Random rd = new Random();
+            string url = $"/api/TransferAsset";
+            var query = $"source={sourceAddress}&assetId={assetId}&dests={desAddress}&amounts={amount}&r={rd.Next()}";
+            var str = APIHelper.Get(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<TxMsg>(str);
+                return p;
+            }
+            return default;
+        }
+        public BroadcastMsg BroadcastTransaction(int txkind, string publicKey, string signature, string transaction)
+        {
+            Random rd = new Random();
+            string url = $"/api/Broadcast";
+            var query = $"txkind={txkind}&publicKey={publicKey}&signature={signature}&transaction={transaction}&r={rd.Next()}";
+            var str = APIHelper.Post(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<BroadcastMsg>(str);
                 return p;
             }
             return default;

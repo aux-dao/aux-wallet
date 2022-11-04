@@ -18,7 +18,11 @@ using OX.Cryptography.ECC;
 using OX.SmartContract;
 using System.Security.Cryptography.X509Certificates;
 using OX.Cryptography;
+using OX.IO;
 using System.Security.Cryptography.Xml;
+using OX.Network.P2P.Payloads;
+using OX.Network.P2P;
+using System.IO;
 
 namespace AuxWallet
 {
@@ -84,6 +88,7 @@ namespace AuxWallet
             this.tb_privateKey.Hint = Locator.Case("Wallet Private Key", "钱包私钥");
 
             this.bt_queryAsset.Text = Locator.Case("Query Assets", "查询资产");
+            this.bt_copyAddress.Text = Locator.Case("Copy Account Address", "复制账户地址");
             this.bt_queryInHistory.Text = Locator.Case("Query In History", "查询转入记录");
             this.bt_queryOutHistory.Text = Locator.Case("Query Out History", "查询转出记录");
             this.bt_addContact.Text = Locator.Case("Add Contact", "添加联系人");
@@ -248,14 +253,14 @@ namespace AuxWallet
             this.lb_assets.Items.Clear();
             if (balance.IsNotNull())
             {
-                this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXS            {balance.oxs}", SecondaryText = Blockchain.OXS.ToString() });
-                this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXC            {balance.oxc}", SecondaryText = Blockchain.OXC.ToString() });
+                this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXS            {balance.oxs}", SecondaryText = Blockchain.OXS.ToString(), Tag = Blockchain.OXS.ToString() });
+                this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXC            {balance.oxc}", SecondaryText = Blockchain.OXC.ToString(), Tag = Blockchain.OXC.ToString() });
             }
 
             if (assetbalances.IsNotNull() && assetbalances.result)
                 foreach (var assetBalance in assetbalances.balances)
                 {
-                    this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"{assetBalance.assetname}            {assetBalance.amount}", SecondaryText = assetBalance.assetid });
+                    this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"{assetBalance.assetname}            {assetBalance.amount}", SecondaryText = assetBalance.assetid, Tag = assetBalance.assetid });
                 }
         }
 
@@ -328,6 +333,87 @@ namespace AuxWallet
                     SnackBarMessage.Show(this);
                 }
             }
+        }
+
+        private void lb_assets_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var obj = this.lb_assets.SelectedItem;
+            if (obj.IsNotNull())
+            {
+                var assetId = obj.Tag as string;
+                using (var dialog = new TransferForm(this.Wallet, assetId))
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK) return;
+                    try
+                    {
+                        var addr = dialog.Address.ToScriptHash();
+                        var amt = Fixed8.Parse(dialog.Amount);
+                        int assetKind = 0;
+                        if (assetId == Blockchain.OXS.ToString())
+                        {
+                            assetKind = 1;
+                        }
+                        else if (assetId == Blockchain.OXC.ToString())
+                        {
+                            assetKind = 2;
+                        }
+                        TxMsg txMsg;
+                        if (assetKind == 0)
+                        {
+                            txMsg = WalletAPI.Instance.BuildAssetTransfer(this.Address, addr.ToAddress(), assetId, dialog.Amount);
+                        }
+                        else
+                        {
+                            txMsg = WalletAPI.Instance.BuildTransfer(this.Address, addr.ToAddress(), assetKind, dialog.Amount);
+                        }
+                        if (txMsg.IsNotNull() && Locator.spvlidators.Contains(txMsg.pubkey))
+                        {
+                            var pubkey = ECPoint.DecodePoint(txMsg.pubkey.HexToBytes(), ECCurve.Secp256r1);
+                            var txData = txMsg.transaction.HexToBytes();
+                            var ok = Crypto.Default.VerifySignature(txData, txMsg.signature.HexToBytes(), pubkey.EncodePoint(true));
+                            if (ok)
+                            {
+                                ContractTransaction ct = new ContractTransaction()
+                                {
+                                    Attributes = new TransactionAttribute[0],
+                                    Witnesses = new Witness[0]
+                                };
+                                using (MemoryStream ms = new MemoryStream(txData, false))
+                                using (BinaryReader reader = new BinaryReader(ms, Encoding.UTF8))
+                                {
+                                    IVerifiable verifiable = ct as IVerifiable;
+                                    verifiable.DeserializeUnsigned(reader);
+                                }
+                                //var ct = txData.DeserilizeTransaction((byte)TransactionType.ContractTransaction) as ContractTransaction;
+                                if (ct.IsNotNull())
+                                {
+                                    ct = new TransactionHelper(ct, this.Account).Build();
+                                    var data = ct.ToArray();
+                                    var signature = data.Sign(this.Account.GetKey()).ToHexString();
+                                    var pk = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
+                                    var bm = WalletAPI.Instance.BroadcastTransaction(128, pk, signature, data.ToHexString());
+                                    if (bm.result)
+                                    {
+                                        MaterialSnackBar SnackBarMessage = new(Locator.Case("post transaction broadcast request", "交易广播请求已提交"), 750);
+                                        SnackBarMessage.Show(this);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void bt_copyAddress_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(this.Address);
+            MaterialSnackBar SnackBarMessage = new(Locator.Case($"address  {this.Address}   copied", $"地址  {this.Address}   已复制"), 750);
+            SnackBarMessage.Show(this);
         }
     }
 }
