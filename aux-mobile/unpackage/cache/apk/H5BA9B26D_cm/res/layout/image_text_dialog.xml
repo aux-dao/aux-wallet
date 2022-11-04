@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:padding="12.0dip" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/dialog_title" android:paddingTop="8.0dip" android:paddingBottom="8.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="14.0sp" android:textColor="@color/image_color_primary" android:layout_gravity="center_vertical" android:id="@id/tv_cancel" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/dcloud_gallery_edit_image_cancel" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/image_color_white" android:layout_gravity="end|center" android:id="@id/tv_done" android:background="@drawable/image_btn_finish" android:paddingLeft="16.0dip" android:paddingTop="6.0dip" android:paddingRight="16.0dip" android:paddingBottom="6.0dip" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/dcloud_gallery_edit_image_done" />
+    </FrameLayout>
+    <EditText android:textSize="40.0sp" android:textStyle="bold" android:textColor="@color/image_color_primary" android:gravity="top" android:id="@id/et_text" android:background="@drawable/image_edit_trans_background" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="22.0dip" android:minHeight="30.0dip" android:hint=" " android:cursorVisible="true" android:includeFontPadding="false" android:layout_below="@id/dialog_title" android:inputType="textMultiLine" android:textCursorDrawable="@drawable/image_edit_cursor" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
+        <TextView android:textSize="24.0sp" android:textStyle="bold" android:textColor="@color/image_color_backgroud" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/textview_1" android:background="@drawable/image_bg_edit_check" android:layout_width="32.0dip" android:layout_height="32.0dip" android:text="T" android:layout_marginEnd="6.0dip" />
+        <include android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6.0dip" layout="@layout/image_color_layout" />
+    </LinearLayout>
+</RelativeLayout>

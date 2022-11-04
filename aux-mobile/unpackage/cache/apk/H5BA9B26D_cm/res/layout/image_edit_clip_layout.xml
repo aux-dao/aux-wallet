@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.dcloud.feature.gallery.imageedit.view.WindowInsertLinearLayout android:gravity="bottom" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:weightSum="100.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="bottom" android:orientation="vertical" android:background="@drawable/image_bg_bottom" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="20.0">
+        <RelativeLayout android:orientation="horizontal" android:paddingTop="16.0dip" android:paddingBottom="20.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <ImageButton android:layout_gravity="center_vertical" android:id="@id/ib_clip_cancel" android:background="@null" android:padding="8.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@mipmap/dcloud_gallery_edit_cancel" android:onClick="onClick" android:contentDescription="@string/dcloud_gallery_edit_image_cancel" android:layout_marginStart="40.0dip" />
+            <ImageButton android:layout_gravity="end|center" android:id="@id/ib_clip_done" android:background="@null" android:padding="8.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@mipmap/dcloud_gallery_edit_ok" android:onClick="onClick" android:contentDescription="@string/dcloud_gallery_edit_image_done" android:layout_marginEnd="40.0dip" android:layout_alignParentEnd="true" />
+            <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_toStartOf="@id/ib_clip_done" android:layout_toEndOf="@id/ib_clip_cancel">
+                <TextView android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="2.0" />
+                <ImageButton android:id="@id/tv_clip_reset" android:background="@null" android:paddingTop="8.0dip" android:paddingBottom="8.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@mipmap/dcloud_gallery_edit_revert" android:layout_weight="1.0" android:onClick="onClick" android:contentDescription="@string/dcloud_gallery_edit_image_reset" />
+                <TextView android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
+                <ImageButton android:id="@id/ib_clip_rotate" android:background="@null" android:paddingTop="8.0dip" android:paddingBottom="8.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@mipmap/dcloud_gallery_edit_rotate" android:layout_weight="1.0" android:onClick="onClick" android:contentDescription="@string/dcloud_gallery_edit_image_rotate" />
+                <TextView android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="2.0" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</io.dcloud.feature.gallery.imageedit.view.WindowInsertLinearLayout>
