@@ -63,66 +63,6 @@ namespace AuxWallet.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap _111201 {
-            get {
-                object obj = ResourceManager.GetObject("111201", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap _372649 {
-            get {
-                object obj = ResourceManager.GetObject("372649", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap _475841 {
-            get {
-                object obj = ResourceManager.GetObject("475841", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap _542249 {
-            get {
-                object obj = ResourceManager.GetObject("542249", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap _579840 {
-            get {
-                object obj = ResourceManager.GetObject("579840", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap _579841 {
-            get {
-                object obj = ResourceManager.GetObject("579841", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         internal static System.Drawing.Bitmap application_16x {
             get {
                 object obj = ResourceManager.GetObject("application_16x", resourceCulture);
@@ -507,16 +447,6 @@ namespace AuxWallet.Properties {
             get {
                 object obj = ResourceManager.GetObject("StatusAnnotations_Information_16xMD_color", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Icon Taiizor {
-            get {
-                object obj = ResourceManager.GetObject("Taiizor", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
             }
         }
         

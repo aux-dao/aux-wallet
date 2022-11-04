@@ -103,7 +103,7 @@ namespace AuxWallet
 
         private void bt_close_Click(object sender, EventArgs e)
         {
-
+            Application.Exit();
         }
 
         private void bt_new_Click(object sender, EventArgs e)

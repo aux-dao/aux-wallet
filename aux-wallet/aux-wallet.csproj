@@ -15,7 +15,7 @@
     <StartupObject>AuxWallet.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Taiizor.ico</ApplicationIcon>
+    <ApplicationIcon>au1d3-nwp57-001.ico</ApplicationIcon>
     <RootNamespace>AuxWallet</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
@@ -78,7 +78,7 @@
     <Content Include="Resources\round_phone_black_24dp.png" />
     <Content Include="Resources\StatusAnnotations_Information_16xLG_color.png" />
     <Content Include="Resources\StatusAnnotations_Information_16xMD_color.png" />
-    <Content Include="Resources\Taiizor.ico" />
+    <Content Include="au1d3-nwp57-001.ico" />
     <Content Include="Resources\Twitter.png" />
   </ItemGroup>
   <ItemGroup>
