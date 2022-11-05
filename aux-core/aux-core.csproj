@@ -35,10 +35,4 @@
 	  </Reference>
 	</ItemGroup>
 
-
-
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="copy $(TargetPath)  E:\Data\Source\AU-X\OX\OX-Wallets\ox.notecase\bin\Debug\net6.0-windows\bapps\casino\" />
-	</Target>
-
 </Project>
