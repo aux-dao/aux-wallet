@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.mui-bar-nav {
+				background-color: #d74b28 !important;
+			}
+			
+			.mui-title {
+				color: #FFFFFF !important;
+			}
+			
+			.mui-action-back {
+				color: #FFFFFF !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">创建联系人</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>名称</label>
+					<input id='contactname' type="text" class="mui-input-clear mui-input" placeholder="请输入联系人名称">
+				</div>
+				<div class="mui-input-row">
+					<label>地址</label>
+					<input id='contactaddress' type="text" class="mui-input-clear mui-input " placeholder="请输入联系人账户地址">
+				</div>
+
+			</form>
+			<div class="mui-content-padded">
+				<button id='reg' class="mui-btn mui-btn-block mui-btn-danger">创建</button>
+			</div>
+
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/appBundle.js"></script>
+		<script src="../js/begin.js"></script>
+		<script>
+			var Reg = /A[F-HJ-NP-Za-f][1-9A-HJ-NP-Za-km-z]{32}/;
+			(function() {
+				mui.init({
+					swipeBack: true,
+					statusBarBackground: '#d74b28',
+					beforeback: function() {
+						//获得列表界面的webview
+						var list = plus.webview.currentWebview().opener();
+						
+						//触发列表界面的自定义事件（refresh）,从而进行数据刷新  
+						mui.fire(list, 'refresh');
+						//返回true，继续页面关闭逻辑
+						return true;
+					}
+				});
+				mui.plusReady(function() {
+					plus.navigator.setStatusBarBackground("#d74b28");
+
+					var regButton = document.getElementById('reg');
+					var contactnameBox = document.getElementById('contactname');
+					var contactaddressBox = document.getElementById('contactaddress');
+
+					regButton.addEventListener('tap', function(event) {
+
+						var name = contactnameBox.value;
+						var address = contactaddressBox.value;
+						var contacts;
+						if(Reg.test(address)) {
+							GT.UI.Contacts.Contact.instance().then(function(result) {
+								contacts = result;
+								return contacts.get();
+							}).then(function(result) {
+								if(result.indexOf(name) >= 0) {
+									clearContact();
+									plus.nativeUI.toast('联系人已存在');
+								}
+								return contacts.add(name, address);
+							}).then(function(wallet) {
+								plus.nativeUI.toast('联系人创建成功');
+								clearContact();
+							}).catch(function(e) {
+								plus.nativeUI.toast(e);
+							});
+						} else {
+							plus.nativeUI.toast('地址格式不正确');
+						}
+
+					});
+					var clearContact = function() {
+						contactnameBox.value = '';
+						contactaddressBox.value = '';
+					};
+				});
+			})();
+		</script>
+	</body>
+
+</html>

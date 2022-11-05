@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+
+			.title {
+				padding: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+				background-color: #fff;
+			}
+
+			.mui-bar-nav {
+				background-color: #d74b28 !important;
+			}
+
+			.mui-icon-plus,
+			.mui-icon-bars {
+				color: #FFFFFF !important;
+			}
+
+			.mui-title {
+				color: #FFFFFF !important;
+			}
+
+			.mui-slider-handle {
+				padding-right: 110px;
+			}
+
+			.address {
+				font-size: 12px !important;
+			}
+
+			/*.mui-row.mui-fullscreen>[class*="mui-col-"] {
+				height: 79%;
+			}
+			
+			.mui-col-xs-3,
+			.mui-control-content {
+				overflow-y: auto;
+				height: 100%;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				line-height: 50px;
+				width: 100%;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				background-color: #fff;
+			}
+			
+			.bet {
+				padding-left: 2px !important;
+				padding-right: 2px !important;
+				margin-right: 10px !important;
+			}
+			
+			.mui-col-xs-3,
+			.mui-col-xs-9 {
+				height: 79% !important;
+			}
+			
+			.bethead {
+				width: 100%;
+				height: 21% !important;
+				padding-left: 5px;
+				padding-right: 5px;
+			}
+			
+			.betamt {
+				margin-top: 5px;
+				margin-left: 5px;
+				margin-right: 5px;
+				width: 47% !important;
+				height: 40px !important;
+			}
+			
+			.dobet {
+				margin-top: 5px;
+				margin-left: 5px;
+				margin-right: 5px;
+				width: 47%;
+				height: 40px !important;
+			}*/
+			
+		</style>
+		<style id="gambler_sl" type="text/css"></style>
+		<script id="gambler_st" type="text/javascript"></script>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<!-- <a class="mui-icon mui-icon-bars mui-pull-left"></a> -->
+			<!-- <a class="mui-icon mui-icon-plus mui-pull-right"></a> -->
+			<h1 id="roomno" class="mui-title">历史</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a class="mui-control-item mui-active " fw="0" href="#item1mobile">
+							转入
+						</a>
+						<a class="mui-control-item" fw="1" href="#item2mobile">
+							转出
+						</a>
+
+					</div>
+				</div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view mui-table-view-chevron fw0">
+
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view mui-table-view-chevron fw1">
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.pullToRefresh.js"></script>
+		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<script src="../js/appBundle.js"></script>
+		<script type="text/javascript" src="../js/appui.js"></script>
+		<script src="../js/begin.js"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script type="text/javascript" src="../js/mui.custompoppicker.js"></script>
+		<!--<script type="text/javascript" src="../js/loadcss.js"></script>-->
+		<!--<script type="text/javascript" src="../js/immersed.js"></script>-->
+		<script>
+			mui.init({
+				swipeBack: false
+			});
+
+			mui.plusReady(function() {
+				var fw = 0;
+				var pageindex0 = 0;
+				var pageindex1 = 0;
+				mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+					mui(pullRefreshEl).pullToRefresh({
+						down: {
+							callback: function() {
+								var self = this;
+								if (fw == 0) {
+									pageindex0++;
+									refreshRoom(pageindex0, 1);
+								} else {
+									pageindex1++;
+									refreshRoom(pageindex1, 1);
+								}
+								self.endPullUpToRefresh();
+							}
+						},
+						up: {
+							callback: function() {
+								var self = this;
+								if (fw == 0) {
+									pageindex0++;
+									refreshRoom(pageindex0, 1);
+								} else {
+									pageindex1++;
+									refreshRoom(pageindex1, 1);
+								}
+								self.endPullUpToRefresh();
+							}
+						}
+					});
+				});
+				var createRecordsFragment = function(ul, records) {
+					var fragment = document.createDocumentFragment();
+					var li;
+					for (var i = 0; i < records.length; i++) {
+						var record = records[i];
+						li = document.createElement('li');
+						li.className = 'mui-table-view-cell godetail';
+						li.innerHTML ='<a class="godetail" txid=' + record.txid + '>' +  record.dt + '<h3 class="mui-primary">' + record.amount +
+							'</h3><span class="mui-badge mui-badge-danger">' + record.asset + '</span></a>';
+						fragment.appendChild(li);
+					}
+					return fragment;
+				};
+				window.addEventListener('relogin', function(e) {
+					gtapp.TryGetWallet(function(wt) {});
+				});
+				window.addEventListener('refreshrecord', function(e) {
+					refreshRoom(0, 0);
+				});
+				// mainbox = document.getElementById('main');
+				// var roomnobox = document.getElementById('roomno');
+				// var dealerselect = document.getElementById('dealerselect');
+				//选项卡点击事件
+				mui('.mui-scroll').on('tap', '.mui-control-item', function(e) {
+					fw = this.getAttribute('fw');
+					refreshRoom(0, 0);
+				});
+				mui('.mui-bar').on('tap', '.mui-pull-right', function() {
+
+				});
+				mui('.mui-bar').on('tap', '.mui-pull-left', function() {
+
+				});
+				var refreshRoom = function(pageindex, flag) {
+					gtapp.TryGetWallet(function(wt) {
+						wt.getContracts()[0].getAddress().then(function(result) {
+							if (fw == 0) {
+								gtapp.PullInRecords(result, pageindex, function(response) {
+									if (response.result) {
+										var ul = document.querySelector('.fw0');
+										if (flag == 0) {
+											ul.innerHTML = "";
+											pageindex0 = 0;
+										}
+										ul.appendChild(createRecordsFragment(ul, response.records));
+
+									}
+								});
+							} else {
+								gtapp.PullOutRecords(result, pageindex, function(response) {
+									if (response.result) {
+										var ul = document.querySelector('.fw1');
+										if (flag == 0) {
+											ul.innerHTML = "";
+											pageindex0 = 0;
+										}
+										ul.appendChild(createRecordsFragment(ul, response.records));
+									}
+								});
+							}
+						});
+					});
+					mui('.mui-table-view').on('tap', '.godetail', function(e) {
+						var txid = this.getAttribute('txid');
+						mui.openWindow({
+							id: 'tx.html',
+							url: 'tx.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							extras: { //extras里面的就是参数了
+								txid: txid
+							},
+							waiting: {
+								autoShow: true, //自动显示等待框，默认为true
+							}
+						});
+					});
+				};
+				refreshRoom(0, 0);
+			});
+		</script>
+	</body>
+
+</html>

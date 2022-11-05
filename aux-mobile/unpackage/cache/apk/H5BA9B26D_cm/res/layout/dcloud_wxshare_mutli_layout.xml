@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/dcloud_pd_root" android:background="@drawable/dcloud_wxpay_longding_bg" android:padding="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <ProgressBar android:layout_gravity="center_horizontal" android:id="@id/dcloud_wxpay_pb_loading" android:layout_width="30.0dip" android:layout_height="30.0dip" android:indeterminateDrawable="@drawable/dcloud_wxpay_circle_white_progress" android:indeterminateDuration="1000" android:minWidth="3.0dip" android:minHeight="3.0dip" />
+        <ImageView android:id="@id/dcloud_wxpay_iv_loading" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <View android:id="@id/dcloud_wxpay_view_seaparator" android:layout_width="10.0dip" android:layout_height="10.0dip" />
+        <TextView android:textColor="#ffffffff" android:gravity="center" android:id="@id/dcloud_wxpay_tv_loading" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginRight="10.0dip" />
+    </LinearLayout>
+</LinearLayout>

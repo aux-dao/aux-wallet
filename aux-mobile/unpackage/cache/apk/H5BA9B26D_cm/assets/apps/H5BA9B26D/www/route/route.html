@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+
+			.title {
+				padding: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+				background-color: #fff;
+			}
+
+			.mui-bar-nav {
+				background-color: #d74b28 !important;
+			}
+
+			.mui-icon-plus {
+				color: #FFFFFF !important;
+			}
+
+			.mui-title {
+				color: #FFFFFF !important;
+			}
+
+			.mui-slider-handle {
+				padding-right: 110px;
+			}
+
+			.address {
+				font-size: 12px !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">私产</h1>
+		</header>
+
+		<div class="mui-content">
+			<ul id="contactlist" class="mui-table-view">
+
+			</ul>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/appBundle.js"></script>
+		<script src="../js/begin.js"></script>
+		<script src="../js/appui.js"></script>
+		<script>
+			mui.init({
+				swipeBack: true
+			});
+
+			mui.plusReady(function() {
+
+
+				window.addEventListener('refreshprivateasset', function(e) {
+					loadPrivateAssets();
+				});
+
+				var loadPrivateAssets = function() {					 
+					gtapp.TryGetWallet(function(wt) {
+						wt.getContracts()[0].getAddress().then(function(result) {							 
+							gtapp.PullPrivateAssets(result, function(response) {
+								if (response.result) {
+									var ul = document.querySelector('.mui-table-view');
+									ul.appendChild(createRecordsFragment(ul, response.balances));
+								}
+							});
+						});
+					});
+				};
+				var createRecordsFragment = function(ul, records) {
+					ul.innerHTML = "";
+					var fragment = document.createDocumentFragment();
+					var li;
+					for (var i = 0; i < records.length; i++) {
+						var record = records[i];
+						// alert(JSON.stringify(record));
+						li = document.createElement('li');
+						li.className = 'mui-table-view-cell  mui-collapse';
+						li.innerHTML = '<a>' + record.assetName + '<span class="mui-pull-right">' + record.amount + '</span></a>';
+						fragment.appendChild(li);
+					}
+					return fragment;
+				};
+				loadPrivateAssets();
+			});
+		</script>
+	</body>
+
+</html>

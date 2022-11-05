@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+
+			.mui-input-group label {
+				width: 22%;
+			}
+
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+
+			.mui-btn {
+				padding: 10px;
+			}
+
+			.mui-bar-nav {
+				background-color: #d74b28 !important;
+			}
+
+			.mui-title {
+				color: #FFFFFF !important;
+			}
+
+			.mui-action-back {
+				color: #FFFFFF !important;
+			}
+
+			label {
+				font-size: 12px !important;
+			}
+
+			#claim {
+				margin-left: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">提取OXC</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card">
+				<div class="mui-card-header">私有钱包分红</div>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<label>可提取</label>
+						<h4 id="availableGTC">
+							</h5>
+							<label>不可提取</label>
+							<h4 id="unAvailableGTC">
+								</h5>
+					</div>
+				</div>
+				<div class="mui-card-footer">
+					<button id='refreshGTC' class="mui-btn mui-btn-block mui-btn-primary">刷新</button>
+					<!--</div>
+					<div class="mui-card-footer">-->
+					<button id='claim' class="mui-btn mui-btn-block mui-btn-danger">马上提取</button>
+
+				</div>
+			</div>
+			<div class="mui-card">
+				<div class="mui-card-header">备用服务地址</div>
+				<ul id="urllist" class="mui-table-view">
+				</ul>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+
+						<input id='serverUrl' type="text" class="mui-input-clear mui-input mui-input-password" placeholder="输入服务端地址">
+
+					</div>
+				</div>
+				<div class="mui-card-footer">
+
+					<button id='addServerUri' class="mui-btn mui-btn-block mui-btn-primary">添加</button>
+				</div>
+			</div>
+			<script src="../js/mui.min.js"></script>
+			<script src="../js/appBundle.js"></script>
+			<script src="../js/appui.js"></script>
+			<script src="../js/begin.js"></script>
+			<script>
+				var Reg = /A[F-HJ-NP-Za-f][1-9A-HJ-NP-Za-km-z]{32}/;
+				(function() {
+					mui.init({
+						swipeBack: true,
+						statusBarBackground: '#d74b28'
+					});
+					mui.plusReady(function() {
+						plus.navigator.setStatusBarBackground("#d74b28");
+						var refreshGTCButton = document.getElementById('refreshGTC');
+						var regButton = document.getElementById('claim');
+						var addServerUriButton = document.getElementById('addServerUri');
+						var serverUrlText = document.getElementById('serverUrl');
+						var urllist = document.getElementById('urllist');
+						var availableGTCBox = document.getElementById('availableGTC');
+						var unAvailableGTCBox = document.getElementById('unAvailableGTC');
+						var trustGTCBox1 = document.getElementById('trustGTC1');
+						var trustGTCBox2 = document.getElementById('trustGTC2');
+						refreshGTCButton.addEventListener('tap', function(event) {
+							mui(refreshGTCButton).button('loading');
+							setTimeout(function() {
+								mui(refreshGTCButton).button('reset');
+								plus.nativeUI.toast('请求超時,可能是网络繁忙');
+							}, 20000);
+							gtapp.TryGetWallet(function(wt) {								
+								wt.getContracts()[0].getAddress().then(function(result) {
+									gtapp.PullClaim(result, function(response) {
+										availableGTCBox.innerText = response.available;
+										unAvailableGTCBox.innerText = response.unavailable;
+										mui(refreshGTCButton).button('reset');
+									});
+								});
+							});
+
+						});
+						regButton.addEventListener('tap', function(event) {
+							mui(regButton).button('loading');
+							setTimeout(function() {
+								mui(regButton).button('reset');
+								plus.nativeUI.toast('请求超時,可能是网络繁忙');
+							}, 20000);
+							gtapp.TryGetWallet(function(wt) {
+								gtapp.Claim(function(result) {
+									if (result.result) {
+										plus.nativeUI.toast("提取交易广播成功");
+									} else {
+										plus.nativeUI.toast("提取失败");
+									}
+									mui(regButton).button('reset');
+								});
+							});
+						});
+						addServerUriButton.addEventListener('tap', function(event) {
+							var newUrl = serverUrlText.value;
+
+							gtapp.VerifySpv(newUrl, function(data) {
+								if (data) {
+									var ns = appui.getSpvs();
+									if (!ns) {
+										ns = new Array();
+									}
+									ns.push(newUrl);
+									appui.setSpvs(ns);
+									doList();
+								}
+								else{
+									 
+								}
+							}, function(error) {
+								//				alert(error);
+							});
+							serverUrlText.value = '';
+						});
+						var doList = function() {
+							var ns = appui.getSpvs();
+							if (!ns) {
+								ns = new Array();
+							}
+							var html = '';
+							for (x in ns) {
+								var url = ns[x];
+								html = html + '<li class="mui-table-view-cell">' + url + '<button type="button"  spv="' + url +
+									'" class="mui-btn mui-btn-primary removespv">移除</button></li>';
+							}
+							urllist.innerHTML = html;
+							mui(".mui-table-view").on('tap', '.removespv', function() {
+								var spv = this.getAttribute("spv");
+								// alert(spv);
+								ns = appui.getSpvs();
+								if (ns) {
+									var nar = new Array();
+									for (x in ns) {
+										var url = ns[x];
+										if (url != spv) {
+											nar.push(url);
+										}
+									}
+									appui.setSpvs(nar);
+									doList();
+								}
+							})
+						};
+						doList();
+					});
+				})();
+			</script>
+	</body>
+
+</html>

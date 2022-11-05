@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="14.0sp" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="100.0dip" android:text="@string/dcloud_gallery_edit_image_enable_storage_tips" android:paddingStart="64.0dip" android:paddingEnd="64.0dip" />
+    <Button android:textSize="14.0sp" android:id="@id/image_btn_enable" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dip" android:text="@string/dcloud_gallery_edit_image_enable_storage_permission" />
+</LinearLayout>

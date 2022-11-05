@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>钱包</title>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.mui-bar-nav {
+				background-color: #d74b28 !important;
+			}
+			
+			.mui-title {
+				color: #FFFFFF !important;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #FFFFFF;
+				font-size: 15px;
+				padding-bottom: 51px;
+			}
+			
+			.mui-scroll {
+				margin-top: 44px;
+			}
+			
+			#address,
+			#trustaddress {
+				font-size: 12px !important;
+			}
+			
+			.inlinebutton {
+				margin-right: 30px;
+			}
+			
+			.mui-icon-bars,
+			.mui-icon-close {
+				color: #FFFFFF !important;
+			}
+			
+			.mui-pciker-list li {
+				font-size: 12px !important;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-bars mui-pull-left"></a>
+			<a class="mui-icon mui-icon-close mui-pull-right"></a>
+			<h1 id="hometitle" class="mui-title">钱包</h1>
+		</header>
+		<div id="maincontent" class="mui-content">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell mui-collapse">
+							<a>收款地址 <i id="address" class="mui-pull-right "></i></a>
+							<div class="mui-collapse-content">
+								<div class="mui-button-row">
+									<button id="sharemyaddress" class="mui-btn mui-btn-primary inlinebutton" type="button">分享收款地址</button>&nbsp;&nbsp;&nbsp;&nbsp;
+									<button id="backupwallet" class="mui-btn mui-btn-primary inlinebutton" type="button">备份私钥</button>
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell  mui-collapse">
+							<a>OXS<span id="GTS" class="mui-pull-right"></span></a>
+							<div class="mui-collapse-content">
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<input id="GTSAMT" type="text" class="mui-input-clear" placeholder="OXS转账金额">
+									</div>
+									<div class="mui-input-row">
+										<input id="GTSAddress" type="text" class="mui-input-clear" placeholder="收款地址">
+									</div>
+									<div class="mui-button-row">
+										<button id="selectContractGTS" class="mui-btn  mui-btn-primary inlinebutton" type="button">选择联系人</button>&nbsp;&nbsp;&nbsp;&nbsp;
+										<button id="GTSTransfer" class="mui-btn mui-btn-primary inlinebutton" type="button">立即转账</button>
+									</div>
+								</form>
+							</div>
+
+						</li>
+						<li class="mui-table-view-cell  mui-collapse">
+							<a>OXC<span id="GTC" class="mui-pull-right"></span></a>
+							<div class="mui-collapse-content">
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<input id="GTCAMT" type="text" class="mui-input-clear" placeholder="OXC转账金额">
+									</div>
+									<div class="mui-input-row">
+										<input id="GTCAddress" type="text" class="mui-input-clear" placeholder="收款地址">
+									</div>
+									<div class="mui-button-row">
+										<button id="selectContractGTC" class="mui-btn  mui-btn-primary inlinebutton" type="button">选择联系人</button>&nbsp;&nbsp;&nbsp;&nbsp;
+										<button id="GTCTransfer" class="mui-btn  mui-btn-primary inlinebutton" type="button">立即转账</button>
+									</div>
+								</form>
+							</div>
+
+						</li>
+
+					</ul>
+					<ul class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell">
+							<a id="mainheightrefresh">主链高度<span id="mainheight" class="mui-pull-right"></span></a>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<script src="js/util.js"></script>
+		<script type="text/javascript" src="js/appBundle.js"></script>
+		<script type="text/javascript" src="js/begin.js"></script>
+		<script type="text/javascript" src="js/mui.locker.js"></script>
+		<script type="text/javascript" src="js/appui.js"></script>
+		<script src="js/mui.picker.js"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<script type="text/javascript">
+			(function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				mui.plusReady(function() {
+					document.addEventListener("resume", function() {
+						var pwd = appui.getLockPwd();
+						if (pwd && pwd != '-1') {
+							gtapp.SetMarkState(true);
+							gtapp.toUnlock();
+						}
+					}, false);
+					if (!GT.Global.IsLogined()) {
+						gtapp.toLogin();
+					} else {
+						GT.Global.Wallet.getContracts()[0].getAddress().then(function(result) {
+
+							document.getElementById('address').innerText = result;
+						});
+					}
+					plus.screen.lockOrientation("portrait-primary"); // 仅支持竖屏显示，为了测试添加
+					plus.navigator.setStatusBarBackground("#d74b28");
+					window.addEventListener('relogin', function(e) {
+						gtapp.TryGetWallet(function(wt) {
+							refreshChain();
+							//TimerDo();
+							wt.getContracts()[0].getAddress().then(function(result) {
+								document.getElementById('address').innerText = result;
+							});
+						});
+
+					});
+					mui('.mui-bar').on('tap', '.mui-pull-left', function() {
+						var claimPage = plus.webview.getWebviewById("claim");
+						if (!claimPage) {
+							claimPage = mui.preload({
+								"id": 'claim',
+								"url": '/login/claim.html'
+							});
+							var id = setInterval(function() {
+									clearInterval(id);
+									mui.fire(claimPage, 'show', null);
+									claimPage.show("pop-in");
+								},
+								20);
+						} else {
+							claimPage.show("pop-in");
+						}
+					});
+					mui('.mui-bar').on('tap', '.mui-pull-right', function() {
+						gtapp.toLogin();
+					});
+					gtapp.PullHeight(function(result) {
+						document.getElementById('mainheight').innerText = result.height;
+
+					});
+
+					var self = plus.webview.currentWebview(),
+						leftPos = Math.ceil((window.innerWidth - 60) / 2); // 设置凸起大图标为水平居中
+
+					/**	
+					 * drawNativeIcon 绘制带边框的半圆，
+					 * 实现原理：
+					 *   id为bg的tag 创建带边框的圆
+					 *   id为bg2的tag 创建白色矩形遮住圆下半部分，只显示凸起带边框部分
+					 * 	 id为iconBg的红色背景图
+					 *   id为icon的字体图标
+					 *   注意创建先后顺序，创建越晚的层级越高
+					 */
+					var drawNativeIcon = util.drawNative('icon', {
+						bottom: '5px',
+						left: leftPos + 'px',
+						width: '60px',
+						height: '60px'
+					}, [{
+						tag: 'rect',
+						id: 'bg',
+						position: {
+							top: '1px',
+							left: '0px',
+							width: '100%',
+							height: '100%'
+						},
+						rectStyles: {
+							color: '#fff',
+							radius: '50%',
+							borderColor: '#ccc',
+							borderWidth: '1px'
+						}
+					}, {
+						tag: 'rect',
+						id: 'bg2',
+						position: {
+							bottom: '-0.5px',
+							left: '0px',
+							width: '100%',
+							height: '45px'
+						},
+						rectStyles: {
+							color: '#fff'
+						}
+					}, {
+						tag: 'rect',
+						id: 'iconBg',
+						position: {
+							top: '5px',
+							left: '5px',
+							width: '50px',
+							height: '50px'
+						},
+						rectStyles: {
+							color: '#d74b28',
+							radius: '50%'
+						}
+					}, {
+						tag: 'font',
+						id: 'icon',
+						text: '\ue60B', //此为字体图标Unicode码'\e600'转换为'\ue600'
+						position: {
+							top: '0px',
+							left: '5px',
+							width: '50px',
+							height: '100%'
+						},
+						textStyles: {
+							fontSrc: '_www/fonts/iconfont.ttf',
+							align: 'center',
+							color: '#fff',
+							size: '30px'
+						}
+					}]);
+					// append 到父webview中
+					self.append(drawNativeIcon);
+
+					//自定义监听图标点击事件
+					var active_color = '#fff';
+					drawNativeIcon.addEventListener('click', function(e) {
+						if (!gtapp.GetMarkState()) {
+							if (currIndex == 0) {
+								refreshChain();
+								plus.nativeUI.toast('刷新一次区块链状态');
+							} else if (currIndex == 2) {
+								plus.webview.all().forEach(function(view) {
+									mui.fire(view, 'refreshrecord');
+								});
+							}else if (currIndex == 3) {
+								plus.webview.all().forEach(function(view) {
+									mui.fire(view, 'refreshprivateasset');
+								});
+							}
+							// 重绘字体颜色
+							if (active_color == '#fff') {
+								drawNativeIcon.drawText('\ue60B', {}, {
+									fontSrc: '_www/fonts/iconfont.ttf',
+									align: 'center',
+									color: '#000',
+									size: '30px'
+								}, 'icon');
+								active_color = '#000';
+							} else {
+								drawNativeIcon.drawText('\ue60B', {}, {
+									fontSrc: '_www/fonts/iconfont.ttf',
+									align: 'center',
+									color: '#fff',
+									size: '30px'
+								}, 'icon');
+								active_color = '#fff';
+							}
+						}
+					});
+					// 中间凸起图标绘制及监听点击完毕
+
+					// 创建子webview窗口 并初始化
+					var aniShow = {};
+					util.initSubpage(aniShow);
+
+					var nview = plus.nativeObj.View.getViewById('tabBar'),
+						activePage = plus.webview.currentWebview(),
+						targetPage,
+						subpages = util.options.subpages,
+						pageW = window.innerWidth,
+						currIndex = 0;
+
+					/**
+					 * 根据判断view控件点击位置判断切换的tab
+					 */
+					nview.addEventListener('click', function(e) {
+						if (!gtapp.GetMarkState()) {
+							var clientX = e.clientX;
+							if (clientX > 0 && clientX <= parseInt(pageW * 0.25)) {
+								currIndex = 0;
+							} else if (clientX > parseInt(pageW * 0.25) && clientX <= parseInt(pageW * 0.45)) {
+								currIndex = 1;
+							} else if (clientX > parseInt(pageW * 0.45) && clientX <= parseInt(pageW * 0.8)) {
+								currIndex = 2;
+							} else {
+								currIndex = 3;
+							}
+							// 匹配对应tab窗口	
+							if (currIndex > 0) {
+								targetPage = plus.webview.getWebviewById(subpages[currIndex - 1]);
+							} else {
+								targetPage = plus.webview.currentWebview();
+							}
+
+							if (targetPage == activePage) {
+								return;
+							}
+
+							if (currIndex !== 4) {
+								//底部选项卡切换
+								util.toggleNview(currIndex);
+								// 子页面切换
+								util.changeSubpage(targetPage, activePage, aniShow);
+								//更新当前活跃的页面
+								activePage = targetPage;
+							}
+						}
+					});
+
+					var addressBox = document.getElementById('address');
+					var shareaddressButton = document.getElementById('sharemyaddress');
+					shareaddressButton.addEventListener('tap', function(event) {
+						var msg = addressBox.innerText;
+						if (msg)
+							shareSystem(msg);
+					});
+					// var sharetrustaddressButton = document.getElementById('trustaddress');
+					// sharetrustaddressButton.addEventListener()()('tap', function(event) {
+					// 	var msg = document.getElementById('trustaddress').innerText;
+					// 	if (msg)
+					// 		shareSystem(msg);
+					// });
+					var mainheightrefreshButton = document.getElementById('mainheightrefresh');
+					mainheightrefreshButton.addEventListener('tap', function(event) {
+						refreshChain();
+					});
+
+					var backupwalletButton = document.getElementById('backupwallet');
+					backupwalletButton.addEventListener('tap', function(event) {
+
+						mui.openWindow({
+							url: 'login/backup.html',
+							id: 'backup',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					});
+					var GTCTransferButton = document.getElementById('GTCTransfer');
+					var GTCAddressBox = document.getElementById('GTCAddress');
+					GTCTransferButton.addEventListener('tap', function(event) {
+						//						refreshChain();
+						mui(GTCTransferButton).button('loading');
+						setTimeout(function() {
+							mui(GTCTransferButton).button('reset');
+							plus.nativeUI.toast('超時,交易可能已失敗');
+						}, 20000);
+						var sourceAddress = addressBox.innerText;
+						var destAddress = GTCAddressBox.value;
+						var amt = document.getElementById('GTCAMT').value;
+						gtapp.Transfer(sourceAddress, destAddress, amt, OXC, function(resp) {
+							mui(GTCTransferButton).button('reset');
+							if (resp.result) {
+								GTCAddressBox.value = '';
+								document.getElementById('GTCAMT').value = '';
+								plus.nativeUI.toast("交易已广播,请等下一个区块确认");
+							} else {
+								alert("交易失败:" + resp.error);
+							}
+
+						});
+					});
+					var GTSTransferButton = document.getElementById('GTSTransfer');
+					var GTSAddressBox = document.getElementById('GTSAddress');
+					GTSTransferButton.addEventListener('tap', function(event) {
+						//						refreshChain();
+						mui(GTSTransferButton).button('loading');
+						setTimeout(function() {
+							mui(GTSTransferButton).button('reset');
+							plus.nativeUI.toast('超時,交易可能已失敗');
+						}, 20000);
+						
+						var sourceAddress = addressBox.innerText;
+						var destAddress = GTSAddressBox.value;
+						var amt = document.getElementById('GTSAMT').value;
+						
+						var reg = /^[1-9]\d*$/;
+						if (!reg.test(amt)) {
+							mui(GTSTransferButton).button('reset');
+							document.getElementById('GTSAMT').value = '';
+							plus.nativeUI.toast("OXS只能转整数,不可分割");
+							return;
+						}						
+						gtapp.Transfer(sourceAddress, destAddress, amt, OXS, function(resp) {
+							mui(GTSTransferButton).button('reset');
+							if (resp.result) {
+								GTSAddressBox.value = '';
+								document.getElementById('GTSAMT').value = '';
+								plus.nativeUI.toast("交易已广播,请等下一个区块确认");
+							} else {
+								alert("交易失败:" + resp.error);
+							}
+
+						});
+					});
+
+					function shareSystem(msg) {
+						var msg = {
+							content: msg
+						};
+						plus.share.sendWithSystem ? plus.share.sendWithSystem(msg, function() {}, function(e) {}) :
+							shareSystemNativeJS();
+					}
+					var shareSystemNativeJS = function() {
+						if (plus.os.name !== 'Android') {
+							plus.nativeUI.alert('此平台暂不支持系统分享功能!');
+							return;
+						}
+						var intent = new Intent(Intent.ACTION_SEND);
+
+						intent.putExtra(Intent.EXTRA_SUBJECT, 'Hello OX.GT');
+						intent.putExtra(Intent.EXTRA_TEXT, sharecontent.value);
+						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						main.startActivity(Intent.createChooser(intent, '系统分享Hello OX.GT'));
+					};
+
+					function refreshChain() {
+						gtapp.PullHeight(function(result) {
+							document.getElementById('mainheight').innerText = result.height;
+						});
+						gtapp.PullBalance(function(result) {
+							document.getElementById('GTS').innerText = result.oxs;
+							document.getElementById('GTC').innerText = result.oxc;
+
+							if (result.bizAccount) {
+								var bizAccount = result.bizAccount;
+								document.getElementById('trustaddress').innerText = bizAccount.trustAddress;
+
+								document.getElementById('trustGTS').value = bizAccount.gts;
+								document.getElementById('FrozenGTS').value = bizAccount.frozenGTS;
+								document.getElementById('trustGTC').value = bizAccount.gtc;
+								document.getElementById('FrozenGTC').value = bizAccount.frozenGTC;
+								appui.setTrustAddress(bizAccount.trustAddress);
+							}
+						});
+					}
+					var timeID;
+					var c = 15;
+					var hometitleBox = document.getElementById('hometitle');
+					var TimerDo = function() {
+						mui('body').progressbar({
+							progress: undefined
+						}).show();
+						timeID = setInterval(function() {
+							c = c - 1;
+							if (c <= 0) {
+								refreshChain();
+								c = 15;
+							}
+							//							hometitleBox.innerText = "资产    " + c;
+						}, 1000);
+					};
+					var StopTimer = function() {
+						mui('body').progressbar().hide();
+						clearInterval(timeID);
+					};
+
+					var selectContractGTS = document.getElementById('selectContractGTS');
+					var selectContractGTC = document.getElementById('selectContractGTC');
+
+					var SelectContact = function(self, resultbox) {
+						self.addEventListener('tap', function(event) {
+							var userPicker = new mui.PopPicker();
+
+							var contacts;
+							GT.UI.Contacts.Contact.instance().then(function(result) {
+								contacts = result;
+								return contacts.getContacts();
+							}).then(function(results) {
+								if (results.length > 0) {
+									var record = [];
+									var contactsArray = linq(results).orderByDescending(function(p) {
+										return p.name;
+									}).toArray();
+
+									mui.each(contactsArray, function(index, item) {
+										var s = {};
+										s.value = item.address;
+										s.text = item.name + '   ' + item.address;
+										record.push(s);
+									});
+									userPicker.setData(record);
+									userPicker.show(function(items) {
+										resultbox.value = items[0].value;
+										//返回 false 可以阻止选择框的关闭
+										//return false;
+									});
+								}
+							}).catch(function(e) {
+								plus.nativeUI.toast(e);
+							});
+
+						}, false);
+					};
+					SelectContact(selectContractGTS, GTSAddressBox);
+					SelectContact(selectContractGTC, GTCAddressBox);
+				});
+			})();
+		</script>
+	</body>
+
+</html>

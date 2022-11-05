@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <io.dcloud.feature.gallery.imageedit.view.IMGView android:id="@id/image_canvas" android:background="#ff000000" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <ViewSwitcher android:id="@id/vs_op" android:layout_width="fill_parent" android:layout_height="fill_parent" android:inAnimation="@anim/image_fade_in" android:outAnimation="@anim/image_fade_out">
+        <include layout="@layout/image_edit_opt_layout" />
+        <include layout="@layout/image_edit_clip_layout" />
+    </ViewSwitcher>
+</FrameLayout>

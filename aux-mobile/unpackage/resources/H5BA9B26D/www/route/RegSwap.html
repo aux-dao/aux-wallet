@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+
+			.mui-input-group label {
+				width: 22%;
+			}
+
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+
+			.mui-btn {
+				padding: 10px;
+			}
+
+			.mui-bar-nav {
+				background-color: #d74b28 !important;
+			}
+
+			.mui-title {
+				color: #FFFFFF !important;
+			}
+
+			.mui-action-back {
+				color: #FFFFFF !important;
+			}
+
+			label {
+				font-size: 12px !important;
+			}
+
+			#claim {
+				margin-left: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">Eth兑换地址</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card">
+				<div class="mui-card-header">OXS兑换地址</div>
+				<ul id="urllist" class="mui-table-view">
+				</ul>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<div id='oxsswapethadr' class="mui-text-left"></div>						
+					</div>
+				</div>
+				<div class="mui-card-footer">
+					<div id='oxsusdrate' class="mui-text-left"></div>	
+				</div>
+				<div class="mui-card-footer">
+					<button id='shareOXS' class="mui-btn mui-btn-block mui-btn-primary">分享OXS兑换地址</button>
+				</div>
+			</div>
+			<div class="mui-card">
+				<div class="mui-card-header">OXC兑换地址</div>
+				<ul id="urllist" class="mui-table-view">
+				</ul>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<div id='oxcswapethadr' class="mui-text-left"></div>						
+					</div>
+				</div>
+				<div class="mui-card-footer">
+					<button id='shareOXC' class="mui-btn mui-btn-block mui-btn-primary">分享OXC兑换地址</button>
+				</div>
+			</div>
+			<div class="mui-card">
+				<div class="mui-card-header">警告</div>
+				<ul id="urllist" class="mui-table-view">
+				</ul>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<div  class="mui-text-left"><h5 style="color:red;">单次兑换金额最少为0.1Ether,否则兑换无效,您的资金将丢失</h5></div>						
+					</div>
+				</div>				 
+			</div>
+			<script src="../js/mui.min.js"></script>
+			<script src="../js/appBundle.js"></script>
+			<script src="../js/appui.js"></script>
+			<script src="../js/begin.js"></script>
+			<script>
+				var Reg = /A[F-HJ-NP-Za-f][1-9A-HJ-NP-Za-km-z]{32}/;
+				(function() {
+					mui.init({
+						swipeBack: true,
+						statusBarBackground: '#d74b28'
+					});
+					mui.plusReady(function() {
+						plus.navigator.setStatusBarBackground("#d74b28");
+						var oxsswapethadr = document.getElementById('oxsswapethadr');	
+						var oxcswapethadr = document.getElementById('oxcswapethadr');	
+						var oxsusdrate = document.getElementById('oxsusdrate');	
+						var shareOXS = document.getElementById('shareOXS');
+						shareOXS.addEventListener('tap', function(event) {
+							var msg = oxsswapethadr.innerText;
+							if (msg)
+								shareSystem(msg);
+						});
+						var shareOXC = document.getElementById('shareOXC');
+						shareOXC.addEventListener('tap', function(event) {
+							var msg = oxcswapethadr.innerText;
+							if (msg)
+								shareSystem(msg);
+						});
+						gtapp.TryGetWallet(function(wt) {
+							// wt.getContracts()[0].getAddress().then(function(result) {
+								// gtapp.PullClaim(result, function(response) {
+								// 	availableGTCBox.innerText = response.available;
+								// 	unAvailableGTCBox.innerText = response.unavailable;
+								// 	mui(refreshGTCButton).button('reset');
+								// });
+								gtapp.GetSwapEth(function(resp){
+									var adrs=resp.split('/');
+									oxsswapethadr.innerText=adrs[0];
+									oxcswapethadr.innerText=adrs[1];
+									oxsusdrate.innerText='Eth按照市价折算为USDT后,每 '+adrs[2]+' USDT可兑换 1 oxs';
+								});
+							// });
+						});
+						
+					});
+				})();
+				function shareSystem(msg) {
+					var msg = {
+						content: msg
+					};
+					plus.share.sendWithSystem ? plus.share.sendWithSystem(msg, function() {}, function(e) {}) :
+						shareSystemNativeJS();
+				}
+				var shareSystemNativeJS = function() {
+					if (plus.os.name !== 'Android') {
+						plus.nativeUI.alert('此平台暂不支持系统分享功能!');
+						return;
+					}
+					var intent = new Intent(Intent.ACTION_SEND);
+				
+					intent.putExtra(Intent.EXTRA_SUBJECT, 'Hello OX.GT');
+					intent.putExtra(Intent.EXTRA_TEXT, sharecontent.value);
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					main.startActivity(Intent.createChooser(intent, '系统分享Hello OX.GT'));
+				};
+				
+			</script>
+	</body>
+
+</html>
