@@ -35,9 +35,15 @@ namespace AuxWallet
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.materialTabControl1 = new ReaLTaiizor.Controls.MaterialTabControl();
             this.tabAsset = new System.Windows.Forms.TabPage();
+            this.bt_claim = new ReaLTaiizor.Controls.MaterialButton();
+            this.lb_unavailable = new ReaLTaiizor.Controls.MaterialLabel();
+            this.lb_available = new ReaLTaiizor.Controls.MaterialLabel();
+            this.lb_title_unavailable = new ReaLTaiizor.Controls.MaterialLabel();
+            this.lb_title_available = new ReaLTaiizor.Controls.MaterialLabel();
             this.bt_queryAsset = new ReaLTaiizor.Controls.MaterialButton();
             this.lb_assets = new ReaLTaiizor.Controls.MaterialListBox();
             this.tabContacts = new System.Windows.Forms.TabPage();
+            this.bt_dig = new ReaLTaiizor.Controls.MaterialButton();
             this.lb_contacts = new ReaLTaiizor.Controls.MaterialListBox();
             this.bt_addContact = new ReaLTaiizor.Controls.MaterialButton();
             this.tabInHistory = new System.Windows.Forms.TabPage();
@@ -60,11 +66,6 @@ namespace AuxWallet
             this.bt_signout = new ReaLTaiizor.Controls.MaterialButton();
             this.bt_changeTheme = new ReaLTaiizor.Controls.MaterialButton();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
-            this.lb_title_available = new ReaLTaiizor.Controls.MaterialLabel();
-            this.lb_title_unavailable = new ReaLTaiizor.Controls.MaterialLabel();
-            this.lb_available = new ReaLTaiizor.Controls.MaterialLabel();
-            this.lb_unavailable = new ReaLTaiizor.Controls.MaterialLabel();
-            this.bt_claim = new ReaLTaiizor.Controls.MaterialButton();
             this.materialTabControl1.SuspendLayout();
             this.tabAsset.SuspendLayout();
             this.tabContacts.SuspendLayout();
@@ -109,6 +110,89 @@ namespace AuxWallet
             this.tabAsset.Size = new System.Drawing.Size(984, 622);
             this.tabAsset.TabIndex = 0;
             this.tabAsset.Text = "Asset";
+            // 
+            // bt_claim
+            // 
+            this.bt_claim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bt_claim.AutoSize = false;
+            this.bt_claim.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bt_claim.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_claim.Depth = 0;
+            this.bt_claim.HighEmphasis = true;
+            this.bt_claim.Icon = global::AuxWallet.Properties.Resources.round_swap_vert_white_24dp;
+            this.bt_claim.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            this.bt_claim.Location = new System.Drawing.Point(421, 2);
+            this.bt_claim.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
+            this.bt_claim.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.bt_claim.Name = "bt_claim";
+            this.bt_claim.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_claim.Size = new System.Drawing.Size(264, 53);
+            this.bt_claim.TabIndex = 83;
+            this.bt_claim.Text = "OUTLINE - HIGH - NORMAL";
+            this.bt_claim.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            this.bt_claim.UseAccentColor = false;
+            this.bt_claim.UseVisualStyleBackColor = true;
+            this.bt_claim.Click += new System.EventHandler(this.bt_claim_Click);
+            // 
+            // lb_unavailable
+            // 
+            this.lb_unavailable.AutoSize = true;
+            this.lb_unavailable.Depth = 0;
+            this.lb_unavailable.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.lb_unavailable.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.Subtitle2;
+            this.lb_unavailable.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lb_unavailable.HighEmphasis = true;
+            this.lb_unavailable.Location = new System.Drawing.Point(109, 29);
+            this.lb_unavailable.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lb_unavailable.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.lb_unavailable.Name = "lb_unavailable";
+            this.lb_unavailable.Size = new System.Drawing.Size(1, 0);
+            this.lb_unavailable.TabIndex = 82;
+            // 
+            // lb_available
+            // 
+            this.lb_available.AutoSize = true;
+            this.lb_available.Depth = 0;
+            this.lb_available.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.lb_available.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.Subtitle2;
+            this.lb_available.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lb_available.HighEmphasis = true;
+            this.lb_available.Location = new System.Drawing.Point(109, 5);
+            this.lb_available.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lb_available.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.lb_available.Name = "lb_available";
+            this.lb_available.Size = new System.Drawing.Size(1, 0);
+            this.lb_available.TabIndex = 81;
+            // 
+            // lb_title_unavailable
+            // 
+            this.lb_title_unavailable.AutoSize = true;
+            this.lb_title_unavailable.Depth = 0;
+            this.lb_title_unavailable.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.lb_title_unavailable.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.Button;
+            this.lb_title_unavailable.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lb_title_unavailable.Location = new System.Drawing.Point(15, 29);
+            this.lb_title_unavailable.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lb_title_unavailable.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.lb_title_unavailable.Name = "lb_title_unavailable";
+            this.lb_title_unavailable.Size = new System.Drawing.Size(57, 17);
+            this.lb_title_unavailable.TabIndex = 79;
+            this.lb_title_unavailable.Text = "BUTTON";
+            // 
+            // lb_title_available
+            // 
+            this.lb_title_available.AutoSize = true;
+            this.lb_title_available.Depth = 0;
+            this.lb_title_available.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.lb_title_available.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.Button;
+            this.lb_title_available.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lb_title_available.Location = new System.Drawing.Point(15, 5);
+            this.lb_title_available.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lb_title_available.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.lb_title_available.Name = "lb_title_available";
+            this.lb_title_available.Size = new System.Drawing.Size(57, 17);
+            this.lb_title_available.TabIndex = 78;
+            this.lb_title_available.Text = "BUTTON";
             // 
             // bt_queryAsset
             // 
@@ -156,6 +240,7 @@ namespace AuxWallet
             // tabContacts
             // 
             this.tabContacts.BackColor = System.Drawing.Color.White;
+            this.tabContacts.Controls.Add(this.bt_dig);
             this.tabContacts.Controls.Add(this.lb_contacts);
             this.tabContacts.Controls.Add(this.bt_addContact);
             this.tabContacts.ImageKey = "round_person_black_24dp.png";
@@ -166,6 +251,28 @@ namespace AuxWallet
             this.tabContacts.Size = new System.Drawing.Size(984, 622);
             this.tabContacts.TabIndex = 6;
             this.tabContacts.Text = "Contacts";
+            // 
+            // bt_dig
+            // 
+            this.bt_dig.AutoSize = false;
+            this.bt_dig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bt_dig.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_dig.Depth = 0;
+            this.bt_dig.HighEmphasis = true;
+            this.bt_dig.Icon = global::AuxWallet.Properties.Resources.baseline_favorite_border_black_24dp;
+            this.bt_dig.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            this.bt_dig.Location = new System.Drawing.Point(6, 3);
+            this.bt_dig.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
+            this.bt_dig.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.bt_dig.Name = "bt_dig";
+            this.bt_dig.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_dig.Size = new System.Drawing.Size(201, 53);
+            this.bt_dig.TabIndex = 23;
+            this.bt_dig.Text = "OUTLINE - HIGH - NORMAL";
+            this.bt_dig.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            this.bt_dig.UseAccentColor = false;
+            this.bt_dig.UseVisualStyleBackColor = true;
+            this.bt_dig.Click += new System.EventHandler(this.bt_dig_Click);
             // 
             // lb_contacts
             // 
@@ -676,89 +783,6 @@ namespace AuxWallet
             this.menuIconList.Images.SetKeyName(18, "arrow-autofit-right.png");
             this.menuIconList.Images.SetKeyName(19, "arrow-autofit-left.png");
             // 
-            // lb_title_available
-            // 
-            this.lb_title_available.AutoSize = true;
-            this.lb_title_available.Depth = 0;
-            this.lb_title_available.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.lb_title_available.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.Button;
-            this.lb_title_available.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lb_title_available.Location = new System.Drawing.Point(15, 5);
-            this.lb_title_available.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lb_title_available.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            this.lb_title_available.Name = "lb_title_available";
-            this.lb_title_available.Size = new System.Drawing.Size(57, 17);
-            this.lb_title_available.TabIndex = 78;
-            this.lb_title_available.Text = "BUTTON";
-            // 
-            // lb_title_unavailable
-            // 
-            this.lb_title_unavailable.AutoSize = true;
-            this.lb_title_unavailable.Depth = 0;
-            this.lb_title_unavailable.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.lb_title_unavailable.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.Button;
-            this.lb_title_unavailable.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lb_title_unavailable.Location = new System.Drawing.Point(15, 29);
-            this.lb_title_unavailable.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lb_title_unavailable.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            this.lb_title_unavailable.Name = "lb_title_unavailable";
-            this.lb_title_unavailable.Size = new System.Drawing.Size(57, 17);
-            this.lb_title_unavailable.TabIndex = 79;
-            this.lb_title_unavailable.Text = "BUTTON";
-            // 
-            // lb_available
-            // 
-            this.lb_available.AutoSize = true;
-            this.lb_available.Depth = 0;
-            this.lb_available.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.lb_available.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.Subtitle2;
-            this.lb_available.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lb_available.HighEmphasis = true;
-            this.lb_available.Location = new System.Drawing.Point(109, 5);
-            this.lb_available.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lb_available.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            this.lb_available.Name = "lb_available";
-            this.lb_available.Size = new System.Drawing.Size(1, 0);
-            this.lb_available.TabIndex = 81;
-            // 
-            // lb_unavailable
-            // 
-            this.lb_unavailable.AutoSize = true;
-            this.lb_unavailable.Depth = 0;
-            this.lb_unavailable.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.lb_unavailable.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.Subtitle2;
-            this.lb_unavailable.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lb_unavailable.HighEmphasis = true;
-            this.lb_unavailable.Location = new System.Drawing.Point(109, 29);
-            this.lb_unavailable.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lb_unavailable.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            this.lb_unavailable.Name = "lb_unavailable";
-            this.lb_unavailable.Size = new System.Drawing.Size(1, 0);
-            this.lb_unavailable.TabIndex = 82;
-            // 
-            // bt_claim
-            // 
-            this.bt_claim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bt_claim.AutoSize = false;
-            this.bt_claim.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.bt_claim.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.bt_claim.Depth = 0;
-            this.bt_claim.HighEmphasis = true;
-            this.bt_claim.Icon = global::AuxWallet.Properties.Resources.round_swap_vert_white_24dp;
-            this.bt_claim.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            this.bt_claim.Location = new System.Drawing.Point(421, 2);
-            this.bt_claim.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
-            this.bt_claim.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            this.bt_claim.Name = "bt_claim";
-            this.bt_claim.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.bt_claim.Size = new System.Drawing.Size(264, 53);
-            this.bt_claim.TabIndex = 83;
-            this.bt_claim.Text = "OUTLINE - HIGH - NORMAL";
-            this.bt_claim.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
-            this.bt_claim.UseAccentColor = false;
-            this.bt_claim.UseVisualStyleBackColor = true;
-            this.bt_claim.Click += new System.EventHandler(this.bt_claim_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -821,5 +845,6 @@ namespace AuxWallet
         private MaterialLabel lb_unavailable;
         private MaterialLabel lb_available;
         private MaterialButton bt_claim;
+        private MaterialButton bt_dig;
     }
 }

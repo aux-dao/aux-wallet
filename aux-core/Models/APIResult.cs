@@ -50,6 +50,10 @@ namespace AuxCore.Models
     {
         public string msg { get; set; }
     }
+    public class DigMsg : APIResult
+    {
+        public string count { get; set; }
+    }
     public class ClaimMsg : APIResult
     {
         public string available { get; set; }

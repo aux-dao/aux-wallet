@@ -157,5 +157,18 @@ namespace AuxCore.Models
             }
             return default;
         }
+        public DigMsg Dig(uint dateTs, string publicKey, string signature)
+        {
+            Random rd = new Random();
+            string url = $"/api/Dig";
+            var query = $"dateTs={dateTs}&publicKey={publicKey}&signature={signature}&r={rd.Next()}";
+            var str = APIHelper.Get(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<DigMsg>(str);
+                return p;
+            }
+            return default;
+        }
     }
 }

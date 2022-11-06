@@ -95,6 +95,7 @@ namespace AuxWallet
             this.bt_addContact.Text = Locator.Case("Add Contact", "添加联系人");
             this.lb_title_available.Text = Locator.Case("Available:", "可提取:");
             this.lb_title_unavailable.Text = Locator.Case("unavailable:", "不可提取:");
+            this.bt_dig.Text = Locator.Case("Dig", "打卡");
 
             StandbyApi = Settings.Default.ExtAPI;
             this.tb_backupapiurl.Text = StandbyApi;
@@ -462,6 +463,20 @@ namespace AuxWallet
                         }
                     }
                 }
+            }
+        }
+
+        private void bt_dig_Click(object sender, EventArgs e)
+        {
+            var ts = DateTime.Now.ToUniversalTime().Date.ToTimestamp();
+            var data = BitConverter.GetBytes(ts);
+            var signature = data.Sign(this.Account.GetKey()).ToHexString();
+            var pk = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
+            var bm = WalletAPI.Instance.Dig(ts, pk, signature);
+            if (bm.result)
+            {
+                MaterialSnackBar SnackBarMessage = new(Locator.Case("post dig request", "打卡已请求"), 750);
+                SnackBarMessage.Show(this);
             }
         }
     }
