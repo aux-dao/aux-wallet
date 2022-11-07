@@ -72,6 +72,7 @@ namespace AuxWallet
             this.tabContacts.Text = Locator.Case("Contacts", "联系人");
             this.tabInHistory.Text = Locator.Case("In History", "转入记录");
             this.tabOutHistory.Text = Locator.Case("Out History", "转出记录");
+            this.tabSignature.Text = Locator.Case("Signature", "数据签名");
             this.tabSetting.Text = Locator.Case("Setting", "设置");
 
             this.bt_changeTheme.Text = Locator.Case("Change Theme", "更换主题");
@@ -96,6 +97,10 @@ namespace AuxWallet
             this.lb_title_available.Text = Locator.Case("Available:", "可提取:");
             this.lb_title_unavailable.Text = Locator.Case("unavailable:", "不可提取:");
             this.bt_dig.Text = Locator.Case("Dig", "打卡");
+            this.rb_text.Text = "Text";
+            this.rb_hex.Text = "Hex";
+            this.bt_signature.Text = Locator.Case("Signature", "签名");
+            this.bt_copy.Text = Locator.Case("Copy Output", "复制签名");
 
             StandbyApi = Settings.Default.ExtAPI;
             this.tb_backupapiurl.Text = StandbyApi;
@@ -477,6 +482,56 @@ namespace AuxWallet
             {
                 MaterialSnackBar SnackBarMessage = new(Locator.Case("post dig request", "打卡已请求"), 750);
                 SnackBarMessage.Show(this);
+            }
+        }
+
+        private void bt_signature_Click(object sender, EventArgs e)
+        {
+            var intput = this.tb_input.Text;
+            if (intput.IsNullOrEmpty()) return;
+
+            byte[] raw, signedData = null;
+            try
+            {
+                if (rb_hex.Checked)
+                {
+                    raw = intput.HexToBytes();
+                }
+                else
+                {
+                    raw = Encoding.UTF8.GetBytes(intput);
+                }
+            }
+            catch (Exception err)
+            {
+                MaterialSnackBar SnackBarMessage = new(err.Message, 750);
+                SnackBarMessage.Show(this);
+                return;
+            }
+            var keys = this.Account.GetKey();
+            try
+            {
+                signedData = Crypto.Default.Sign(raw, keys.PrivateKey, keys.PublicKey.EncodePoint(false).Skip(1).ToArray());
+            }
+            catch (Exception err)
+            {
+                MaterialSnackBar SnackBarMessage = new(err.Message, 750);
+                SnackBarMessage.Show(this);
+                return;
+            }
+            this.tb_output.Text = signedData?.ToHexString();
+            MaterialSnackBar msg = new(Locator.Case("signature success,please copy it", "签名成功，请复制"), 750);
+            msg.Show(this);
+        }
+
+        private void bt_copy_Click(object sender, EventArgs e)
+        {
+            var str = this.tb_output.Text;
+            if (str.IsNotNullAndEmpty())
+            {
+                Clipboard.SetText(str);
+                MaterialSnackBar msg = new(Locator.Case("signature data copied", "签名已复制"), 750);
+                msg.Show(this);
             }
         }
     }
