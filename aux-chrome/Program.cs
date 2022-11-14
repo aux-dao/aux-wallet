@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Blazored.LocalStorage;
+using Blazored.SessionStorage;
 
-namespace aux_chrome
+namespace auxchrome
 {
     public static class Program
     {
@@ -18,6 +20,8 @@ namespace aux_chrome
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddBrowserExtensionServices();
+            builder.Services.AddBlazoredLocalStorageAsSingleton();
+            builder.Services.AddBlazoredSessionStorage();
             await builder.Build().RunAsync();
         }
     }

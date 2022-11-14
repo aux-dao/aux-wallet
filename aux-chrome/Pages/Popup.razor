@@ -1,8 +1,11 @@
 ﻿@page "/popup.html"
 @inherits BasePage
 @using System.Security.Cryptography
+@inject Blazored.SessionStorage.ISyncSessionStorageService sessionStorage
+@inject Blazored.LocalStorage.ISyncLocalStorageService localStorage
 
-<h1>@CreateAccount().ToAddress()</h1>
+<h1>@Locator.Case("Address","地址"): @CreateAccount().ToAddress()</h1>
+<h5>@sessionStorage.GetAccountState()</h5>
 @code {
     public UInt160 CreateAccount()
     {
