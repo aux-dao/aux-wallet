@@ -21,6 +21,20 @@
     <Content Remove="wwwroot\js\demo-theme.min.js" />
     <Content Remove="wwwroot\js\demo.min.js" />
     <Content Remove="wwwroot\js\tabler.min.js" />
+    <Content Remove="wwwroot\statics\favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\aux-core\aux-core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ox">
+      <HintPath>C:\ox\net6.0\ox.dll</HintPath>
+    </Reference>
+    <Reference Include="ox.vm">
+      <HintPath>C:\ox\net6.0\ox.vm.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

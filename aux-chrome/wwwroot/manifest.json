@@ -1,8 +1,13 @@
 ﻿{
   "manifest_version": 3,
-  "name": "aux_chrome Extension",
-  "description": "My browser extension built with Blazor WebAssembly",
+  "name": "AU-X Wallet",
+  "description": "AU-X wallet for OX-ECO blockchain",
   "version": "0.1",
+  "icons": {
+    "16": "statics/16.png",
+    "48": "statics/48.png",
+    "128": "statics/128.png"
+  },
   "background": {
     "service_worker": "BackgroundWorker.js",
     "type": "module"

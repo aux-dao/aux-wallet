@@ -1,4 +1,28 @@
 ﻿@page "/popup.html"
 @inherits BasePage
+@using System.Security.Cryptography
 
-<h1>My popup page 333</h1>
+<h1>@CreateAccount().ToAddress()</h1>
+@code {
+    public UInt160 CreateAccount()
+    {
+        byte[] privateKey = new byte[32];
+        using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+        {
+            rng.GetBytes(privateKey);
+        }
+        return CreateAccount(privateKey);
+    }
+    public UInt160 CreateAccount(byte[] privateKey)
+    {
+        KeyPair key = new KeyPair(privateKey);
+        NEP6Contract contract = new NEP6Contract
+            {
+                Script = Contract.CreateSignatureRedeemScript(key.PublicKey),
+                ParameterList = new[] { ContractParameterType.Signature },
+                ParameterNames = new[] { "signature" },
+                Deployed = false
+            };
+        return contract.ScriptHash;
+    }
+}
