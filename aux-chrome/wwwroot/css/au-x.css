@@ -1,0 +1,47 @@
+.secondtitle {
+    margin-left: 30px;
+    margin-right: 200px;
+}
+
+.blocktext30 {
+    margin-right: 12px;
+    font-size: 32px;
+    line-height: 39px;
+    letter-spacing: 0;
+    /*margin-right: 20px;*/
+    font-family: Gotham,sans-serif;
+    /*color: #fff;*/
+    /*font-size: 70px;*/
+    /*line-height: 86px;*/
+    font-weight: 700;
+    /*letter-spacing: -1.88px;*/
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.blocktext31 {
+    font-size: 32px;
+    line-height: 39px;
+    letter-spacing: 0;
+    font-family: Gotham,sans-serif;
+    /*color: #fff;*/
+    /*font-size: 70px;*/
+    /*line-height: 86px;*/
+    font-weight: 300;
+    /*letter-spacing: -1.88px;*/
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.blocktext32 {
+    font-size: 24px;
+    line-height: 39px;
+    letter-spacing: 0;
+    font-family: Gotham,sans-serif;
+    /*color: #fff;*/
+    /*font-size: 70px;*/
+    /*line-height: 86px;*/
+    font-weight: 100;
+    /*letter-spacing: -1.88px;*/
+   /* text-transform: uppercase;*/
+    white-space: nowrap;
+}
