@@ -33,10 +33,10 @@
 
   <ItemGroup>
     <Reference Include="ox">
-      <HintPath>C:\ox\net6.0\ox.dll</HintPath>
+      <HintPath>C:\ox\net7.0\ox.dll</HintPath>
     </Reference>
     <Reference Include="ox.vm">
-      <HintPath>C:\ox\net6.0\ox.vm.dll</HintPath>
+      <HintPath>C:\ox\net7.0\ox.vm.dll</HintPath>
     </Reference>
   </ItemGroup>
 

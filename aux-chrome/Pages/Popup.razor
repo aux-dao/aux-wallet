@@ -1,11 +1,14 @@
 ﻿@page "/popup.html"
 @inherits BasePage
 @using System.Security.Cryptography
+@using OX.Cryptography
 @inject Blazored.SessionStorage.ISyncSessionStorageService sessionStorage
 @inject Blazored.LocalStorage.ISyncLocalStorageService localStorage
 
 <h1>@Locator.Case("Address","地址"): @CreateAccount().ToAddress()</h1>
-<h5>@sessionStorage.GetAccountState()</h5>
+<WalletAuthorizeView>
+    <Authorized><h5>@context.Account.ScriptHash</h5></Authorized><NotAuthorized>n</NotAuthorized>
+</WalletAuthorizeView>
 @code {
     public UInt160 CreateAccount()
     {
@@ -18,6 +21,7 @@
     }
     public UInt160 CreateAccount(byte[] privateKey)
     {
+        //var scryptParameters = ScryptParameters.Default;
         KeyPair key = new KeyPair(privateKey);
         NEP6Contract contract = new NEP6Contract
             {
@@ -26,6 +30,9 @@
                 ParameterNames = new[] { "signature" },
                 Deployed = false
             };
+        //var nep2key = key.Export("ddd", scryptParameters.N, scryptParameters.R, scryptParameters.P);
+        var raw = System.Text.Encoding.UTF8.GetBytes("fdfdfdfd");
+        var signedData = Crypto.Default.Sign(raw, key.PrivateKey, key.PublicKey.EncodePoint(false).Skip(1).ToArray());
         return contract.ScriptHash;
     }
 }

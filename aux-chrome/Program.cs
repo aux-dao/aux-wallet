@@ -22,6 +22,7 @@ namespace auxchrome
             builder.Services.AddBrowserExtensionServices();
             builder.Services.AddBlazoredLocalStorageAsSingleton();
             builder.Services.AddBlazoredSessionStorage();
+            builder.Services.AddAuthorizationCore();
             await builder.Build().RunAsync();
         }
     }
