@@ -23,6 +23,7 @@
     <Content Remove="wwwroot\css\tabler.min.css" />
     <Content Remove="wwwroot\js\demo-theme.min.js" />
     <Content Remove="wwwroot\js\demo.min.js" />
+    <Content Remove="wwwroot\js\t.js" />
     <Content Remove="wwwroot\js\tabler.min.js" />
     <Content Remove="wwwroot\statics\favicon.ico" />
   </ItemGroup>

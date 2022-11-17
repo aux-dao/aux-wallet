@@ -4,12 +4,30 @@
 @using OX.Cryptography
 @inject Blazored.SessionStorage.ISyncSessionStorageService sessionStorage
 @inject Blazored.LocalStorage.ISyncLocalStorageService localStorage
+@inject IJSRuntime JS
 
 <h1>@Locator.Case("Address","地址"): @CreateAccount().ToAddress()</h1>
 <WalletAuthorizeView>
     <Authorized><h5>@context.Account.ScriptHash</h5></Authorized><NotAuthorized>n</NotAuthorized>
 </WalletAuthorizeView>
+<p>
+    <button @onclick="TriggerPrompt">按需加载JavaScript脚本</button>
+</p>
+
+<p>
+    @result
+</p>
 @code {
+    private IJSObjectReference module;
+    private string result;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import",
+                "/js/t.js");
+        }
+    }
     public UInt160 CreateAccount()
     {
         byte[] privateKey = new byte[32];
@@ -19,9 +37,9 @@
         }
         return CreateAccount(privateKey);
     }
-    public UInt160 CreateAccount(byte[] privateKey)
+    public  UInt160 CreateAccount(byte[] privateKey)
     {
-        //var scryptParameters = ScryptParameters.Default;
+        var scryptParameters = ScryptParameters.Default;
         KeyPair key = new KeyPair(privateKey);
         NEP6Contract contract = new NEP6Contract
             {
@@ -31,8 +49,15 @@
                 Deployed = false
             };
         //var nep2key = key.Export("ddd", scryptParameters.N, scryptParameters.R, scryptParameters.P);
-        var raw = System.Text.Encoding.UTF8.GetBytes("fdfdfdfd");
-        var signedData = Crypto.Default.Sign(raw, key.PrivateKey, key.PublicKey.EncodePoint(false).Skip(1).ToArray());
+        //var raw = System.Text.Encoding.UTF8.GetBytes("fdfdfdfd");
+        //var signedData = Crypto.Default.Sign(raw, key.PrivateKey, key.PublicKey.EncodePoint(false).Skip(1).ToArray());
+        var result = JS.InvokeAsync<string>("CreateOXWallet","/js/t.js");
         return contract.ScriptHash;
     }
+    private async Task TriggerPrompt()
+    {
+        result = await module.InvokeAsync<string>("showPrompt", "输入文字：");
+    }
 }
+
+
