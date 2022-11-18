@@ -40,6 +40,19 @@ namespace AuxCore.Models
         public string dt { get; set; }
         public string txid { get; set; }
     }
+    public class LockAsset
+    {
+        public long Value { get; set; }
+        public long Index { get; set; }
+        public int N { get; set; }
+        public string TxId { get; set; }
+        public string AssetId { get; set; }
+        public string AssetName { get; set; }
+        public string Address { get; set; }
+        public int IsTimeLock { get; set; }
+        public long LockExpiration { get; set; }
+        public string RecipientAddress { get; set; }
+    }
     public class TxMsg : APIResult
     {
         public string transaction { get; set; }
@@ -62,6 +75,10 @@ namespace AuxCore.Models
     public class TxRecords : APIResult
     {
         public TXRecord[] records;
+    }
+    public class LockAssets : APIResult
+    {
+        public LockAsset[] records;
     }
     public static class APIHelper
     {

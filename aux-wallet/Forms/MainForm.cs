@@ -69,6 +69,7 @@ namespace AuxWallet
             DrawerShowIconsWhenHidden = true;
             DrawerAutoShow = true;
             this.tabAsset.Text = Locator.Case("Assets", "资产");
+            this.tabLockAsset.Text = Locator.Case("Lock Assets", "锁仓资产");
             this.tabContacts.Text = Locator.Case("Contacts", "联系人");
             this.tabInHistory.Text = Locator.Case("In History", "转入记录");
             this.tabOutHistory.Text = Locator.Case("Out History", "转出记录");
@@ -89,6 +90,7 @@ namespace AuxWallet
             this.tb_privateKey.Hint = Locator.Case("Wallet Private Key", "钱包私钥");
 
             this.bt_queryAsset.Text = Locator.Case("Query Assets", "查询资产");
+            this.bt_RefreshLockAsset.Text = Locator.Case("Query Lock Assets", "查询锁仓资产");
             this.bt_claim.Text = Locator.Case("Claim Asset", "提取资产");
             this.bt_copyAddress.Text = Locator.Case("Copy Account Address", "复制账户地址");
             this.bt_queryInHistory.Text = Locator.Case("Query In History", "查询转入记录");
@@ -533,6 +535,32 @@ namespace AuxWallet
                 MaterialSnackBar msg = new(Locator.Case("signature data copied", "签名已复制"), 750);
                 msg.Show(this);
             }
+        }
+
+        private void bt_RefreshLockAsset_Click(object sender, EventArgs e)
+        {
+            this.lb_assets.Items.Clear();
+            var records = WalletAPI.Instance.GetLockAssets(this.Address, 0, 10000).records;
+            if (records.IsNotNull())
+                foreach (var asset in records)
+                {
+                    var lockType = string.Empty;
+                    var le = asset.LockExpiration.ToString();
+                    if (asset.IsTimeLock == 1)
+                    {
+                        lockType = Locator.Case("Time Lock", "时间锁定");
+                        le = ((uint)asset.LockExpiration).ToDateTime().ToString("yyyy-MM-dd HH:mm:ss");
+                    }
+                    else
+                    {
+                        lockType = Locator.Case("Block Lock", "区块锁定");
+                    }
+                    this.lb_assets.Items.Add(new MaterialListBoxItem
+                    {
+                        Text = $"{asset.AssetName}    {new Fixed8(asset.Value)}",
+                        SecondaryText = $"{lockType}:  {le}  {Locator.Case("expire", "到期")}"
+                    });
+                }
         }
     }
 }

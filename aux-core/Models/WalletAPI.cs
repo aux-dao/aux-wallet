@@ -92,6 +92,19 @@ namespace AuxCore.Models
             }
             return default;
         }
+        public LockAssets GetLockAssets(string address, int pageIndex, int pageSize)
+        {
+            Random rd = new Random();
+            string url = $"/api/QueryLockAsset";
+            var query = $"address={address}&pageindex={pageIndex}&pagesize={pageSize}&r={rd.Next()}";
+            var str = APIHelper.Get(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<LockAssets>(str);
+                return p;
+            }
+            return default;
+        }
         public TxMsg BuildTransfer(string sourceAddress, string desAddress, int assetKind, string amount)
         {
             Random rd = new Random();

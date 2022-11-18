@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aux-core", "aux-core\aux-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aux-chrome", "aux-chrome\aux-chrome.csproj", "{BB2FBD41-BD38-44EA-BC47-55801638BD09}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "au-x wallet", "aux-setup\aux-setup.vdproj", "{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,26 @@ Global
 		{BB2FBD41-BD38-44EA-BC47-55801638BD09}.Release|x64.Build.0 = Release|Any CPU
 		{BB2FBD41-BD38-44EA-BC47-55801638BD09}.Release|x86.ActiveCfg = Release|Any CPU
 		{BB2FBD41-BD38-44EA-BC47-55801638BD09}.Release|x86.Build.0 = Release|Any CPU
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Debug|Any CPU.ActiveCfg = Debug
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Debug|Any CPU.Build.0 = Debug
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Debug|ARM.ActiveCfg = Debug
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Debug|ARM.Build.0 = Debug
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Debug|ARM64.ActiveCfg = Debug
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Debug|ARM64.Build.0 = Debug
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Debug|x64.ActiveCfg = Debug
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Debug|x64.Build.0 = Debug
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Debug|x86.ActiveCfg = Debug
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Debug|x86.Build.0 = Debug
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Release|Any CPU.ActiveCfg = Release
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Release|Any CPU.Build.0 = Release
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Release|ARM.ActiveCfg = Release
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Release|ARM.Build.0 = Release
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Release|ARM64.ActiveCfg = Release
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Release|ARM64.Build.0 = Release
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Release|x64.ActiveCfg = Release
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Release|x64.Build.0 = Release
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Release|x86.ActiveCfg = Release
+		{DC110E1E-9580-49F0-B855-B02FBE8A2E1B}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
