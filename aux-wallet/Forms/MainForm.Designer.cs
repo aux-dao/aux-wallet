@@ -43,6 +43,8 @@ namespace AuxWallet
             this.bt_queryAsset = new ReaLTaiizor.Controls.MaterialButton();
             this.lb_assets = new ReaLTaiizor.Controls.MaterialListBox();
             this.tabLockAsset = new System.Windows.Forms.TabPage();
+            this.bt_RefreshLockAsset = new ReaLTaiizor.Controls.MaterialButton();
+            this.lb_lockAssets = new ReaLTaiizor.Controls.MaterialListBox();
             this.tabContacts = new System.Windows.Forms.TabPage();
             this.bt_dig = new ReaLTaiizor.Controls.MaterialButton();
             this.lb_contacts = new ReaLTaiizor.Controls.MaterialListBox();
@@ -74,8 +76,6 @@ namespace AuxWallet
             this.bt_signout = new ReaLTaiizor.Controls.MaterialButton();
             this.bt_changeTheme = new ReaLTaiizor.Controls.MaterialButton();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
-            this.bt_RefreshLockAsset = new ReaLTaiizor.Controls.MaterialButton();
-            this.lb_lockAssets = new ReaLTaiizor.Controls.MaterialListBox();
             this.materialTabControl1.SuspendLayout();
             this.tabAsset.SuspendLayout();
             this.tabLockAsset.SuspendLayout();
@@ -262,6 +262,48 @@ namespace AuxWallet
             this.tabLockAsset.TabIndex = 9;
             this.tabLockAsset.Text = "tabLockAsset";
             this.tabLockAsset.UseVisualStyleBackColor = true;
+            // 
+            // bt_RefreshLockAsset
+            // 
+            this.bt_RefreshLockAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bt_RefreshLockAsset.AutoSize = false;
+            this.bt_RefreshLockAsset.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bt_RefreshLockAsset.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_RefreshLockAsset.Depth = 0;
+            this.bt_RefreshLockAsset.HighEmphasis = true;
+            this.bt_RefreshLockAsset.Icon = ((System.Drawing.Image)(resources.GetObject("bt_RefreshLockAsset.Icon")));
+            this.bt_RefreshLockAsset.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            this.bt_RefreshLockAsset.Location = new System.Drawing.Point(714, 4);
+            this.bt_RefreshLockAsset.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
+            this.bt_RefreshLockAsset.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.bt_RefreshLockAsset.Name = "bt_RefreshLockAsset";
+            this.bt_RefreshLockAsset.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_RefreshLockAsset.Size = new System.Drawing.Size(264, 53);
+            this.bt_RefreshLockAsset.TabIndex = 19;
+            this.bt_RefreshLockAsset.Text = "OUTLINE - HIGH - NORMAL";
+            this.bt_RefreshLockAsset.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            this.bt_RefreshLockAsset.UseAccentColor = false;
+            this.bt_RefreshLockAsset.UseVisualStyleBackColor = true;
+            this.bt_RefreshLockAsset.Click += new System.EventHandler(this.bt_RefreshLockAsset_Click);
+            // 
+            // lb_lockAssets
+            // 
+            this.lb_lockAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_lockAssets.BackColor = System.Drawing.Color.White;
+            this.lb_lockAssets.BorderColor = System.Drawing.Color.LightGray;
+            this.lb_lockAssets.Depth = 0;
+            this.lb_lockAssets.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lb_lockAssets.Location = new System.Drawing.Point(6, 62);
+            this.lb_lockAssets.Margin = new System.Windows.Forms.Padding(6);
+            this.lb_lockAssets.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.lb_lockAssets.Name = "lb_lockAssets";
+            this.lb_lockAssets.SelectedIndex = -1;
+            this.lb_lockAssets.SelectedItem = null;
+            this.lb_lockAssets.Size = new System.Drawing.Size(972, 556);
+            this.lb_lockAssets.Style = ReaLTaiizor.Controls.MaterialListBox.ListBoxStyle.ThreeLine;
+            this.lb_lockAssets.TabIndex = 18;
             // 
             // tabContacts
             // 
@@ -631,6 +673,7 @@ namespace AuxWallet
             this.tabSetting.Size = new System.Drawing.Size(984, 622);
             this.tabSetting.TabIndex = 2;
             this.tabSetting.Text = "Setting";
+            this.tabSetting.Enter += new System.EventHandler(this.tabSetting_Enter);
             // 
             // bt_copyAddress
             // 
@@ -962,48 +1005,6 @@ namespace AuxWallet
             this.menuIconList.Images.SetKeyName(17, "round_event_black_24dp.png");
             this.menuIconList.Images.SetKeyName(18, "arrow-autofit-right.png");
             this.menuIconList.Images.SetKeyName(19, "arrow-autofit-left.png");
-            // 
-            // bt_RefreshLockAsset
-            // 
-            this.bt_RefreshLockAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bt_RefreshLockAsset.AutoSize = false;
-            this.bt_RefreshLockAsset.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.bt_RefreshLockAsset.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.bt_RefreshLockAsset.Depth = 0;
-            this.bt_RefreshLockAsset.HighEmphasis = true;
-            this.bt_RefreshLockAsset.Icon = ((System.Drawing.Image)(resources.GetObject("bt_RefreshLockAsset.Icon")));
-            this.bt_RefreshLockAsset.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            this.bt_RefreshLockAsset.Location = new System.Drawing.Point(714, 4);
-            this.bt_RefreshLockAsset.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
-            this.bt_RefreshLockAsset.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            this.bt_RefreshLockAsset.Name = "bt_RefreshLockAsset";
-            this.bt_RefreshLockAsset.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.bt_RefreshLockAsset.Size = new System.Drawing.Size(264, 53);
-            this.bt_RefreshLockAsset.TabIndex = 19;
-            this.bt_RefreshLockAsset.Text = "OUTLINE - HIGH - NORMAL";
-            this.bt_RefreshLockAsset.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
-            this.bt_RefreshLockAsset.UseAccentColor = false;
-            this.bt_RefreshLockAsset.UseVisualStyleBackColor = true;
-            this.bt_RefreshLockAsset.Click += new System.EventHandler(this.bt_RefreshLockAsset_Click);
-            // 
-            // lb_lockAssets
-            // 
-            this.lb_lockAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lb_lockAssets.BackColor = System.Drawing.Color.White;
-            this.lb_lockAssets.BorderColor = System.Drawing.Color.LightGray;
-            this.lb_lockAssets.Depth = 0;
-            this.lb_lockAssets.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lb_lockAssets.Location = new System.Drawing.Point(6, 62);
-            this.lb_lockAssets.Margin = new System.Windows.Forms.Padding(6);
-            this.lb_lockAssets.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            this.lb_lockAssets.Name = "lb_lockAssets";
-            this.lb_lockAssets.SelectedIndex = -1;
-            this.lb_lockAssets.SelectedItem = null;
-            this.lb_lockAssets.Size = new System.Drawing.Size(972, 556);
-            this.lb_lockAssets.Style = ReaLTaiizor.Controls.MaterialListBox.ListBoxStyle.ThreeLine;
-            this.lb_lockAssets.TabIndex = 18;
             // 
             // MainForm
             // 

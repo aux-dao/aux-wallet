@@ -539,7 +539,7 @@ namespace AuxWallet
 
         private void bt_RefreshLockAsset_Click(object sender, EventArgs e)
         {
-            this.lb_assets.Items.Clear();
+            this.lb_lockAssets.Items.Clear();
             var records = WalletAPI.Instance.GetLockAssets(this.Address, 0, 10000).records;
             if (records.IsNotNull())
                 foreach (var asset in records)
@@ -555,12 +555,20 @@ namespace AuxWallet
                     {
                         lockType = Locator.Case("Block Lock", "区块锁定");
                     }
-                    this.lb_assets.Items.Add(new MaterialListBoxItem
+                    this.lb_lockAssets.Items.Add(new MaterialListBoxItem
                     {
                         Text = $"{asset.AssetName}    {new Fixed8(asset.Value)}",
                         SecondaryText = $"{lockType}:  {le}  {Locator.Case("expire", "到期")}"
                     });
                 }
+        }
+
+        private void tabSetting_Enter(object sender, EventArgs e)
+        {
+            this.tb_pwd.Clear();
+            this.tb_Address.Clear();
+            this.tb_publicKey.Clear();
+            this.tb_privateKey.Clear();
         }
     }
 }
