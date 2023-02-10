@@ -28,6 +28,20 @@ namespace AuxCore.Models
         {
 
         }
+
+        public Height Height()
+        {
+            Random rd = new Random();
+            string url = $"/api/Height";
+            var query = $"rd={rd.Next()}";
+            var str = APIHelper.Get(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<Height>(str);
+                return p;
+            }
+            return default;
+        }
         public VerifyServer GetVerirySPV(string rd)
         {
             string url = $"/api/VerifySpv";

@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace AuxCore.Models
 {
+    public class Height
+    {
+        public string height;
+    }
     public class VerifyServer
     {
         public string signature;

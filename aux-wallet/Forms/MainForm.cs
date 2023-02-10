@@ -259,25 +259,30 @@ namespace AuxWallet
 
         private void bt_queryAsset_Click(object sender, EventArgs e)
         {
-            var balance = WalletAPI.Instance.GetPublicAssetBalance(this.Address);
-            var assetbalances = WalletAPI.Instance.GetPrivateAssetBalances(this.Address);
-            this.lb_assets.Items.Clear();
-            if (balance.IsNotNull())
+            var h = WalletAPI.Instance.Height();
+            if (h.IsNotNull())
             {
-                this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXS            {balance.oxs}", SecondaryText = Blockchain.OXS.ToString(), Tag = Blockchain.OXS.ToString() });
-                this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXC            {balance.oxc}", SecondaryText = Blockchain.OXC.ToString(), Tag = Blockchain.OXC.ToString() });
-            }
-
-            if (assetbalances.IsNotNull() && assetbalances.result)
-                foreach (var assetBalance in assetbalances.balances)
+                this.bt_queryAsset.Text = Locator.Case($"Query Assets({h.height})", $"查询资产({h.height})");
+                var balance = WalletAPI.Instance.GetPublicAssetBalance(this.Address);
+                var assetbalances = WalletAPI.Instance.GetPrivateAssetBalances(this.Address);
+                this.lb_assets.Items.Clear();
+                if (balance.IsNotNull())
                 {
-                    this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"{assetBalance.assetname}            {assetBalance.amount}", SecondaryText = assetBalance.assetid, Tag = assetBalance.assetid });
+                    this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXS            {balance.oxs}", SecondaryText = Blockchain.OXS.ToString(), Tag = Blockchain.OXS.ToString() });
+                    this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"OXC            {balance.oxc}", SecondaryText = Blockchain.OXC.ToString(), Tag = Blockchain.OXC.ToString() });
                 }
-            var claimMsg = WalletAPI.Instance.QueryClaim(this.Address);
-            if (claimMsg.IsNotNull())
-            {
-                this.lb_available.Text = claimMsg.available;
-                this.lb_unavailable.Text = claimMsg.unavailable;
+
+                if (assetbalances.IsNotNull() && assetbalances.result)
+                    foreach (var assetBalance in assetbalances.balances)
+                    {
+                        this.lb_assets.Items.Add(new MaterialListBoxItem { Text = $"{assetBalance.assetname}            {assetBalance.amount}", SecondaryText = assetBalance.assetid, Tag = assetBalance.assetid });
+                    }
+                var claimMsg = WalletAPI.Instance.QueryClaim(this.Address);
+                if (claimMsg.IsNotNull())
+                {
+                    this.lb_available.Text = claimMsg.available;
+                    this.lb_unavailable.Text = claimMsg.unavailable;
+                }
             }
         }
 
@@ -435,41 +440,48 @@ namespace AuxWallet
 
         private void bt_claim_Click(object sender, EventArgs e)
         {
-            var mypubkey = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
-            var txMsg = WalletAPI.Instance.BuildClaim(mypubkey);
-            if (txMsg.IsNotNull() && txMsg.result && Locator.spvlidators.Contains(txMsg.pubkey))
+            try
             {
-                var pubkey = ECPoint.DecodePoint(txMsg.pubkey.HexToBytes(), ECCurve.Secp256r1);
-                var txData = txMsg.transaction.HexToBytes();
-                var ok = Crypto.Default.VerifySignature(txData, txMsg.signature.HexToBytes(), pubkey.EncodePoint(true));
-                if (ok)
+                var mypubkey = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
+                var txMsg = WalletAPI.Instance.BuildClaim(mypubkey);
+                if (txMsg.IsNotNull() && txMsg.result && Locator.spvlidators.Contains(txMsg.pubkey))
                 {
-                    ClaimTransaction ct = new ClaimTransaction()
+                    var pubkey = ECPoint.DecodePoint(txMsg.pubkey.HexToBytes(), ECCurve.Secp256r1);
+                    var txData = txMsg.transaction.HexToBytes();
+                    var ok = Crypto.Default.VerifySignature(txData, txMsg.signature.HexToBytes(), pubkey.EncodePoint(true));
+                    if (ok)
                     {
-                        Attributes = new TransactionAttribute[0],
-                        Witnesses = new Witness[0],
-                        Claims = new CoinReference[0]
-                    };
-                    using (MemoryStream ms = new MemoryStream(txData, false))
-                    using (BinaryReader reader = new BinaryReader(ms, Encoding.UTF8))
-                    {
-                        IVerifiable verifiable = ct as IVerifiable;
-                        verifiable.DeserializeUnsigned(reader);
-                    }
-                    if (ct.IsNotNull())
-                    {
-                        ct = new ClaimTransactionHelper(ct, this.Account).Build();
-                        var data = ct.ToArray();
-                        var signature = data.Sign(this.Account.GetKey()).ToHexString();
-                        var pk = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
-                        var bm = WalletAPI.Instance.BroadcastTransaction(2, pk, signature, data.ToHexString());
-                        if (bm.result)
+                        ClaimTransaction ct = new ClaimTransaction()
                         {
-                            MaterialSnackBar SnackBarMessage = new(Locator.Case("post transaction broadcast request", "交易广播请求已提交"), 750);
-                            SnackBarMessage.Show(this);
+                            Attributes = new TransactionAttribute[0],
+                            Witnesses = new Witness[0],
+                            Claims = new CoinReference[0]
+                        };
+                        using (MemoryStream ms = new MemoryStream(txData, false))
+                        using (BinaryReader reader = new BinaryReader(ms, Encoding.UTF8))
+                        {
+                            IVerifiable verifiable = ct as IVerifiable;
+                            verifiable.DeserializeUnsigned(reader);
+                        }
+                        if (ct.IsNotNull())
+                        {
+                            ct = new ClaimTransactionHelper(ct, this.Account).Build();
+                            var data = ct.ToArray();
+                            var signature = data.Sign(this.Account.GetKey()).ToHexString();
+                            var pk = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
+                            var bm = WalletAPI.Instance.BroadcastTransaction(2, pk, signature, data.ToHexString());
+                            if (bm.result)
+                            {
+                                MaterialSnackBar SnackBarMessage = new(Locator.Case("post transaction broadcast request", "交易广播请求已提交"), 750);
+                                SnackBarMessage.Show(this);
+                            }
                         }
                     }
                 }
+            }
+            catch
+            {
+
             }
         }
 
