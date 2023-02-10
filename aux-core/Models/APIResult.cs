@@ -5,9 +5,29 @@ using System.Net.Http;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using OX.IO;
+using OX.Network.P2P.Payloads;
+using System.IO;
 
 namespace AuxCore.Models
 {
+    public class LockTxData : ISerializable
+    {
+        public CoinReference[] Inputs;
+        public TransactionOutput[] Outputs;
+        public int Size => Inputs.GetVarSize() + Outputs.GetVarSize();
+        void ISerializable.Deserialize(BinaryReader reader)
+        {
+            this.Inputs = reader.ReadSerializableArray<CoinReference>();
+            this.Outputs = reader.ReadSerializableArray<TransactionOutput>();
+        }
+
+        void ISerializable.Serialize(BinaryWriter writer)
+        {
+            writer.Write(Inputs);
+            writer.Write(Outputs);
+        }
+    }
     public class Height
     {
         public string height;

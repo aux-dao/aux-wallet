@@ -247,6 +247,44 @@ namespace AuxCore
             return fSuccess;
         }
     }
+    public class LockAssetTransactionHelper
+    {
+        LockAssetTransaction LAT;
+        LightAccount Account;
+        public LockAssetTransactionHelper(LockAssetTransaction lat, LightAccount account)
+        {
+            this.LAT = lat;
+            this.Account = account;
+        }
+        public LockAssetTransaction Build()
+        {
+            AUXContractParametersContext context;
+            try
+            {
+                context = new AUXContractParametersContext(this.LAT, new UInt160[] { this.Account.ScriptHash });
+            }
+            catch (InvalidOperationException)
+            {
+                return default(LockAssetTransaction);
+            }
+            if (Sign(context) && context.Completed)
+            {
+                if (context.Verifiable is LockAssetTransaction ct)
+                {
+                    ct.Witnesses = context.GetWitnesses();
+                    return ct;
+                }
+            }
+            return default(LockAssetTransaction);
+        }
+        public virtual bool Sign(AUXContractParametersContext context)
+        {
+            bool fSuccess = false;
+            byte[] sg = context.Verifiable.Sign(this.Account.GetKey());
+            fSuccess |= context.AddSignature(this.Account.Contract, this.Account.GetKey().PublicKey, sg);
+            return fSuccess;
+        }
+    }
     public class ClaimTransactionHelper
     {
         ClaimTransaction CT;

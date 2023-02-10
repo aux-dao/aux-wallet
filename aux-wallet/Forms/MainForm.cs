@@ -370,14 +370,13 @@ namespace AuxWallet
                     if (dialog.ShowDialog() != DialogResult.OK) return;
                     try
                     {
-                       
                         if (dialog.IsLock)
                         {
+                            var pk = ECPoint.Parse(dialog.PubKey, ECCurve.Secp256r1);
                             var amt_lock = Fixed8.Parse(dialog.Amount_Lock);
                         }
                         else
                         {
-                          
                             var amt = Fixed8.Parse(dialog.Amount);
                         }
                         int assetKind = 0;
@@ -394,14 +393,7 @@ namespace AuxWallet
                         {
                             if (dialog.IsLock && dialog.Expire > 0)
                             {
-                                LockAssetTransaction lat = new LockAssetTransaction
-                                {
-                                    LockContract = LockAssetContractScriptHash,
-                                    IsTimeLock = false,
-                                    LockExpiration = dialog.Expire,
-                                    Recipient = ECPoint.Parse(dialog.PubKey, ECCurve.Secp256r1)
-                                };
-                                txMsg = WalletAPI.Instance.BuildAssetTransfer(this.Address, lat.GetContract().ScriptHash.ToAddress(), assetId, dialog.Amount_Lock);
+                                txMsg = WalletAPI.Instance.BuildAssetLock(this.Address, dialog.PubKey, assetId, dialog.Amount_Lock, dialog.Expire);
                             }
                             else
                             {
@@ -413,14 +405,7 @@ namespace AuxWallet
                         {
                             if (dialog.IsLock && dialog.Expire > 0)
                             {
-                                LockAssetTransaction lat = new LockAssetTransaction
-                                {
-                                    LockContract = LockAssetContractScriptHash,
-                                    IsTimeLock = false,
-                                    LockExpiration = dialog.Expire,
-                                    Recipient = ECPoint.Parse(dialog.PubKey, ECCurve.Secp256r1)
-                                };
-                                txMsg = WalletAPI.Instance.BuildTransfer(this.Address, lat.GetContract().ScriptHash.ToAddress(), assetKind, dialog.Amount_Lock);
+                                txMsg = WalletAPI.Instance.BuildLock(this.Address, dialog.PubKey, assetKind, dialog.Amount_Lock, dialog.Expire);
                             }
                             else
                             {
@@ -435,29 +420,55 @@ namespace AuxWallet
                             var ok = Crypto.Default.VerifySignature(txData, txMsg.signature.HexToBytes(), pubkey.EncodePoint(true));
                             if (ok)
                             {
-                                ContractTransaction ct = new ContractTransaction()
+                                if (dialog.IsLock)
                                 {
-                                    Attributes = new TransactionAttribute[0],
-                                    Witnesses = new Witness[0]
-                                };
-                                using (MemoryStream ms = new MemoryStream(txData, false))
-                                using (BinaryReader reader = new BinaryReader(ms, Encoding.UTF8))
-                                {
-                                    IVerifiable verifiable = ct as IVerifiable;
-                                    verifiable.DeserializeUnsigned(reader);
-                                }
-                                //var ct = txData.DeserilizeTransaction((byte)TransactionType.ContractTransaction) as ContractTransaction;
-                                if (ct.IsNotNull())
-                                {
-                                    ct = new ContractTransactionHelper(ct, this.Account).Build();
+                                    var lockTxData = txData.AsSerializable<LockTxData>();
+                                    LockAssetTransaction lat = new LockAssetTransaction
+                                    {
+                                        LockContract = LockAssetContractScriptHash,
+                                        IsTimeLock = false,
+                                        LockExpiration = dialog.Expire,
+                                        Recipient = ECPoint.Parse(dialog.PubKey, ECCurve.Secp256r1)
+                                    };
+                                    lat.Inputs = lockTxData.Inputs;
+                                    lat.Outputs = lockTxData.Outputs;
+                                    var ct = new LockAssetTransactionHelper(lat, this.Account).Build();
                                     var data = ct.ToArray();
                                     var signature = data.Sign(this.Account.GetKey()).ToHexString();
                                     var pk = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
-                                    var bm = WalletAPI.Instance.BroadcastTransaction(dialog.IsLock ? 205 : 128, pk, signature, data.ToHexString());
+                                    var bm = WalletAPI.Instance.BroadcastLockTransaction(205, pk, signature, data.ToHexString());
                                     if (bm.result)
                                     {
                                         MaterialSnackBar SnackBarMessage = new(Locator.Case("post transaction broadcast request", "交易广播请求已提交"), 750);
                                         SnackBarMessage.Show(this);
+                                    }
+                                }
+                                else
+                                {
+                                    ContractTransaction ct = new ContractTransaction()
+                                    {
+                                        Attributes = new TransactionAttribute[0],
+                                        Witnesses = new Witness[0]
+                                    };
+                                    using (MemoryStream ms = new MemoryStream(txData, false))
+                                    using (BinaryReader reader = new BinaryReader(ms, Encoding.UTF8))
+                                    {
+                                        IVerifiable verifiable = ct as IVerifiable;
+                                        verifiable.DeserializeUnsigned(reader);
+                                    }
+                                    //var ct = txData.DeserilizeTransaction((byte)TransactionType.ContractTransaction) as ContractTransaction;
+                                    if (ct.IsNotNull())
+                                    {
+                                        ct = new ContractTransactionHelper(ct, this.Account).Build();
+                                        var data = ct.ToArray();
+                                        var signature = data.Sign(this.Account.GetKey()).ToHexString();
+                                        var pk = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
+                                        var bm = WalletAPI.Instance.BroadcastTransaction(128, pk, signature, data.ToHexString());
+                                        if (bm.result)
+                                        {
+                                            MaterialSnackBar SnackBarMessage = new(Locator.Case("post transaction broadcast request", "交易广播请求已提交"), 750);
+                                            SnackBarMessage.Show(this);
+                                        }
                                     }
                                 }
                             }

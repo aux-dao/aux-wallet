@@ -132,11 +132,37 @@ namespace AuxCore.Models
             }
             return default;
         }
+        public TxMsg BuildLock(string sourceAddress, string destPubkey, int assetKind, string amount, uint experation)
+        {
+            Random rd = new Random();
+            string url = $"/api/Lock";
+            var query = $"source={sourceAddress}&assetId={assetKind}&destPubkey={destPubkey}&amounts={amount}&isTimeLock=0&expiration={experation}&r={rd.Next()}";
+            var str = APIHelper.Get(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<TxMsg>(str);
+                return p;
+            }
+            return default;
+        }
         public TxMsg BuildAssetTransfer(string sourceAddress, string desAddress, string assetId, string amount)
         {
             Random rd = new Random();
             string url = $"/api/TransferAsset";
             var query = $"source={sourceAddress}&assetId={assetId}&dests={desAddress}&amounts={amount}&r={rd.Next()}";
+            var str = APIHelper.Get(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<TxMsg>(str);
+                return p;
+            }
+            return default;
+        }
+        public TxMsg BuildAssetLock(string sourceAddress, string desPubkey, string assetId, string amount, uint experation)
+        {
+            Random rd = new Random();
+            string url = $"/api/LockAsset";
+            var query = $"source={sourceAddress}&assetId={assetId}&destPubkey={desPubkey}&amounts={amount}&isTimeLock=0&expiration={experation}&r={rd.Next()}";
             var str = APIHelper.Get(url, query);
             if (str.IsNotNullAndEmpty())
             {
@@ -158,6 +184,20 @@ namespace AuxCore.Models
             }
             return default;
         }
+        public BroadcastMsg BroadcastLockTransaction(int txkind, string publicKey, string signature, string transaction)
+        {
+            Random rd = new Random();
+            string url = $"/api/BroadcastLock";
+            var query = $"txkind={txkind}&publicKey={publicKey}&signature={signature}&transaction={transaction}&r={rd.Next()}";
+            var str = APIHelper.Post(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<BroadcastMsg>(str);
+                return p;
+            }
+            return default;
+        }
+
         public ClaimMsg QueryClaim(string address)
         {
             Random rd = new Random();
