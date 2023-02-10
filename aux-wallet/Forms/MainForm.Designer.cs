@@ -304,6 +304,7 @@ namespace AuxWallet
             this.lb_lockAssets.Size = new System.Drawing.Size(972, 556);
             this.lb_lockAssets.Style = ReaLTaiizor.Controls.MaterialListBox.ListBoxStyle.ThreeLine;
             this.lb_lockAssets.TabIndex = 18;
+            this.lb_lockAssets.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lb_lockAssets_MouseDoubleClick);
             // 
             // tabContacts
             // 

@@ -20,7 +20,7 @@ namespace AuxCore
     {
         protected readonly string path;
         public readonly ScryptParameters Scrypt;
-        protected string password;
+        public string password;
         protected JObject wallet;
         public readonly Dictionary<UInt160, LightAccount> accounts;
         public readonly Dictionary<UInt160, LightContact> contacts;

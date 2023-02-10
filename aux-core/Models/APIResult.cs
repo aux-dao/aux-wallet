@@ -76,6 +76,7 @@ namespace AuxCore.Models
         public int IsTimeLock { get; set; }
         public long LockExpiration { get; set; }
         public string RecipientAddress { get; set; }
+        public string RecipientPubKey { get; set; }
     }
     public class TxMsg : APIResult
     {

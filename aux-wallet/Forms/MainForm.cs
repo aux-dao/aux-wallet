@@ -24,6 +24,9 @@ using OX.Network.P2P.Payloads;
 using OX.Network.P2P;
 using System.IO;
 using Akka.IO;
+using Akka.Actor.Dsl;
+using OX.Bapps;
+using AuxWallet.Helpers;
 
 namespace AuxWallet
 {
@@ -620,6 +623,7 @@ namespace AuxWallet
                     }
                     this.lb_lockAssets.Items.Add(new MaterialListBoxItem
                     {
+                        Tag = asset,
                         Text = $"{asset.AssetName}    {new Fixed8(asset.Value)}",
                         SecondaryText = $"{lockType}:  {le}  {Locator.Case("expire", "到期")}"
                     });
@@ -632,6 +636,78 @@ namespace AuxWallet
             this.tb_Address.Clear();
             this.tb_publicKey.Clear();
             this.tb_privateKey.Clear();
+        }
+
+        private void lb_lockAssets_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var obj = this.lb_lockAssets.SelectedItem;
+            if (obj.IsNotNull())
+            {
+                var asset = obj.Tag as LockAsset;
+                using (var dialog = new UnlockForm(this.Account, asset))
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK) return;
+                    try
+                    {
+                        if (asset.IsTimeLock == 1)
+                        {
+                            if (asset.LockExpiration >= DateTime.Now.ToTimestamp())
+                            {
+                                MaterialSnackBar SnackBarMessage = new(Locator.Case("Lock not expired", "锁定未到期"), 750);
+                                SnackBarMessage.Show(this);
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            var h = WalletAPI.Instance.Height();
+                           if(asset.LockExpiration>= uint.Parse(h.height))
+                            {
+                                MaterialSnackBar SnackBarMessage = new(Locator.Case("Lock not expired", "锁定未到期"), 750);
+                                SnackBarMessage.Show(this);
+                                return;
+                            }
+                        }
+                        LockAssetTransaction lat = new LockAssetTransaction
+                        {
+                            LockContract = LockAssetContractScriptHash,
+                            IsTimeLock = asset.IsTimeLock == 1,
+                            LockExpiration = (uint)asset.LockExpiration,
+                            Recipient = ECPoint.Parse(asset.RecipientPubKey, ECCurve.Secp256r1)
+                        };
+                        var account = LockAssetHelper.CreateAccount(this.Wallet, lat.GetContract(), this.Account.GetKey());//lock asset account have a some private key with master account
+                        if (account != null)
+                        {
+                            //KeyPair kp = account.GetKey();
+                            TransactionOutput output = new TransactionOutput { AssetId = UInt256.Parse(asset.AssetId), Value = new Fixed8(asset.Value), ScriptHash = this.Account.ScriptHash };
+                            ContractTransaction tx = new ContractTransaction
+                            {
+                                Attributes = new TransactionAttribute[0],
+                                Outputs = new TransactionOutput[] { output },
+                                Inputs = new CoinReference[] { new CoinReference { PrevHash = UInt256.Parse(asset.TxId), PrevIndex = (ushort)asset.N } },
+                                Witnesses = new Witness[0]
+                            };
+                            tx = LockAssetHelper.Build(tx, new LightAccount[] { account });
+                            if (tx.IsNotNull())
+                            {
+                                var data = tx.ToArray();
+                                var signature = data.Sign(this.Account.GetKey()).ToHexString();
+                                var pk = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
+                                var bm = WalletAPI.Instance.BroadcastTransaction(128, pk, signature, data.ToHexString());
+                                if (bm.result)
+                                {
+                                    MaterialSnackBar SnackBarMessage = new(Locator.Case("post transaction broadcast request", "交易广播请求已提交"), 750);
+                                    SnackBarMessage.Show(this);
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return;
+                    }
+                }
+            }
         }
     }
 }
