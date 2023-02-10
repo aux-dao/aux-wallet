@@ -39,10 +39,8 @@ namespace AuxWallet
             this.cb_contacts = new ReaLTaiizor.Controls.MaterialComboBox();
             this.tb_expire = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             this.cb_selflock = new ReaLTaiizor.Controls.MaterialCheckBox();
-            this.bt_lock = new ReaLTaiizor.Controls.MaterialButton();
             this.tb_amount_lock = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             this.tb_pubkey = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            this.materialDivider3 = new ReaLTaiizor.Controls.MaterialDivider();
             this.materialDivider2 = new ReaLTaiizor.Controls.MaterialDivider();
             this.materialDivider1 = new ReaLTaiizor.Controls.MaterialDivider();
             this.materialTabControl2 = new ReaLTaiizor.Controls.MaterialTabControl();
@@ -96,7 +94,7 @@ namespace AuxWallet
             this.bt_transfer.HighEmphasis = false;
             this.bt_transfer.Icon = null;
             this.bt_transfer.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            this.bt_transfer.Location = new System.Drawing.Point(681, 241);
+            this.bt_transfer.Location = new System.Drawing.Point(685, 393);
             this.bt_transfer.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
             this.bt_transfer.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.bt_transfer.Name = "bt_transfer";
@@ -150,12 +148,12 @@ namespace AuxWallet
             this.bt_close.HighEmphasis = false;
             this.bt_close.Icon = null;
             this.bt_close.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            this.bt_close.Location = new System.Drawing.Point(599, 645);
+            this.bt_close.Location = new System.Drawing.Point(471, 393);
             this.bt_close.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
             this.bt_close.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.bt_close.Name = "bt_close";
             this.bt_close.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.bt_close.Size = new System.Drawing.Size(273, 51);
+            this.bt_close.Size = new System.Drawing.Size(187, 51);
             this.bt_close.TabIndex = 77;
             this.bt_close.Text = "TEXT - LOW - NORMAL";
             this.bt_close.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Text;
@@ -243,27 +241,6 @@ namespace AuxWallet
             this.cb_selflock.UseVisualStyleBackColor = true;
             this.cb_selflock.CheckedChanged += new System.EventHandler(this.cb_selflock_CheckedChanged);
             // 
-            // bt_lock
-            // 
-            this.bt_lock.AutoSize = false;
-            this.bt_lock.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.bt_lock.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.bt_lock.Depth = 0;
-            this.bt_lock.HighEmphasis = false;
-            this.bt_lock.Icon = null;
-            this.bt_lock.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            this.bt_lock.Location = new System.Drawing.Point(672, 240);
-            this.bt_lock.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
-            this.bt_lock.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            this.bt_lock.Name = "bt_lock";
-            this.bt_lock.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.bt_lock.Size = new System.Drawing.Size(205, 51);
-            this.bt_lock.TabIndex = 79;
-            this.bt_lock.Text = "TEXT - LOW - NORMAL";
-            this.bt_lock.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Text;
-            this.bt_lock.UseAccentColor = false;
-            this.bt_lock.UseVisualStyleBackColor = true;
-            // 
             // tb_amount_lock
             // 
             this.tb_amount_lock.AnimateReadOnly = false;
@@ -330,18 +307,6 @@ namespace AuxWallet
             this.tb_pubkey.TrailingIcon = null;
             this.tb_pubkey.UseSystemPasswordChar = false;
             // 
-            // materialDivider3
-            // 
-            this.materialDivider3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialDivider3.Depth = 0;
-            this.materialDivider3.Location = new System.Drawing.Point(-9, 626);
-            this.materialDivider3.Margin = new System.Windows.Forms.Padding(6);
-            this.materialDivider3.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            this.materialDivider3.Name = "materialDivider3";
-            this.materialDivider3.Size = new System.Drawing.Size(921, 2);
-            this.materialDivider3.TabIndex = 84;
-            this.materialDivider3.Text = "materialDivider3";
-            // 
             // materialDivider2
             // 
             this.materialDivider2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -377,8 +342,9 @@ namespace AuxWallet
             this.materialTabControl2.Multiline = true;
             this.materialTabControl2.Name = "materialTabControl2";
             this.materialTabControl2.SelectedIndex = 0;
-            this.materialTabControl2.Size = new System.Drawing.Size(923, 513);
+            this.materialTabControl2.Size = new System.Drawing.Size(923, 288);
             this.materialTabControl2.TabIndex = 80;
+            this.materialTabControl2.SelectedIndexChanged += new System.EventHandler(this.materialTabControl2_SelectedIndexChanged);
             // 
             // tab_transfer
             // 
@@ -386,12 +352,11 @@ namespace AuxWallet
             this.tab_transfer.Controls.Add(this.tb_amount);
             this.tab_transfer.Controls.Add(this.cb_contacts);
             this.tab_transfer.Controls.Add(this.tb_address);
-            this.tab_transfer.Controls.Add(this.bt_transfer);
             this.tab_transfer.Location = new System.Drawing.Point(4, 33);
             this.tab_transfer.Margin = new System.Windows.Forms.Padding(6);
             this.tab_transfer.Name = "tab_transfer";
             this.tab_transfer.Padding = new System.Windows.Forms.Padding(6);
-            this.tab_transfer.Size = new System.Drawing.Size(915, 476);
+            this.tab_transfer.Size = new System.Drawing.Size(915, 251);
             this.tab_transfer.TabIndex = 0;
             this.tab_transfer.Text = "FirSt";
             // 
@@ -400,14 +365,13 @@ namespace AuxWallet
             this.tab_lock.BackColor = System.Drawing.Color.White;
             this.tab_lock.Controls.Add(this.cb_selflock);
             this.tab_lock.Controls.Add(this.tb_expire);
-            this.tab_lock.Controls.Add(this.bt_lock);
             this.tab_lock.Controls.Add(this.tb_pubkey);
             this.tab_lock.Controls.Add(this.tb_amount_lock);
             this.tab_lock.Location = new System.Drawing.Point(4, 33);
             this.tab_lock.Margin = new System.Windows.Forms.Padding(6);
             this.tab_lock.Name = "tab_lock";
             this.tab_lock.Padding = new System.Windows.Forms.Padding(6);
-            this.tab_lock.Size = new System.Drawing.Size(915, 476);
+            this.tab_lock.Size = new System.Drawing.Size(915, 251);
             this.tab_lock.TabIndex = 1;
             this.tab_lock.Text = "seConD";
             // 
@@ -433,10 +397,10 @@ namespace AuxWallet
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(901, 720);
-            this.Controls.Add(this.materialDivider3);
+            this.ClientSize = new System.Drawing.Size(901, 470);
             this.Controls.Add(this.materialDivider2);
             this.Controls.Add(this.materialDivider1);
+            this.Controls.Add(this.bt_transfer);
             this.Controls.Add(this.materialTabControl2);
             this.Controls.Add(this.materialTabSelector1);
             this.Controls.Add(this.bt_close);
@@ -464,11 +428,9 @@ namespace AuxWallet
         private MaterialButton bt_close;
         private MaterialComboBox cb_contacts;
         private MaterialTextBoxEdit tb_expire;
-        private MaterialButton bt_lock;
         private MaterialTextBoxEdit tb_amount_lock;
         private MaterialTextBoxEdit tb_pubkey;
         private MaterialCheckBox cb_selflock;
-        private MaterialDivider materialDivider3;
         private MaterialDivider materialDivider2;
         private MaterialDivider materialDivider1;
         private MaterialTabControl materialTabControl2;

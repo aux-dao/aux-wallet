@@ -59,7 +59,12 @@ namespace AuxWallet
                 return this.tb_amount.Text;
             }
         }
+        public string Amount_Lock
+        {
+            get { return tb_amount_lock.Text; }
+        }
 
+        public bool IsLock { get; private set; }
         public string Address
         {
             get
@@ -67,7 +72,10 @@ namespace AuxWallet
                 return tb_address.Text;
             }
         }
-
+        public string PubKey
+        {
+            get { return tb_pubkey.Text; }
+        }
         public uint Expire
         {
             get
@@ -79,19 +87,18 @@ namespace AuxWallet
         }
         void Init()
         {
+            this.IsLock = false;
             this.tab_transfer.Text = Locator.Case("Transfer", "转帐");
             this.tab_lock.Text = Locator.Case("Lock", "锁仓");
             this.tb_amount.Hint = Locator.Case("Amount", "金额");
             this.tb_address.Hint = Locator.Case("Address", "地址");
             this.bt_transfer.Text = Locator.Case("Transfer Now", "马上转帐");
-            this.bt_lock.Text = Locator.Case("Lock Now", "马上锁仓");
             this.bt_close.Text = Locator.Case("Close", "关闭");
             this.cb_contacts.Hint = Locator.Case("Select Contact", "选择联系人");
             this.tb_amount_lock.Hint = Locator.Case("Lock Amount", "锁仓金额");
             this.tb_pubkey.Hint = Locator.Case("Unlock Public Key", "解锁账户公钥");
             this.tb_expire.Hint = Locator.Case("Unlock block height", "解锁的区块高度");
             this.cb_selflock.Text = Locator.Case("Self Lock", "自主锁仓");
-            this.tb_expire.Enabled = false;
             DrawerUseColors = true;
             DrawerHighlightWithAccent = true;
             DrawerBackgroundWithAccent = true;
@@ -162,6 +169,20 @@ namespace AuxWallet
             {
                 this.tb_pubkey.Clear();
                 this.tb_pubkey.ReadOnly = false;
+            }
+        }
+
+        private void materialTabControl2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.materialTabControl2.SelectedIndex == 0)
+            {
+                this.bt_transfer.Text = Locator.Case("Transfer Now", "马上转帐");
+                this.IsLock = false;
+            }
+            else
+            {
+                this.bt_transfer.Text = Locator.Case("Lock Now", "马上锁仓");
+                this.IsLock = true;
             }
         }
     }
