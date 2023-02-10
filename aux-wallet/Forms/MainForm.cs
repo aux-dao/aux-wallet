@@ -370,8 +370,16 @@ namespace AuxWallet
                     if (dialog.ShowDialog() != DialogResult.OK) return;
                     try
                     {
-                        var addr = dialog.Address.ToScriptHash();
-                        var amt = Fixed8.Parse(dialog.Amount);
+                       
+                        if (dialog.IsLock)
+                        {
+                            var amt_lock = Fixed8.Parse(dialog.Amount_Lock);
+                        }
+                        else
+                        {
+                          
+                            var amt = Fixed8.Parse(dialog.Amount);
+                        }
                         int assetKind = 0;
                         if (assetId == Blockchain.OXS.ToString())
                         {
@@ -393,10 +401,11 @@ namespace AuxWallet
                                     LockExpiration = dialog.Expire,
                                     Recipient = ECPoint.Parse(dialog.PubKey, ECCurve.Secp256r1)
                                 };
-                                txMsg = WalletAPI.Instance.BuildAssetTransfer(this.Address, lat.GetContract().ScriptHash.ToAddress(), assetId, dialog.Amount);
+                                txMsg = WalletAPI.Instance.BuildAssetTransfer(this.Address, lat.GetContract().ScriptHash.ToAddress(), assetId, dialog.Amount_Lock);
                             }
                             else
                             {
+                                var addr = dialog.Address.ToScriptHash();
                                 txMsg = WalletAPI.Instance.BuildAssetTransfer(this.Address, addr.ToAddress(), assetId, dialog.Amount);
                             }
                         }
@@ -411,10 +420,11 @@ namespace AuxWallet
                                     LockExpiration = dialog.Expire,
                                     Recipient = ECPoint.Parse(dialog.PubKey, ECCurve.Secp256r1)
                                 };
-                                txMsg = WalletAPI.Instance.BuildTransfer(this.Address, lat.GetContract().ScriptHash.ToAddress(), assetKind, dialog.Amount);
+                                txMsg = WalletAPI.Instance.BuildTransfer(this.Address, lat.GetContract().ScriptHash.ToAddress(), assetKind, dialog.Amount_Lock);
                             }
                             else
                             {
+                                var addr = dialog.Address.ToScriptHash();
                                 txMsg = WalletAPI.Instance.BuildTransfer(this.Address, addr.ToAddress(), assetKind, dialog.Amount);
                             }
                         }
@@ -453,7 +463,7 @@ namespace AuxWallet
                             }
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         return;
                     }
