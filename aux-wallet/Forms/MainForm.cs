@@ -384,27 +384,39 @@ namespace AuxWallet
                         TxMsg txMsg;
                         if (assetKind == 0)
                         {
-                            //if (dialog.Lock && dialog.Expire > 0)
-                            //{
-                            //LockAssetTransaction lat = new LockAssetTransaction
-                            //{
-                            //    LockContract = LockAssetContractScriptHash,
-                            //    IsTimeLock = false,
-                            //    LockExpiration = dialog.Expire,
-                            //    Recipient = ecp
-                            //};
-                            //output.ScriptHash = lat.GetContract().ScriptHash;
-                            //lat.Outputs = new TransactionOutput[] { output };
-                            //}
-                            //else
-                            //{
-
-                            txMsg = WalletAPI.Instance.BuildAssetTransfer(this.Address, addr.ToAddress(), assetId, dialog.Amount);
-                            //}
+                            if (dialog.IsLock && dialog.Expire > 0)
+                            {
+                                LockAssetTransaction lat = new LockAssetTransaction
+                                {
+                                    LockContract = LockAssetContractScriptHash,
+                                    IsTimeLock = false,
+                                    LockExpiration = dialog.Expire,
+                                    Recipient = ECPoint.Parse(dialog.PubKey, ECCurve.Secp256r1)
+                                };
+                                txMsg = WalletAPI.Instance.BuildAssetTransfer(this.Address, lat.GetContract().ScriptHash.ToAddress(), assetId, dialog.Amount);
+                            }
+                            else
+                            {
+                                txMsg = WalletAPI.Instance.BuildAssetTransfer(this.Address, addr.ToAddress(), assetId, dialog.Amount);
+                            }
                         }
                         else
                         {
-                            txMsg = WalletAPI.Instance.BuildTransfer(this.Address, addr.ToAddress(), assetKind, dialog.Amount);
+                            if (dialog.IsLock && dialog.Expire > 0)
+                            {
+                                LockAssetTransaction lat = new LockAssetTransaction
+                                {
+                                    LockContract = LockAssetContractScriptHash,
+                                    IsTimeLock = false,
+                                    LockExpiration = dialog.Expire,
+                                    Recipient = ECPoint.Parse(dialog.PubKey, ECCurve.Secp256r1)
+                                };
+                                txMsg = WalletAPI.Instance.BuildTransfer(this.Address, lat.GetContract().ScriptHash.ToAddress(), assetKind, dialog.Amount);
+                            }
+                            else
+                            {
+                                txMsg = WalletAPI.Instance.BuildTransfer(this.Address, addr.ToAddress(), assetKind, dialog.Amount);
+                            }
                         }
                         if (txMsg.IsNotNull() && txMsg.result && Locator.spvlidators.Contains(txMsg.pubkey))
                         {
@@ -431,7 +443,7 @@ namespace AuxWallet
                                     var data = ct.ToArray();
                                     var signature = data.Sign(this.Account.GetKey()).ToHexString();
                                     var pk = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
-                                    var bm = WalletAPI.Instance.BroadcastTransaction(128, pk, signature, data.ToHexString());
+                                    var bm = WalletAPI.Instance.BroadcastTransaction(dialog.IsLock ? 205 : 128, pk, signature, data.ToHexString());
                                     if (bm.result)
                                     {
                                         MaterialSnackBar SnackBarMessage = new(Locator.Case("post transaction broadcast request", "交易广播请求已提交"), 750);
