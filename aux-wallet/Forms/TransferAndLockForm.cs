@@ -28,10 +28,12 @@ namespace AuxWallet
         }
         private readonly MaterialSkinManager materialSkinManager;
         LightWallet Wallet;
+        LightAccount Account;
         public string AssetId { get; private set; }
-        public TransferAndLockForm(LightWallet wallet, string assetId)
+        public TransferAndLockForm(LightWallet wallet, LightAccount account, string assetId)
         {
             this.Wallet = wallet;
+            this.Account = account;
             this.AssetId = assetId;
             InitializeComponent();
 
@@ -65,21 +67,30 @@ namespace AuxWallet
                 return tb_address.Text;
             }
         }
-        public bool Lock
-        {
-            get { return rb_blocklock.Checked; }
-        }
 
+        public uint Expire
+        {
+            get
+            {
+                uint h = 0;
+                uint.TryParse(this.tb_expire.Text, out h);
+                return h;
+            }
+        }
         void Init()
         {
+            this.tab_transfer.Text = Locator.Case("Transfer", "转帐");
+            this.tab_lock.Text = Locator.Case("Lock", "锁仓");
             this.tb_amount.Hint = Locator.Case("Amount", "金额");
             this.tb_address.Hint = Locator.Case("Address", "地址");
             this.bt_transfer.Text = Locator.Case("Transfer Now", "马上转帐");
+            this.bt_lock.Text = Locator.Case("Lock Now", "马上锁仓");
             this.bt_close.Text = Locator.Case("Close", "关闭");
             this.cb_contacts.Hint = Locator.Case("Select Contact", "选择联系人");
-            this.rb_blocklock.Text = Locator.Case("Lock", "锁仓");
-            this.rb_nolock.Text = Locator.Case("Transfer", "转帐");
-            this.tb_expire.Hint = Locator.Case("unlock block height", "解锁的区块高度");
+            this.tb_amount_lock.Hint = Locator.Case("Lock Amount", "锁仓金额");
+            this.tb_pubkey.Hint = Locator.Case("Unlock Public Key", "解锁账户公钥");
+            this.tb_expire.Hint = Locator.Case("Unlock block height", "解锁的区块高度");
+            this.cb_selflock.Text = Locator.Case("Self Lock", "自主锁仓");
             this.tb_expire.Enabled = false;
             DrawerUseColors = true;
             DrawerHighlightWithAccent = true;
@@ -121,21 +132,7 @@ namespace AuxWallet
             }
         }
 
-        private void rb_nolock_CheckedChanged(object sender)
-        {
-            if (this.rb_nolock.Checked)
-            {
-                this.bt_transfer.Text = Locator.Case("Transfer Now", "马上转帐");
-                this.tb_expire.Clear();
-                this.tb_expire.Enabled = false;
-            }
-            else
-            {
-                this.bt_transfer.Text = Locator.Case("Lock Now", "马上锁仓");
-                this.tb_expire.Clear();
-                this.tb_expire.Enabled = true;
-            }
-        }
+
 
         private void tb_expire_TextChanged(object sender, EventArgs e)
         {
@@ -150,6 +147,21 @@ namespace AuxWallet
                     this.tb_expire.Text = s;
                     this.tb_expire.SelectionStart = s.Length;
                 }
+            }
+        }
+
+        private void cb_selflock_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.cb_selflock.Checked)
+            {
+                this.tb_pubkey.Clear();
+                this.tb_pubkey.Text = this.Account.GetKey().PublicKey.ToString();
+                this.tb_pubkey.ReadOnly = true;
+            }
+            else
+            {
+                this.tb_pubkey.Clear();
+                this.tb_pubkey.ReadOnly = false;
             }
         }
     }

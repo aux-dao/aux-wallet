@@ -23,11 +23,13 @@ using System.Security.Cryptography.Xml;
 using OX.Network.P2P.Payloads;
 using OX.Network.P2P;
 using System.IO;
+using Akka.IO;
 
 namespace AuxWallet
 {
     public partial class MainForm : MaterialForm
     {
+        public static UInt160 LockAssetContractScriptHash = UInt160.Parse("0x334b191cca29463a62ef69b790e015b2f7467383");
         private readonly MaterialSkinManager materialSkinManager;
         public LightWallet Wallet;
         public LightAccount Account;
@@ -363,7 +365,7 @@ namespace AuxWallet
             if (obj.IsNotNull())
             {
                 var assetId = obj.Tag as string;
-                using (var dialog = new TransferAndLockForm(this.Wallet, assetId))
+                using (var dialog = new TransferAndLockForm(this.Wallet, this.Account, assetId))
                 {
                     if (dialog.ShowDialog() != DialogResult.OK) return;
                     try
@@ -382,7 +384,23 @@ namespace AuxWallet
                         TxMsg txMsg;
                         if (assetKind == 0)
                         {
+                            //if (dialog.Lock && dialog.Expire > 0)
+                            //{
+                            //LockAssetTransaction lat = new LockAssetTransaction
+                            //{
+                            //    LockContract = LockAssetContractScriptHash,
+                            //    IsTimeLock = false,
+                            //    LockExpiration = dialog.Expire,
+                            //    Recipient = ecp
+                            //};
+                            //output.ScriptHash = lat.GetContract().ScriptHash;
+                            //lat.Outputs = new TransactionOutput[] { output };
+                            //}
+                            //else
+                            //{
+
                             txMsg = WalletAPI.Instance.BuildAssetTransfer(this.Address, addr.ToAddress(), assetId, dialog.Amount);
+                            //}
                         }
                         else
                         {
