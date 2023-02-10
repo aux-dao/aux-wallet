@@ -453,7 +453,7 @@ namespace AuxWallet
                             }
                         }
                     }
-                    catch
+                    catch(Exception e)
                     {
                         return;
                     }
