@@ -19,6 +19,9 @@
     <RootNamespace>AuxWallet</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="Forms\TransferAndLockForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\TransferForm.cs">
       <SubType>Form</SubType>
     </Compile>

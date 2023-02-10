@@ -363,7 +363,7 @@ namespace AuxWallet
             if (obj.IsNotNull())
             {
                 var assetId = obj.Tag as string;
-                using (var dialog = new TransferForm(this.Wallet, assetId))
+                using (var dialog = new TransferAndLockForm(this.Wallet, assetId))
                 {
                     if (dialog.ShowDialog() != DialogResult.OK) return;
                     try
