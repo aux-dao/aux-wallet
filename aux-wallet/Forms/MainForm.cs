@@ -38,6 +38,7 @@ namespace AuxWallet
         public LightWallet Wallet;
         public LightAccount Account;
         public string Address;
+        public string SeedAddress;
         public string PubKey;
         public VerifyForm VerifyForm;
         public string StandbyApi;
@@ -49,6 +50,7 @@ namespace AuxWallet
             this.Account = this.Wallet.accounts.Values?.FirstOrDefault();
             this.PubKey = this.Account.GetKey().PublicKey.EncodePoint(true).ToHexString();
             this.Address = this.Account.ScriptHash.ToAddress();
+            this.SeedAddress = this.Account.ScriptHash.GetMutualLockSeed().ToAddress();
             InitializeComponent();
 
             // Initialize MaterialSkinManager
@@ -80,6 +82,7 @@ namespace AuxWallet
             this.tabInHistory.Text = Locator.Case("In History", "转入记录");
             this.tabOutHistory.Text = Locator.Case("Out History", "转出记录");
             this.tabSignature.Text = Locator.Case("Signature", "数据签名");
+            this.tabMiner.Text = Locator.Case("Miner", "矿机");
             this.tabSetting.Text = Locator.Case("Setting", "设置");
 
             this.bt_changeTheme.Text = Locator.Case("Change Theme", "更换主题");
@@ -111,9 +114,11 @@ namespace AuxWallet
             this.bt_copy.Text = Locator.Case("Copy Output", "复制签名");
 
             this.lb_viewSeed.Text = Locator.Case("Seed Address", "种子地址");
-            this.tb_SeedAddress.Text = this.Account.ScriptHash.GetMutualLockSeed().ToAddress();
+            this.tb_SeedAddress.Text = this.SeedAddress;
             this.tb_SeedAddress.Hint = "";
             this.bt_copySeed.Text = Locator.Case("Copy Seed", "复制种子地址");
+
+            this.bt_queryLeafMiners.Text = Locator.Case("Query Leaf Miners", "查询叶子矿机");
 
             StandbyApi = Settings.Default.ExtAPI;
             this.tb_backupapiurl.Text = StandbyApi;
@@ -716,11 +721,33 @@ namespace AuxWallet
             }
         }
 
-        private void bt_copySeed_Click(object sender, EventArgs e)
+
+        private void bt_queryLeafMiners_Click(object sender, EventArgs e)
+        {
+            this.lb_leafMiners.Items.Clear();
+            var outRecords = WalletAPI.Instance.QueryLeafMiners(this.SeedAddress);
+            if (outRecords.IsNotNull() && outRecords.result)
+                foreach (var record in outRecords.records)
+                {
+                    this.lb_leafMiners.Items.Add(new MaterialListBoxItem { Tag = record, Text = $"{record.HolderAddress}", SecondaryText = record.SeedAddress });
+                }
+        }
+
+        private void bt_copySeed_Click_1(object sender, EventArgs e)
         {
             Clipboard.SetText(this.tb_SeedAddress.Text);
             MaterialSnackBar SnackBarMessage = new(Locator.Case($"seed address  {this.tb_SeedAddress.Text}   copied", $"种子地址  {this.tb_SeedAddress.Text}   已复制"), 750);
             SnackBarMessage.Show(this);
+        }
+
+        private void lb_leafMiners_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var obj = this.lb_leafMiners.SelectedItem;
+            if (obj.IsNotNull())
+            {
+                var minerInfo = obj.Tag as MinerInfo;
+                new ViewLeafMinerForm(minerInfo).ShowDialog();
+            }
         }
     }
 }

@@ -101,6 +101,17 @@ namespace AuxCore.Models
     {
         public TXRecord[] records;
     }
+    public class MinerInfoRecords : APIResult
+    {
+        public MinerInfo[] records;
+    }
+    public class MinerInfo
+    {
+        public string HolderAddress { get; set; }
+        public string SeedAddress { get; set; }
+        public string ParentSeedAddress { get; set; }
+        public string NodeType { get; set; }
+    }
     public class LockAssets : APIResult
     {
         public LockAsset[] records;

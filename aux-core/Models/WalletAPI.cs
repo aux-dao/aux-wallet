@@ -237,5 +237,18 @@ namespace AuxCore.Models
             }
             return default;
         }
+        public MinerInfoRecords QueryLeafMiners(string seedaddress)
+        {
+            Random rd = new Random();
+            string url = $"/api/QueryLeafMiners";
+            var query = $"parentseedaddress={seedaddress}&r={rd.Next()}";
+            var str = APIHelper.Get(url, query);
+            if (str.IsNotNullAndEmpty())
+            {
+                var p = JsonConvert.DeserializeObject<MinerInfoRecords>(str);
+                return p;
+            }
+            return default;
+        }
     }
 }
