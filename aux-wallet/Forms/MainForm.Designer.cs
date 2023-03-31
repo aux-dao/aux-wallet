@@ -76,6 +76,9 @@ namespace AuxWallet
             this.bt_signout = new ReaLTaiizor.Controls.MaterialButton();
             this.bt_changeTheme = new ReaLTaiizor.Controls.MaterialButton();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
+            this.lb_viewSeed = new ReaLTaiizor.Controls.MaterialLabel();
+            this.tb_SeedAddress = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            this.bt_copySeed = new ReaLTaiizor.Controls.MaterialButton();
             this.materialTabControl1.SuspendLayout();
             this.tabAsset.SuspendLayout();
             this.tabLockAsset.SuspendLayout();
@@ -104,7 +107,7 @@ namespace AuxWallet
             this.materialTabControl1.Multiline = true;
             this.materialTabControl1.Name = "materialTabControl1";
             this.materialTabControl1.SelectedIndex = 0;
-            this.materialTabControl1.Size = new System.Drawing.Size(992, 659);
+            this.materialTabControl1.Size = new System.Drawing.Size(1039, 730);
             this.materialTabControl1.TabIndex = 18;
             // 
             // tabAsset
@@ -654,6 +657,9 @@ namespace AuxWallet
             // tabSetting
             // 
             this.tabSetting.BackColor = System.Drawing.Color.White;
+            this.tabSetting.Controls.Add(this.bt_copySeed);
+            this.tabSetting.Controls.Add(this.tb_SeedAddress);
+            this.tabSetting.Controls.Add(this.lb_viewSeed);
             this.tabSetting.Controls.Add(this.bt_copyAddress);
             this.tabSetting.Controls.Add(this.tb_privateKey);
             this.tabSetting.Controls.Add(this.tb_publicKey);
@@ -671,7 +677,7 @@ namespace AuxWallet
             this.tabSetting.Margin = new System.Windows.Forms.Padding(6);
             this.tabSetting.Name = "tabSetting";
             this.tabSetting.Padding = new System.Windows.Forms.Padding(6);
-            this.tabSetting.Size = new System.Drawing.Size(984, 622);
+            this.tabSetting.Size = new System.Drawing.Size(1031, 693);
             this.tabSetting.TabIndex = 2;
             this.tabSetting.Text = "Setting";
             this.tabSetting.Enter += new System.EventHandler(this.tabSetting_Enter);
@@ -1007,12 +1013,82 @@ namespace AuxWallet
             this.menuIconList.Images.SetKeyName(18, "arrow-autofit-right.png");
             this.menuIconList.Images.SetKeyName(19, "arrow-autofit-left.png");
             // 
+            // lb_viewSeed
+            // 
+            this.lb_viewSeed.AutoSize = true;
+            this.lb_viewSeed.Depth = 0;
+            this.lb_viewSeed.Font = new System.Drawing.Font("Roboto", 34F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.lb_viewSeed.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.H4;
+            this.lb_viewSeed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lb_viewSeed.Location = new System.Drawing.Point(51, 587);
+            this.lb_viewSeed.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lb_viewSeed.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.lb_viewSeed.Name = "lb_viewSeed";
+            this.lb_viewSeed.Size = new System.Drawing.Size(154, 41);
+            this.lb_viewSeed.TabIndex = 82;
+            this.lb_viewSeed.Text = "Heading 4";
+            // 
+            // tb_SeedAddress
+            // 
+            this.tb_SeedAddress.AnimateReadOnly = false;
+            this.tb_SeedAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tb_SeedAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.tb_SeedAddress.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tb_SeedAddress.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tb_SeedAddress.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tb_SeedAddress.Depth = 0;
+            this.tb_SeedAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tb_SeedAddress.HideSelection = true;
+            this.tb_SeedAddress.Hint = "Type here";
+            this.tb_SeedAddress.LeadingIcon = null;
+            this.tb_SeedAddress.Location = new System.Drawing.Point(51, 633);
+            this.tb_SeedAddress.Margin = new System.Windows.Forms.Padding(6);
+            this.tb_SeedAddress.MaxLength = 0;
+            this.tb_SeedAddress.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            this.tb_SeedAddress.Name = "tb_SeedAddress";
+            this.tb_SeedAddress.PasswordChar = '\0';
+            this.tb_SeedAddress.PrefixSuffixText = null;
+            this.tb_SeedAddress.ReadOnly = true;
+            this.tb_SeedAddress.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tb_SeedAddress.SelectedText = "";
+            this.tb_SeedAddress.SelectionLength = 0;
+            this.tb_SeedAddress.SelectionStart = 0;
+            this.tb_SeedAddress.ShortcutsEnabled = true;
+            this.tb_SeedAddress.Size = new System.Drawing.Size(484, 48);
+            this.tb_SeedAddress.TabIndex = 83;
+            this.tb_SeedAddress.TabStop = false;
+            this.tb_SeedAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tb_SeedAddress.TrailingIcon = null;
+            this.tb_SeedAddress.UseSystemPasswordChar = false;
+            // 
+            // bt_copySeed
+            // 
+            this.bt_copySeed.AutoSize = false;
+            this.bt_copySeed.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bt_copySeed.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_copySeed.Depth = 0;
+            this.bt_copySeed.HighEmphasis = true;
+            this.bt_copySeed.Icon = null;
+            this.bt_copySeed.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            this.bt_copySeed.Location = new System.Drawing.Point(563, 629);
+            this.bt_copySeed.Margin = new System.Windows.Forms.Padding(7, 11, 7, 11);
+            this.bt_copySeed.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.bt_copySeed.Name = "bt_copySeed";
+            this.bt_copySeed.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_copySeed.Size = new System.Drawing.Size(229, 53);
+            this.bt_copySeed.TabIndex = 84;
+            this.bt_copySeed.Text = "OUTLINE - HIGH - NORMAL";
+            this.bt_copySeed.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            this.bt_copySeed.UseAccentColor = false;
+            this.bt_copySeed.UseVisualStyleBackColor = true;
+            this.bt_copySeed.Click += new System.EventHandler(this.bt_copySeed_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1004, 783);
+            this.ClientSize = new System.Drawing.Size(1051, 854);
             this.Controls.Add(this.materialTabControl1);
             this.DrawerShowIconsWhenHidden = true;
             this.DrawerTabControl = this.materialTabControl1;
@@ -1083,5 +1159,8 @@ namespace AuxWallet
         private System.Windows.Forms.TabPage tabLockAsset;
         private MaterialButton bt_RefreshLockAsset;
         private MaterialListBox lb_lockAssets;
+        private MaterialButton bt_copySeed;
+        private MaterialTextBoxEdit tb_SeedAddress;
+        private MaterialLabel lb_viewSeed;
     }
 }

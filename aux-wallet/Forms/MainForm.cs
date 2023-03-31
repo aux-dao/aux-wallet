@@ -27,6 +27,7 @@ using Akka.IO;
 using Akka.Actor.Dsl;
 using OX.Bapps;
 using AuxWallet.Helpers;
+using AuxCore.Invest;
 
 namespace AuxWallet
 {
@@ -108,6 +109,9 @@ namespace AuxWallet
             this.rb_hex.Text = "Hex";
             this.bt_signature.Text = Locator.Case("Signature", "签名");
             this.bt_copy.Text = Locator.Case("Copy Output", "复制签名");
+
+            this.lb_viewSeed.Text = Locator.Case("Seed Address", "种子地址");
+            this.tb_SeedAddress.Text = this.Account.ScriptHash.GetMutualLockSeed().ToAddress();
 
             StandbyApi = Settings.Default.ExtAPI;
             this.tb_backupapiurl.Text = StandbyApi;
@@ -661,7 +665,7 @@ namespace AuxWallet
                         else
                         {
                             var h = WalletAPI.Instance.Height();
-                           if(asset.LockExpiration>= uint.Parse(h.height))
+                            if (asset.LockExpiration >= uint.Parse(h.height))
                             {
                                 MaterialSnackBar SnackBarMessage = new(Locator.Case("Lock not expired", "锁定未到期"), 750);
                                 SnackBarMessage.Show(this);
@@ -708,6 +712,13 @@ namespace AuxWallet
                     }
                 }
             }
+        }
+
+        private void bt_copySeed_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(this.tb_SeedAddress.Text);
+            MaterialSnackBar SnackBarMessage = new(Locator.Case($"seed address  {this.Address}   copied", $"种子地址  {this.Address}   已复制"), 750);
+            SnackBarMessage.Show(this);
         }
     }
 }
