@@ -112,6 +112,8 @@ namespace AuxWallet
 
             this.lb_viewSeed.Text = Locator.Case("Seed Address", "种子地址");
             this.tb_SeedAddress.Text = this.Account.ScriptHash.GetMutualLockSeed().ToAddress();
+            this.tb_SeedAddress.Hint = "";
+            this.bt_copySeed.Text = Locator.Case("Copy Seed", "复制种子地址");
 
             StandbyApi = Settings.Default.ExtAPI;
             this.tb_backupapiurl.Text = StandbyApi;
@@ -717,7 +719,7 @@ namespace AuxWallet
         private void bt_copySeed_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(this.tb_SeedAddress.Text);
-            MaterialSnackBar SnackBarMessage = new(Locator.Case($"seed address  {this.Address}   copied", $"种子地址  {this.Address}   已复制"), 750);
+            MaterialSnackBar SnackBarMessage = new(Locator.Case($"seed address  {this.tb_SeedAddress.Text}   copied", $"种子地址  {this.tb_SeedAddress.Text}   已复制"), 750);
             SnackBarMessage.Show(this);
         }
     }
