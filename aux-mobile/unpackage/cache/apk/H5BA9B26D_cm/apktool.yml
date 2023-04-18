@@ -32,6 +32,7 @@ doNotCompress:
 - META-INF/androidx.vectordrawable_vectordrawable.version
 - META-INF/androidx.versionedparcelable_versionedparcelable.version
 - META-INF/androidx.viewpager_viewpager.version
+- META-INF/androidx.webkit_webkit.version
 - png
 - ogg
 - gif
@@ -56,5 +57,5 @@ usesFramework:
   tag: null
 version: 2.4.1
 versionInfo:
-  versionCode: '2'
+  versionCode: '3'
   versionName: '1.0'

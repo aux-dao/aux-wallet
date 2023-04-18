@@ -25,7 +25,6 @@ namespace AuxCore.Invest
         public static ECPoint LockMiningAccountPubKey = ECPoint.DecodePoint(LockMiningPubkeyString.HexToBytes(), ECCurve.Secp256r1);
         public static UInt160 LockMiningAAccountAddress = Contract.CreateSignatureRedeemScript(LockMiningAccountPubKey).ToScriptHash();
 
-        public static UInt160 AssetMergeContractScriptHash = UInt160.Parse("0x1bb1483c8c1175b37062d7d586bd4b67abb255e2");
         static UInt160 genesisSeedAddress;
         public static UInt160 GenesisSeed()
         {
@@ -43,7 +42,7 @@ namespace AuxCore.Invest
                 SideType = SideType.ScriptHash,
                 Data = sh.ToArray(),
                 Flag = 1,//1标记代表种子
-                MergeContract = AssetMergeContractScriptHash,
+                MergeContract =Blockchain.SideAssetContractScriptHash,
                 Attributes = new TransactionAttribute[0],
                 Outputs = new TransactionOutput[0],
                 Inputs = new CoinReference[0]

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <properties>
-  <features><feature name="Barcode" value="io.dcloud.feature.barcode2.BarcodeFeatureImpl"/>
-<feature name="Contacts" value="io.dcloud.feature.contacts.ContactsFeatureImpl"/>
-<feature name="Camera" value="io.dcloud.js.camera.CameraFeatureImpl"/>
+  <features><feature name="Contacts" value="io.dcloud.feature.contacts.ContactsFeatureImpl"/>
 <feature name="Console" value="io.dcloud.feature.pdr.LoggerFeatureImpl"/>
 <feature name="Device" value="io.dcloud.feature.device.DeviceFeatureImpl"/>
 <feature name="File" value="io.dcloud.js.file.FileFeatureImpl"/>
@@ -25,6 +23,8 @@
 <feature name="Geolocation" value="io.dcloud.js.geolocation.GeolocationFeatureImpl"/>
 <feature name="Stream" value="io.dcloud.appstream.js.StreamAppFeatureImpl"/>
 <feature name="Zip" value="io.dcloud.feature.pdr.ZipFeature"/>
+<feature name="Camera" value="io.dcloud.js.camera.CameraFeatureImpl"/>
+<feature name="Barcode" value="io.dcloud.feature.barcode2.BarcodeFeatureImpl"/>
 <feature name="Share" value="io.dcloud.share.ShareFeatureImpl"/>
 <feature name="Share" value="io.dcloud.share.ShareFeatureImpl">
 <module name="Weixin" value="io.dcloud.share.mm.WeiXinApiManager"/>

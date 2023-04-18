@@ -571,11 +571,11 @@ var gtapp = {
 		params.push("transaction" + "=" + tx);
 		var dataToSend = params.join("&");
 		//		mui.post(url, dataToSend, success, "json");
-
-		mui.ajax(url, {
-			data: dataToSend,
+		var reqUrl = url + "?" + dataToSend.toString();
+		mui.ajax(reqUrl, {
+			//data: dataToSend,
 			dataType: 'json', //服务器返回json格式数据
-			type: 'post', //HTTP请求类型
+			type: 'get', //HTTP请求类型
 			timeout: 10000, //超时时间设置为10秒；
 
 			success: function(data) {

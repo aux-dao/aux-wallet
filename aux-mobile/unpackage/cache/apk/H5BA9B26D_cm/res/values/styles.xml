@@ -1421,6 +1421,11 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+    <style name="streamDelete19DarkDialog" parent="@android:style/Theme.DeviceDefault.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
     <style name="streamDelete19Dialog" parent="@android:style/Theme.DeviceDefault.Light.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
