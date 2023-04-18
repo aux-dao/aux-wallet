@@ -33,7 +33,6 @@ namespace AuxWallet
 {
     public partial class MainForm : MaterialForm
     {
-        public static UInt160 LockAssetContractScriptHash = UInt160.Parse("0x334b191cca29463a62ef69b790e015b2f7467383");
         private readonly MaterialSkinManager materialSkinManager;
         public LightWallet Wallet;
         public LightAccount Account;
@@ -439,7 +438,7 @@ namespace AuxWallet
                                     var lockTxData = txData.AsSerializable<LockTxData>();
                                     LockAssetTransaction lat = new LockAssetTransaction
                                     {
-                                        LockContract = LockAssetContractScriptHash,
+                                        LockContract = Blockchain.LockAssetContractScriptHash,
                                         IsTimeLock = false,
                                         LockExpiration = dialog.Expire,
                                         Recipient = ECPoint.Parse(dialog.PubKey, ECCurve.Secp256r1)
@@ -681,7 +680,7 @@ namespace AuxWallet
                         }
                         LockAssetTransaction lat = new LockAssetTransaction
                         {
-                            LockContract = LockAssetContractScriptHash,
+                            LockContract = Blockchain.LockAssetContractScriptHash,
                             IsTimeLock = asset.IsTimeLock == 1,
                             LockExpiration = (uint)asset.LockExpiration,
                             Recipient = ECPoint.Parse(asset.RecipientPubKey, ECCurve.Secp256r1)
