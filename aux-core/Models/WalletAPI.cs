@@ -176,7 +176,7 @@ namespace AuxCore.Models
             Random rd = new Random();
             string url = $"/api/Broadcast";
             var query = $"txkind={txkind}&publicKey={publicKey}&signature={signature}&transaction={transaction}&r={rd.Next()}";
-            var str = APIHelper.Post(url, query);
+            var str = APIHelper.Get(url, query);
             if (str.IsNotNullAndEmpty())
             {
                 var p = JsonConvert.DeserializeObject<BroadcastMsg>(str);

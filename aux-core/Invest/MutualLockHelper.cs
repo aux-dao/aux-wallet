@@ -42,7 +42,7 @@ namespace AuxCore.Invest
                 SideType = SideType.ScriptHash,
                 Data = sh.ToArray(),
                 Flag = 1,//1标记代表种子
-                MergeContract =Blockchain.SideAssetContractScriptHash,
+                 AuthContract =Blockchain.SideAssetContractScriptHash,
                 Attributes = new TransactionAttribute[0],
                 Outputs = new TransactionOutput[0],
                 Inputs = new CoinReference[0]
